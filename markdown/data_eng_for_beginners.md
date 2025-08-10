@@ -17,7 +17,7 @@ a wristwatch down finely enough, it's made out of a bunch of atoms.
 It's technically true, but the interesting part of a watch
 is the structure the atoms take when they’re put together.
 
-![Data file icon from a data engineering architecture diagram](images/data_eng_for_beginners/data_icon.png)
+![Data file icon from a data engineering architecture diagram](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_icon.png)
 
 Data is one and zeros put together in a way that means something.
 They might be a name, a phone number, an image of someone’s face,
@@ -63,7 +63,7 @@ In a callback to the tired metaphor that data is the new oil,
 a data pipeline shuttles data through the system the same way
 an oil pipeline moves oil from the well to the refinery.
 
-![Data movement arrow, as in an architecture diagram](images/data_eng_for_beginners/pipeline_arrow.png)
+![Data movement arrow, as in an architecture diagram](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/pipeline_arrow.png)
 
 Data systems are almost always drawn as blocks connected by arrows
 (directed graphs). The blocks are data sources, processing steps, and various intermediate
@@ -85,13 +85,13 @@ and where there's an arrow there's a pipeline.
 A data source is something that supplies data. It might be an input stream,
 a feed from a remote sensor, a spreadsheet file loaded from a hard drive.
 
-![Data ingress from a data source](images/data_eng_for_beginners/data_ingress.png)
+![Data ingress from a data source](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_ingress.png)
 
 The complement of a source is a sink, a place where data is handed off, such as
 a file written to a hard drive or a feed provided to clients.
 In a data system, sources are the inputs and sinks are the outputs.
 
-![Data egress to a data sink](images/data_eng_for_beginners/data_egress.png)
+![Data egress to a data sink](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_egress.png)
 
 In your office data system, your email inbox is a data source.
 It's an inlet of requests and information that kicks off other
@@ -116,7 +116,7 @@ steps. Insiders casually talk about this
 as **ETL**, which has expanded to mean generally "doing stuff with data".
 (Also, more colloquially, "munging".)
 
-![Data movement arrow representing extraction, transformation, and loading](images/data_eng_for_beginners/etl.png)
+![Data movement arrow representing extraction, transformation, and loading](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/etl.png)
 
 The extraction step describes pulling the data out of wherever it is
 carefully squirreled away. It covers a lot of techniques, including
@@ -182,7 +182,7 @@ The blocks in a data system, the way stations where the data temporarily
 rests on its journey from a source to a sink, come in different flavors.
 An extremely common one is the database.
 
-![Database icon from a data engineering architecture diagram](images/data_eng_for_beginners/database_icon.png)
+![Database icon from a data engineering architecture diagram](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/database_icon.png)
 
 In case you're wondering why database icons are always drum-shaped,
 it's because a very long time ago bits were carved into stone tablets with magnetic chisels.
@@ -196,12 +196,12 @@ Each column is a different type of information and each row is a different
 example of it.
 
 ![An empty table, representing a relational database
-](images/data_eng_for_beginners/blank_table.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/blank_table.png)
 
 Your email inbox is probably an example of this.
 
 ![An email inbox as a relational database
-](images/data_eng_for_beginners/email_table.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/email_table.png)
 
 Each row is a separate email,
 each column is some piece of information about that email.
@@ -248,7 +248,7 @@ combing through tables to find the one you want.
 
 ### Data store
 
-Tables become very awkward when storing larger items, like images,
+Tables become very awkward when storing larger items, like https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main,
 audio, or video files. These are often much larger than the other data types
 in a table and can throw off the database's strategies for efficient
 storage and quick access. In these cases, the files can be stored in
@@ -257,7 +257,7 @@ location where it can be read and updated.
 
 ![A zoomed out image of a vast warehouse, full of boxes where
 The Ark of the Covenant was stored in the closing credits of Indiana Jones
-](images/data_eng_for_beginners/hangar_51.jpg "A data store is perfect for storing a large number of irregular objects")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/hangar_51.jpg "A data store is perfect for storing a large number of irregular objects")
 
 The simplest version of this
 is storing your travel photos on your hard drive in directories named
@@ -273,7 +273,7 @@ are databases made to be fast.
 
 ![An icon representing a key-value store, with a row of small boxes
 pointing with arrows to a row of big boxes
-](images/data_eng_for_beginners/key_value_store.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/key_value_store.png)
 
 Instead of having dozens or hundreds of columns, a key value store only
 has 2: a key and a value (maybe you saw that coming). The key is the
@@ -286,7 +286,7 @@ located, and easy to reach. Compared to rummaging around in the drawer for the
 ![A woodshop with a pegboard full of tools like mallets, wrenches, saws, and levels
 https://thewoodlab.net/tag/workshop/
  © 2009-2025 by Jim Ashley is licensed under CC BY-NC-ND 4.0
- ](images/data_eng_for_beginners/woodshop_pegboard.jpg)
+ ](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/woodshop_pegboard.jpg)
 
 The really cool part is that, because they have only two columns, key-value
 databases are typically small enough to be kept in RAM, making them
@@ -308,7 +308,7 @@ called **data architectures**.
 ### Data Warehouse
 
 ![An icon representing a data warehouse
-](images/data_eng_for_beginners/data_warehouse_icon.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_warehouse_icon.png)
 
 If a database table is like an overgrown spreadsheet, then a data warehouse
 is like a hard drive full of thousands of spreadsheets.
@@ -316,7 +316,7 @@ It’s a collection of practically all the data in an organization, ingested,
 up-to-date, and ready to be put to work.
 
 ![An image equating many databases to a single data warehouse
-](images/data_eng_for_beginners/data_warehouse.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_warehouse.png)
 
 
 The data warehouse is the beating heart of a company's data ecosystem.
@@ -337,7 +337,7 @@ and evaluating the candidates based on those needs.
 ### Data catalog
 
 ![An icon representing a data catalog
-](images/data_eng_for_beginners/catalog_icon.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/catalog_icon.png)
 
 Once you have more than three database tables in your data warehouse
 it starts getting hard to remember everything that in there and how
@@ -374,7 +374,7 @@ from chaotic to organized, from raw to refined.
 
 ![A chart showing the progression of layers from source layer to
 staging layer to storage layer to presentation layer
-](images/data_eng_for_beginners/data_layers.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_layers.png)
 
 ### Source layer
 
@@ -395,7 +395,7 @@ It is raw materials, sitting in giant bins, waiting to be sorted and
 properly ingested into the factory.
 
 ![An icon representing a data lake
-](images/data_eng_for_beginners/data_lake_icon.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_lake_icon.png)
 
 As opposed to a data warehouse, or core layer, which has all the data carefully
 arranged in well-designed tables, a staging layer is far less organized.
@@ -406,7 +406,7 @@ of cohesive organization has earned it the name of **data lake** (and
 sometimes data swamp, when frustration levels run high).
 
 ![A data lake portrayed as lots of data arrayed chaotically
-](images/data_eng_for_beginners/data_lake.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_lake.png)
 
 Despite its lack of polish, the staging layer is highly useful. There
 are some questions that can only be answered by a deep dive into the
@@ -439,7 +439,7 @@ as well as data lake offerings from Dremio, Cloudera, Teradata, and a dozen othe
 
 ![An icon of a data mart, which is a weirdly abstract concept to represent in
 a thousand pixels
-](images/data_eng_for_beginners/data_mart.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_mart.png)
 
 Proceeding from left to right across the layers, data becomes more
 refined, more crafted to serve a particular purpose on the other end.
@@ -452,7 +452,7 @@ month, broken down by category (baguettes, rye, sourdough, seeded whole wheat, e
 
 ![The main data layers, depicted as icons, in what starts to look like a
 data architecture diagram
-](images/data_eng_for_beginners/data_layers_icons.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/data_layers_icons.png)
 
 The presentation layer is data that is ready to be lifted and included in
 a PowerPoint slide. Most importantly, its full of data that has been
@@ -497,7 +497,7 @@ to create a fit-for-purpose data product.
 ### Data orchestration
 
 ![An icon of an orchestrator, a clock set within a toothed gear
-](images/data_eng_for_beginners/orchestrator_icon.png)
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/orchestrator_icon.png)
 
 Moving data through these layers on a regular schedule is the job of
 a data orchestrator. In addition to running the ETL steps on a timer
@@ -578,7 +578,7 @@ country of origin. You may also hear horizontal partitioning referred to as
 **sharding**.
 
 ![A database horizontally partitioned, that is, divided according to rows
-](images/data_eng_for_beginners/horizontal_partition.png "A horizontally partitioned database is divided up along row boundaries.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/horizontal_partition.png "A horizontally partitioned database is divided up along row boundaries.")
 
 A **vertical partition** is when the database is divided such that the
 columns are kept whole. This is especially helpful in wide databases,
@@ -586,7 +586,7 @@ those with many columns, and doubly so when most of those columns
 are rarely accessed.
 
 ![A database vertically partitioned, that is, divided according to columns
-](images/data_eng_for_beginners/vertical_partition.png "A vertically partitioned database is divided up along column boundaries.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/vertical_partition.png "A vertically partitioned database is divided up along column boundaries.")
 
 Partitioning can make it much faster to get the information you need
 from your databases, but it comes at the cost of a more complex system,
@@ -619,7 +619,7 @@ but it may take a little time.
 
 ![Original cartoon from Pascal Jousselin's Mister Invincible
 https://www.magnetic-press.com/mr-invincible/
-](images/data_eng_for_beginners/eventual_consistency.jpg "Mister Invincible's superpower is eventual concurrency. Original cartoon from Pascal Jousselin's Mister Invincible. https://www.magnetic-press.com/mr-invincible/")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/eventual_consistency.jpg "Mister Invincible's superpower is eventual concurrency. Original cartoon from Pascal Jousselin's Mister Invincible. https://www.magnetic-press.com/mr-invincible/")
 
 Sometimes eventual consistency is plenty,
 When it’s not being used to support critical or time sensitive decisions
@@ -841,7 +841,7 @@ And the toughest question of all:
 [**What exactly constitutes a sandwich**](https://cuberule.com/)
 
 ![sandwich alignment image https://twitter.com/matttomic/status/859117370455060481/photo/1
-](images/data_eng_for_beginners/sandwich_alignment.jpeg "Tag yourself")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/data_eng_for_beginners/sandwich_alignment.jpg "Tag yourself")
 
 What makes categorization difficult is that there is not just one right answer.
 Or more accurately, every answer is kind of wrong. The most important thing
