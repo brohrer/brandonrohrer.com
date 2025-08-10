@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Solving an easy RL problem on hard mode";</script>
-  <script type="text/javascript">var publication_date = "June 07, 2025";</script>
+  <script type="text/javascript">var publication_date = "August 10, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -75,7 +75,7 @@ and stay there.
 
 <p>
 <figure>
-  <img title="Pendulum diagram." alt="An engineering diagram of a pendulum showing position, angular velocity, torque, and reward conventions." src="images/pendulum/pendulum.png">
+  <img title="Pendulum diagram." alt="An engineering diagram of a pendulum showing position, angular velocity, torque, and reward conventions." src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/pendulum.png">
   <figcaption>Pendulum diagram.</figcaption>
 </figure>
 </p>
@@ -299,7 +299,7 @@ The bottom plot covers the whole lifetime of five million steps.
 The top plot shows a line hovering near 2 and occasionally bouncing
 down toward zero.
 The bottom plot shows a line climbing smoothly from 0.8 to 1.7.
-" src="images/pendulum/reward_q_eps_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_q_eps_pendulum.png">
   <figcaption>Reward over time at three different timescales. The bottom plot shows the entire history of the reward over 5 million steps. It is clearly climbing but only very slowly.</figcaption>
 </figure>
 </p>
@@ -357,7 +357,7 @@ much faster than from &epsilon;-learning.
   <img title="The bottom plot shows a curiosity-driven Q-learning agent reaching near-perfect performance at 125K time steps." alt="Similar to the previous three-chart reward plot. The bottom plot
 shows a line that climbs slowly from 0.75, accelerating up into a steep
 curve which suddenly plateaus just short of 2.0 at 125 thousand time steps
-" src="images/pendulum/reward_q_curiosity_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_q_curiosity_pendulum.png">
   <figcaption>The bottom plot shows a curiosity-driven Q-learning agent reaching near-perfect performance at 125K time steps.</figcaption>
 </figure>
 </p>
@@ -409,7 +409,7 @@ exploration to invert the pendulum in about 65,000 time steps.
 <figure>
   <img title="The FNC learning curve is notably steeper than that of Q-learning." alt="The bottom plot shows a line that climbs steadily from 0.8 to
 just short of 2.0 over about 65K time steps
-" src="images/pendulum/reward_one_hot_fnc_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_one_hot_fnc_pendulum.png">
   <figcaption>The FNC learning curve is notably steeper than that of Q-learning.</figcaption>
 </figure>
 </p>
@@ -462,7 +462,7 @@ to navigate.
   <img title="Adding Ziptie to the system almost doubles the learning time." alt="The bottom plot shows a line that climbs steadily from 0.6 to
 just over 1.9 over about 100K time steps, then closes the remaining
 distance to 2.0 over the next 200K time steps
-" src="images/pendulum/reward_ziptie_fnc_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_ziptie_fnc_pendulum.png">
   <figcaption>Adding Ziptie to the system almost doubles the learning time.</figcaption>
 </figure>
 </p>
@@ -567,7 +567,7 @@ adds an extra forty thousand time steps to its learning process.
 <figure>
   <img title="The addition of BucketTree discretizers results in a somewhat longer time period for learning, and a somewhat more up-and-down time course" alt="The bottom plot shows a line that makes a jagged climb from
 1.0 to 1.9 over about 100K time steps
-" src="images/pendulum/reward_buckettree_fnc_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_buckettree_fnc_pendulum.png">
   <figcaption>The addition of BucketTree discretizers results in a somewhat longer time period for learning, and a somewhat more up-and-down time course</figcaption>
 </figure>
 </p>
@@ -583,7 +583,7 @@ bucketed.
 <p>
 <figure>
   <img title="Position buckets on bottom, velocity buckets on top" alt="Two plots showing how position and velocity are subdivided into buckets
-" src="images/pendulum/sensor_buckets_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/sensor_buckets_pendulum.png">
   <figcaption>Position buckets on bottom, velocity buckets on top</figcaption>
 </figure>
 </p>
@@ -670,7 +670,7 @@ that over many cycles, because it will be slightly different each time.
 <p>
 <figure>
   <img title="A Myrtle timing report The timing report is dense, so it's worth a walk-through." alt="A set of plots showing the distribution of time taken for each step
-" src="images/pendulum/timing_buckettree_pendulum.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/timing_buckettree_pendulum.png">
   <figcaption>A Myrtle timing report The timing report is dense, so it's worth a walk-through.</figcaption>
 </figure>
 </p>
@@ -899,7 +899,7 @@ in a way that is weighted toward the most successful runs seen so far.
 
 <p>
 <figure>
-  <img title="Evolutionary Powell's method in action" alt="An animation of how Evolutionary Powell's method works" src="images/pendulum/evo_powells.gif">
+  <img title="Evolutionary Powell's method in action" alt="An animation of how Evolutionary Powell's method works" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/evo_powells.gif">
   <figcaption>Evolutionary Powell's method in action</figcaption>
 </figure>
 </p>
@@ -983,7 +983,7 @@ RL agent, a plug-and-play robot brain.
   <img title="You should see something like this." alt="A screenshot of the console when running one of the examples.
 It has a splash message and instructions for how to view reports
 about reward and timing, and how to view an animation in the browser.
-" src="images/pendulum/myrtle_dialog.png">
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/myrtle_dialog.png">
   <figcaption>You should see something like this.</figcaption>
 </figure>
 </p>

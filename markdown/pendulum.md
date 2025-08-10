@@ -38,7 +38,7 @@ The playing field here is a pendulum. Imagine holding a broomstick by its
 one end. The goal is to invert the pendulum--to get it to stand straight up
 and stay there.
 
-![An engineering diagram of a pendulum showing position, angular velocity, torque, and reward conventions.](images/pendulum/pendulum.png "Pendulum diagram.")
+![An engineering diagram of a pendulum showing position, angular velocity, torque, and reward conventions.](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/pendulum.png "Pendulum diagram.")
 
 This is different from the popular
 [cart-pole](https://gymnasium.farama.org/environments/classic_control/cart_pole/)
@@ -210,7 +210,7 @@ The bottom plot covers the whole lifetime of five million steps.
 The top plot shows a line hovering near 2 and occasionally bouncing
 down toward zero.
 The bottom plot shows a line climbing smoothly from 0.8 to 1.7.
-](images/pendulum/reward_q_eps_pendulum.png "Reward over time at three different timescales. The bottom plot shows the entire history of the reward over 5 million steps. It is clearly climbing but only very slowly.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_q_eps_pendulum.png "Reward over time at three different timescales. The bottom plot shows the entire history of the reward over 5 million steps. It is clearly climbing but only very slowly.")
 
 ## Level 4: Q-learning with curiosity
 
@@ -253,7 +253,7 @@ much faster than from $epsilon$-learning.
 ![Similar to the previous three-chart reward plot. The bottom plot
 shows a line that climbs slowly from 0.75, accelerating up into a steep
 curve which suddenly plateaus just short of 2.0 at 125 thousand time steps
-](images/pendulum/reward_q_curiosity_pendulum.png "The bottom plot shows a curiosity-driven Q-learning agent reaching near-perfect performance at 125K time steps.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_q_curiosity_pendulum.png "The bottom plot shows a curiosity-driven Q-learning agent reaching near-perfect performance at 125K time steps.")
 
 ^[pendulum swing under Q-learning with curiosity after learning](https://player.vimeo.com/video/1086240261)
 After 125K samples the pendulum settles into mostly upright position, with
@@ -290,7 +290,7 @@ exploration to invert the pendulum in about 65,000 time steps.
 
 ![The bottom plot shows a line that climbs steadily from 0.8 to
 just short of 2.0 over about 65K time steps
-](images/pendulum/reward_one_hot_fnc_pendulum.png "The FNC learning curve is notably steeper than that of Q-learning.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_one_hot_fnc_pendulum.png "The FNC learning curve is notably steeper than that of Q-learning.")
 
 Importantly, the gains that come from adding curiosity and aggressive
 early learning rates do not require any specific domain knowledge
@@ -331,7 +331,7 @@ to navigate.
 ![The bottom plot shows a line that climbs steadily from 0.6 to
 just over 1.9 over about 100K time steps, then closes the remaining
 distance to 2.0 over the next 200K time steps
-](images/pendulum/reward_ziptie_fnc_pendulum.png "Adding Ziptie to the system almost doubles the learning time.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_ziptie_fnc_pendulum.png "Adding Ziptie to the system almost doubles the learning time.")
 
 This is the first step at which we've had to make a tough trade-off.
 Intentionally including fewer assumptions (how state features should
@@ -411,7 +411,7 @@ adds an extra forty thousand time steps to its learning process.
 
 ![The bottom plot shows a line that makes a jagged climb from
 1.0 to 1.9 over about 100K time steps
-](images/pendulum/reward_buckettree_fnc_pendulum.png "The addition of BucketTree discretizers results in a somewhat longer time period for learning, and a somewhat more up-and-down time course")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/reward_buckettree_fnc_pendulum.png "The addition of BucketTree discretizers results in a somewhat longer time period for learning, and a somewhat more up-and-down time course")
 
 The bins that are created for each variable seem like a reasonable
 representation of the space. With a maximum of 50 bins allowed for
@@ -420,7 +420,7 @@ and velocity, $omega$ (sensor 0, on top), here's how they got
 bucketed.
 
 ![Two plots showing how position and velocity are subdivided into buckets
-](images/pendulum/sensor_buckets_pendulum.png "Position buckets on bottom, velocity buckets on top")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/sensor_buckets_pendulum.png "Position buckets on bottom, velocity buckets on top")
 
 These plots show the hierarchical bucketing of each sensor.
 The root bucket (level 0 in the plot) covers everything from infinity to minus infinity.
@@ -487,7 +487,7 @@ all the different parts of the cycle take. And it's helpful to measure
 that over many cycles, because it will be slightly different each time.
 
 ![A set of plots showing the distribution of time taken for each step
-](images/pendulum/timing_buckettree_pendulum.png "A Myrtle timing report The timing report is dense, so it's worth a walk-through.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/timing_buckettree_pendulum.png "A Myrtle timing report The timing report is dense, so it's worth a walk-through.")
 
 The top plot shows the most recent few cycles in the RL loop, extending
 from the current time, 0 ms, back to almost 100 ms ago. The bars show
@@ -670,7 +670,7 @@ way hyperparameters act or interact. A middle ground can be found in
 a method I created to randomly explore the hyperparameter space, but
 in a way that is weighted toward the most successful runs seen so far.
 
-![An animation of how Evolutionary Powell's method works](images/pendulum/evo_powells.gif "Evolutionary Powell's method in action")
+![An animation of how Evolutionary Powell's method works](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/evo_powells.gif "Evolutionary Powell's method in action")
 
 In this animated example the exploration proceeds along one dimension at
 a time (in the spirit of
@@ -729,7 +729,7 @@ RL agent, a plug-and-play robot brain.
 ![A screenshot of the console when running one of the examples.
 It has a splash message and instructions for how to view reports
 about reward and timing, and how to view an animation in the browser.
-](images/pendulum/myrtle_dialog.png "You should see something like this.")
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/pendulum/myrtle_dialog.png "You should see something like this.")
 
 ## Learn more
 
