@@ -19,8 +19,7 @@ How should you measure and aggregate performance? Do we use rules of thumb to se
 hyperparameters or some systematic search? What are the right baseline algorithms to
 compare against? Which environments should you use? What does good learning even look
 like in a given environment? The answer to each question can greatly impact the credibility
-and utility of the result, ranging from insightful to down-right misleading](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/empirical_rl/img_a.png
-"Opening paragraph from the paper")
+and utility of the result, ranging from insightful to down-right misleading](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/empirical_rl/img_a.png "Opening paragraph from the paper")
 
 The paper is refreshingly concrete, fully loaded with examples, case studies, recommendations, and pitfalls. It's a map to the landmines in reinforcement learning. It's what I would have gifted my younger self.
 
@@ -54,8 +53,8 @@ given outcome. For instance, if we run DQN for a single random
 seed we will most likely observe an agent that achieves a return of
 approximately -450 by the end of learning. This density is estimated
 using 1000 independent DQN agents using the gaussian_kde kernel
-density estimation function in scipy.](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/empirical_rl/img_e.png
-)
+density estimation function in scipy.
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/empirical_rl/img_e.png)
 
 But the ride doesn't stop there. The authors take an ax to the root of the tree of ML leaderboard-based publishing. They make a strong case that reinforcement learning comparisons are all but infeasible to do in a meaningful way.
 
