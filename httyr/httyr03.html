@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="description" content="HTTYR chapter 3">
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css" media="screen">
+
+    <base target="_blank">
+    <title>How to Train Your Robot</title>
+    </head>
+
+    <body>
+      <!-- HEADER -->
+      <div id="header_wrap" class="outer">
+        <header class="inner">
+        </header>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div id="main_content_wrap" class="outer">
+        <section id="main_content" class="inner">
+          <p style="text-align:center;">
+            <a href="https://tyr.fyi/httyr3book">
+            <img title="Cover image for How to Train Your Robot, Chapter 3: Getting Processes to Talk to Each Other by Brandon Rohrer"
+              src="
+                https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_3/chapter_3_cover.png
+              "
+              alt="Cover image for How to Train Your Robot, Chapter 3: Getting Process to Talk to Each Other by Brandon Rohrer"
+              style="height: 400px;">
+            </a>
+          </p>
+          <p style="text-align:center;">
+            <em>In which we teach programs to share.</em>
+          </p>
+          <h1 style="text-align:center;">
+            <a href="https://tyr.fyi/httyr3pdf">PDF</a>
+            <br>
+            <a href="https://tyr.fyi/httyr3book">Paperback</a>
+            <br>
+            <a href="https://tyr.fyi/httyr3files">Files</a>
+          </h1>
+
+          <h2>Recap</h2>
+          <p>
+            <ul>
+              <li>
+<strong>multiprocessing</strong> is the Python package that helps
+spawn and connect processes from our code. Create new
+processes with a call to Process(). Use a Queue to help
+processes pass objects back and forth.
+              </li>
+              <li>.
+              </li>
+              <li>
+The <strong>getkey</strong> package is super helpful for grabbing
+keypresses.
+              </li>
+              <li>.
+              </li>
+              <li>
+The <strong>flake8</strong> package is worth its weight in gold for
+catching syntax errors ahead of time.
+              </li>
+              <li>.
+              </li>
+              <li>
+The <strong>black</strong> package is also a useful tool. It reformats
+Python code to a readable and PEP 8-compliant format.
+              </li>
+              <li>.
+              </li>
+              <li>
+The <strong>logging</strong> package is useful for creating, managing,
+and writing to log files.
+              </li>
+              <li>.
+              </li>
+              <li>
+JSON is a helpful text format for communicating data
+between human and machine. Python's <strong>json</strong> package
+unlocks a toolset for working with it.
+              </li>
+              <li>.
+              </li>
+              <li>
+<strong>Numpy</strong> and <strong>Matplotlib</strong> are invaluable numerical
+processing and plotting packages. We will become much
+better acquainted with them in future chapters.
+              </li>
+            </ul>
+          </p>
+
+          <h2>Packages</h2>
+          <p>
+            <ul>
+              <li>
+<a href="https://pypi.org/project/black/">
+<strong>black</strong>: https://pypi.org/project/black/</a>
+              </li>
+              <li>
+<a href="https://pypi.org/project/flake8/">
+<strong>flake8</strong>: https://pypi.org/project/flake8/</a>
+              </li>
+              <li>
+<a href="https://pypi.org/project/getkey/">
+<strong>getkey</strong>: https://pypi.org/project/getkey/</a>
+              </li>
+              <li>
+<a href="https://docs.python.org/3/library/json.html">
+<strong>json</strong>: https://docs.python.org/3/library/json.html</a>
+              </li>
+              <li>
+<a href="https://docs.python.org/3/library/logging.html">
+<strong>logging</strong>: https://docs.python.org/3/library/logging.html</a>
+              </li>
+              <li>
+<a href="https://matplotlib.org/">
+<strong>matplotlib</strong>: https://matplotlib.org/</a>
+              </li>
+              <li>
+<a href="https://docs.python.org/3/library/multiprocessing.html">
+<strong>multiprocessing</strong>: https://docs.python.org/3/library/multiprocessing.html</a>
+              </li>
+              <li>
+<a href="https://numpy.org/">
+<strong>numpy</strong>: https://numpy.org/</a>
+              </li>
+              <li>
+<a href="https://pypi.org/project/pip">
+<strong>pip</strong>: https://pypi.org/project/pip</a>
+              </li>
+            </ul>
+          </p>
+
+          <h2>Resource links</h2>
+          <p>
+            <ul>
+              <li>
+1. The Robot Operating System<br>
+<a href="https://en.m.wikipedia.org/wiki/Robot_Operating_System">
+https://en.m.wikipedia.org/wiki/Robot_Operating_System</a>
+              </li>
+              <li>
+2. Billie Eilish is a popular musician.<br>
+<a href="https://www.youtube.com/watch?v=DyDfgMOUjCI">
+https://www.youtube.com/watch?v=DyDfgMOUjCI</a>
+              </li>
+              <li>
+3. PyPI, the Python Package Index.<br>
+<a href="https://pypi.org/">
+https://pypi.org/</a>
+              </li>
+              <li>
+4. It looks like
+<a href="
+https://collectorsautosupply.com/blog/true-or-false-did-ford-really-say-any-color-the-customer-wants-as-long-as-its-black/
+">it wasn't actually Ford who first said this</a>. But as
+(probably someone other than) Mark Twain said, "Never let the truth
+get in the way of a good story."
+              </li>
+              <li>
+5. PEP-8. <a href="
+https://peps.python.org/
+">Python Extension Proposals 
+(https://peps.python.org/)</a>
+are a catch-all for several diverse types of documents, such as
+proposed syntax changes, reference materials, philosophical essays,
+and third party packages. They are mostly numbered in order of
+creation, so PEP-8 is an early one. Although most of it is in the form
+of recommendations rather than commandments, it has the weight of
+consensus and tenure behind it. Unless you have a good reason to do
+otherwise, you're always safe following PEP-8 style.<br>
+<a href="https://peps.python.org/pep-0008/">
+https://peps.python.org/pep-0008/</a>
+              </li>
+              <li>
+6. Rust is a popular programming language. It emphasizes speed,
+but with fewer opportunities to shoot yourself in the foot than are
+offered by C and C++.<br>
+<a href="https://www.rust-lang.org/">
+https://www.rust-lang.org/</a>
+              </li>
+            </ul>
+          </p>
+        </section>
+      </div>
+    </body>
+  </head>
+</html)

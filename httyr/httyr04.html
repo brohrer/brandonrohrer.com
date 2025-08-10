@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="description" content="HTTYR chapter 4">
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css" media="screen">
+
+    <base target="_blank">
+    <title>How to Train Your Robot</title>
+    </head>
+
+    <body>
+      <!-- HEADER -->
+      <div id="header_wrap" class="outer">
+        <header class="inner">
+        </header>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div id="main_content_wrap" class="outer">
+        <section id="main_content" class="inner">
+          <p style="text-align:center;">
+            <a href="https://tyr.fyi/httyr4book">
+            <img title="Cover image for How to Train Your Robot, Chapter 4: Making Animations by Brandon Rohrer"
+              src="
+                https://github.com/brohrer/how-to-train-your-robot/raw/main/chapter_4/chapter_4_cover.png
+              "
+              alt="Cover image for How to Train Your Robot, Chapter 4: Making Animations with Matplotlib by Brandon Rohrer"
+              style="height: 400px;">
+            </a>
+          </p>
+          <p style="text-align:center;">
+            <em>In which we re-create the moving picture.</em>
+          </p>
+          <h1 style="text-align:center;">
+            <a href="https://tyr.fyi/httyr4pdf">PDF</a>
+            <br>
+            <a href="https://tyr.fyi/httyr4book">Paperback</a>
+            <br>
+            <a href="https://tyr.fyi/httyr4files">Files</a>
+          </h1>
+
+          <h2>Recap</h2>
+          <p>
+            <ul>
+              <li>
+                <strong>Matplotlib</strong> is a flexible
+                plotting library for Python.
+                It's tightly integrated with <strong>Numpy</strong>.
+              </li>
+              <li>.
+              </li>
+              <li>
+                Matplotlib is built using an
+                <strong>Object Oriented Programming</strong>
+                approach. Almost everything important is defined as
+                an object class, with its own
+                attributes (variables) and methods (functions).
+              </li>
+              <li>.
+              </li>
+              <li>
+                The <strong>animation process</strong>
+                we use is to repeatedly modify
+                the data underlying Line and Patch objects,
+                updating the plot each time.
+              </li>
+              <li>.
+              </li>
+              <li>
+                The similarity preserving
+                <strong>transformations</strong> of scaling,
+                rotation, and translation can be performed
+                via matrix multiplications. It's important to properly
+                account for the object's <strong>anchor</strong> point.
+              </li>
+              <li>.
+              </li>
+              <li>
+                The way in which an object moves
+                from <strong>point to point</strong>
+                strongly affects how it is perceived by a human viewer.
+                Smooth speed profiles, such as minimum-jerk and logit-normal,
+                are particularly easy on hardware
+                and reminiscent of human movement. 
+              </li>
+            </ul>
+          </p>
+
+
+          <h2>Links</h2>
+          <p>
+            If you're reading along in the paper book, here are
+            all the links, clickable, in alphabetical order.
+            <ul>
+              <li>
+                <a href="
+                https://e2eml.school
+                ">
+                e2eml.school
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://hexcolorcodes.org
+                ">
+                hexcolorcodes.org/
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4color
+                ">
+                tyr.fyi/4color
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4constant
+                ">
+                tyr.fyi/4constant
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4files
+                ">
+                tyr.fyi/4files
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4hogan
+                ">
+                tyr.fyi/4hogan
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4lissajous
+                ">
+                tyr.fyi/4lissajous
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4logit
+                ">
+                tyr.fyi/4logit
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4logitnorm
+                ">
+                tyr.fyi/4logitnorm
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4matmul
+                ">
+                tyr.fyi/4matmul
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4matplotlib
+                ">
+                tyr.fyi/4matplotlib
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4minjerk
+                ">
+                tyr.fyi/4minjerk
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4numbers
+                ">
+                tyr.fyi/4numbers
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4plamondon
+                ">
+                tyr.fyi/4plamondon
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4pulsing
+                ">
+                tyr.fyi/4pulsing
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4rocking
+                ">
+                tyr.fyi/4rocking
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4shadmehr
+                ">
+                tyr.fyi/4shadmehr
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4shadows
+                ">
+                tyr.fyi/4shadows
+                </a>
+              </li>
+              <li>
+                <a href="
+                https://tyr.fyi/4triangular
+                ">
+                tyr.fyi/4triangular
+                </a>
+              </li>
+            </ul>
+          </p>
+
+
+
+        </section>
+      </div>
+    </body>
+  </head>
+</html)

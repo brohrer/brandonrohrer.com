@@ -170,3 +170,10 @@ archive/
 
 # auto-generated backups of html when rendering markdown
 *.bak
+
+# LeTeX generated files
+*.aux
+*.dvi
+*.log
+*.out
+*.pdf
