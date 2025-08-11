@@ -33,7 +33,7 @@
           Let’s consider another set of M&M data points. This time around we carefully weighed the bag before opening it and counting the M&Ms inside. We can represent the counts and weights of each bag in a two dimensional plot. This scatterplot shows all the bags we ate.
         </p>
 
-        <img src="images/how_optimization_works/img_27.png" style="width: 600px;" />        
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_optimization_works/img_27.png" style="width: 600px;" />        
 
         <p>
           There is a clear pattern here. Visually you can draw a diagonal line right through the middle of these points. This makes sense when you consider how very uniform in size M&M are (the plain ones, not the peanut ones). If all M&Ms had exactly the same weight (as did all the paper paper packaging) these points would be exactly on the same line. Since there is some variation, that introduces a bit of scatter. 
@@ -51,7 +51,7 @@
           We have the luxury once again of being able to do an exhaustive search. This gives us a birds eye view of how the loss function varies across the parameter space.  Looking at the loss function, we see that for this particular model and data, it is not so much a bowl as it is a narrow valley that is slightly deeper in the middle. It looks like a bowl that has been squished sideways. The plateau on the top is not actually part of the loss function, it’s just where we chopped it so that we could focus on the valley, which is the most interesting bit. The loss function continues to get higher and steeper the farther it gets away from the bottom of that valley.
         </p>
 
-        <img src="images/how_optimization_works/img_28.png" style="width: 600px;" />        
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_optimization_works/img_28.png" style="width: 600px;" />        
 
         <p>
           We are going to bypass the second obvious solution to this problem and just choose the lowest point out of all of them. We’re going to pretend for now that we don’t know where the lowest point is.

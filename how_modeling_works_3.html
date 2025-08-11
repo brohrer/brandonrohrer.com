@@ -46,7 +46,7 @@
 	  Imagine our temperature predictions are being used to design a greenhouse. The thickness of the glass and the amount of insulation at the base are carefully selected to create an ideal growing environment. There won’t be any heaters or air-conditioners to modulate the temperature, just the passive heat flow, determined by the design of the greenhouse. The plants are hearty and can tolerate being off by a few degrees in any direction fairly well. It stunts them a little, but not catastrophically. However, the further the temperature gets from ideal, the more detrimental it is to the plants and quickly the effects become more severe. This suggests that the cost function is something like the square of the deviation.
  	</p>
 
-        <img src="images/how_modeling_works/squared_deviation.png" style="width: 600px;" />
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_modeling_works/squared_deviation.png" style="width: 600px;" />
 
 	<h4>Use case: absolute deviation</h4>
         <p>
@@ -57,28 +57,28 @@
 	  All the models fit to our temperature data in part 1 used an absolute deviation error function.
  	</p>
 
-        <img src="images/how_modeling_works/absolute_deviation.png" style="width: 600px;" />
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_modeling_works/absolute_deviation.png" style="width: 600px;" />
 
 	<h4>Use case: Absolute deviation with saturation</h4>
         <p>
 	  Our temperature forecasts are now being used to make decisions about when to pre-heat or pre-cool an office building for a workday. Pre-heating and pre-cooling during the night allows a lower energy price and saves the company money. The cost of any deviations is the additional cost of daytime peak energy. This is proportional to the amount of time the equipment runs during the day, which in turn is directly proportional to the prediction error. However, above a certain prediction threshold no amount of the time heating or cooling will fully make up the difference, so the cost has a ceiling. The equipment just runs all day. This suggests an error function of absolute deviation with saturation.
  	</p>
 
-        <img src="images/how_modeling_works/absolute_deviation_with_saturation.png" style="width: 600px;" />
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_modeling_works/absolute_deviation_with_saturation.png" style="width: 600px;" />
 
 	<h4>Use case: Squared deviation with a don’t care region</h4>
         <p>
 	  Now our temperature predictions are being used in television forecasts. Our viewers don’t expect the predictions to be exact, so if they are off by a little bit there is no penalty. This gives us a "don’t care" region. There is no cost to being wrong by a small amount. However if the temperatures are off by much more than that, then viewers become very upset and are likely to switch to another television station for their weather reports.  A quadratic curve gives us the steeply increasing cost associated with this.
  	</p>
 
-        <img src="images/how_modeling_works/squared_deviation_with_dead_zone.png" style="width: 600px;" />
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_modeling_works/squared_deviation_with_dead_zone.png" style="width: 600px;" />
 
 	<h4>Use case: custom error function</h4>
         <p>
 	  We can even handle much more complex cases. Imagine that our top notch business analytics team determines that our energy costs have a complicated relationship to prediction errors, say, something that looks like this.
  	</p>
 
-        <img src="images/how_modeling_works/custom_error_function.png" style="width: 600px;" />
+        <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/how_modeling_works/custom_error_function.png" style="width: 600px;" />
 
         <p>
 	  That’s not a problem. We can use that just as easily as any of the other candidates we have considered. The only real constraint on our error function is that it doesn’t decrease as it gets further away from zero. It can follow any pattern we want as long as it always increases or remains flat.
