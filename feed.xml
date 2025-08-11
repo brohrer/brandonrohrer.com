@@ -1,0 +1,73 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+
+<channel>
+  <title>Brandon Rohrer</title>
+  <link>https://www.brandonrohrer.com</link>
+  <description>Brandon Rohrer's blog</description>
+  <atom:link href="http://brandonrohrer.com/feed.xml" rel="self" type="application/rss+xml" />
+
+  <image>
+    <url>images/thumbnails/thumbnail_313.png</url>
+    <title>Brandon Rohrer blog</title>
+    <link>https://www.brandonrohrer.com</link>
+  </image>
+  <item>
+    <title>
+    Juggling repositories for website serving
+    </title>
+    <link>
+    https://www.brandonrohrer.com
+    </link>
+    <media:thumbnail url="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/boulderer.jpg" width="100" height="80"/>
+    <pubDate>
+    Mon, 11 Aug 2025 07:00:00 EDT
+    </pubDate>
+    <description>
+      <![CDATA[
+        <p>
+          For fun, I take something trivial, like my blog, and try to make it
+          as robust to failure as possible. Among other things, I host it
+          on three different git services, Github, GitLab, and Codeberg.
+        </p>
+        <p>
+          As the repository supporting my blog has grown, mainly from collecting
+          images, it got larger than the politely enforced 100MB limit of
+          Codeberg. It also made it impossible to ignore that I was abusing
+          git, using it to version control binaries that don't change often.
+          I am using it as a file store, in addition to tracking changes in
+          my html and css.
+        </p>
+        <p>
+          To get around this, I broke my website repo out into two - one is
+          a proper version control hosting the code, which I creatively named
+          "blog". And the other is a blatant file store for images,
+          named "blog_images". Although I'm still abusing it, separating it
+          out is the first step toward moving to a proper file store.
+          Now both repos are under the 100MB limit, and I can host them
+          in triplicate if one service goes down or gets shut down for some
+          reason, I can quickly migrate to another.
+        </p>
+        <p>
+          I also made the deliberate decision to use GitHub as a content
+          delivery network. All my image links go right to the raw
+          images on GitHub now.
+          I occasionally bump up against my free bandwidth
+          limits at Netlify. By serving my images from GitHub, that bandwidth
+          will go down to a tiny fraction of what it was.
+          It's terrible ettiquette to use a git service as a CDN and I 
+          would never do this Codeberg, a respectable small scale operation.
+          But GitHub won't even see this as a rounding error at 6 decimal
+          places, and plus...it's Microsoft.
+        </p>
+        <p>
+          <a href="https://github.com/brohrer/blog">GitHub blog repo</a><br>
+          <a href="https://gitlab.com/brohrer/blog">GitLab blog repo</a><br>
+          <a href="https://codeberg.org/brohrer/blog">Codeberg blog repo</a><br>
+        </p>
+      ]]>
+    </description>
+  </item>
+
+</channel>
+
+</rss> 
