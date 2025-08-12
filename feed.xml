@@ -8,6 +8,28 @@
 
   <item>
     <title>
+    Images in posts experiment
+    </title>
+    <link>
+    https://www.brandonrohrer.com
+    </link>
+    <pubDate>
+    Tue, 12 Aug 2025 19:00:00 EDT
+    </pubDate>
+    <description>
+    <p>
+    What if the image isn't the first thing?
+    </p>
+    <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/sleeping_pup.JPG"/>
+    <p>
+    What if there are more than one image?
+    </p>
+    <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/course_314_thumbnail.png"/>
+    </description>
+  </item>
+
+  <item>
+    <title>
     Getting images in rss posts
     </title>
     <link>
