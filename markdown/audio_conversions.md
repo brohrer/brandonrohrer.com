@@ -50,3 +50,6 @@ Converting to and from a uncompressed format?
 ### Playback with simpleaudio
 
 https://simpleaudio.readthedocs.io/en/latest/
+
+
+https://github.com/brohrer/blog/blob/main/code/audio.py

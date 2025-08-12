@@ -1,16 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-
 <channel>
   <title>Brandon Rohrer</title>
   <link>https://www.brandonrohrer.com</link>
   <description>Brandon Rohrer's blog</description>
   <atom:link href="http://brandonrohrer.com/feed.xml" rel="self" type="application/rss+xml" />
-
-  <image>
-    <url>images/thumbnails/thumbnail_313.png</url>
-    <title>Brandon Rohrer blog</title>
-    <link>https://www.brandonrohrer.com</link>
-  </image>
+<language>en</language>
   <item>
     <title>
     Juggling repositories for website serving
@@ -18,11 +12,11 @@
     <link>
     https://www.brandonrohrer.com
     </link>
-    <media:thumbnail url="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/boulderer.jpg" width="100" height="80"/>
     <pubDate>
     Mon, 11 Aug 2025 07:00:00 EDT
     </pubDate>
     <description>
+      <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/boulderer.jpg"/>
       <![CDATA[
         <p>
           For fun, I take something trivial, like my blog, and try to make it
@@ -67,7 +61,5 @@
       ]]>
     </description>
   </item>
-
 </channel>
-
 </rss> 
