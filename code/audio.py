@@ -28,10 +28,10 @@ def main():
     display_info(audio_data, samplerate)
     play_array_as_audio(audio_data, samplerate)
 
-    ## Writing an audio segment object to an MP3 file.
+    ## Writing a Numpy arrayto an MP3 file.
     sf.write(temp_mp3file, audio_data, samplerate)
 
-    ## Converting a Numpy array to a string of mp3 bytes.
+    ## Convert a Numpy array to a string of .mp3-formatted bytes.
     mp3_buf = io.BytesIO()
     # Infers file type from name extension.
     mp3_buf.name = 'file.mp3'
@@ -39,7 +39,7 @@ def main():
     mp3_buf.seek(0)  # Necessary for `.read()` to return all bytes
     mp3_bytes = mp3_buf.read()
 
-    ## Converting a string of mp3 bytes to a Numpy array.
+    ## Convert a string of .mp3-formatted bytes to a Numpy array.
     new_mp3_buf = io.BytesIO(mp3_bytes)
     # Infers file type from name extension.
     new_mp3_buf.name = 'new_file.mp3'

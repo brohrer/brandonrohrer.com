@@ -1,55 +1,88 @@
-# Working with audio files
+# Working with audio files in Python
 
-There’s a good python library for manipulating audio called
-[pydub](https://github.com/jiaaro/pydub).
-It’s open source, MIT licensed, and has been around for years.
+Converting audio files from formats you can listen to, store, transmit,
+and analyze can be migraine-inducing (at least for me) so here are
+some shortcuts that work for getting all that done (at least for me).
 
-pydub represents audio with an object called an `AudioSegment`.
-From an `AudioSegment` it’s possible to convert audio to and from
-different forms.
+[Here is a runnable script](https://github.com/brohrer/blog/blob/main/code/audio.py)
+demonstrating all the snippets below.
 
-[soundfile](https://python-soundfile.readthedocs.io/)
-[BSD 3-clause license](https://en.wikipedia.org/wiki/BSD_licenses)
-[source code](https://github.com/bastibe/python-soundfile)
+### Libraries
 
-[simpleaudio](https://simpleaudio.readthedocs.io/en/latest/index.html)
-MIT Licensed
+There is a vibrant and confusing landscape of libraries and tools for
+working with audio in Python.
 
-Reading an MP3 from a file. To and audio segment object.
+One pair that has worked well for me is `soundfile` and `simpleaudio`.
+They cover the tasks I need to do, and have licenses that allow me to use
+them in code at work.
 
-Writing an audio segment object to an MP3 file.
+[soundfile](https://python-soundfile.readthedocs.io/) is an open source
+tool for manipulating audio files, released under the
+[BSD 3-clause license](https://en.wikipedia.org/wiki/BSD_licenses).
+The [source code](https://github.com/bastibe/python-soundfile) is browsable.
 
-Converting an audio segment object to a string of bites.
+[simpleaudio](https://simpleaudio.readthedocs.io/en/latest/index.html) is an
+[MIT Licensed](https://en.wikipedia.org/wiki/MIT_License) cross-platform
+library for playing turning audio files into phyiscal vibrations of the air.
 
-Converting stream of bites to an audio segment object.
+```import simpleaudio as sa
+import soundfile as sf```
 
-To and audio segment object.
+### Read an .mp3 to a Numpy array
 
-Writing an audio segment object to an MP3 file.
+```audio_data, samplerate = sf.read(mp3_filename)```
 
-Converting an audio segment object to a string of bites.
+### Write a Numpy array to an .mp3 file.
 
-Converting stream of bites to an audio segment object.
+```sf.write(mp3_filename, audio_data, samplerate)```
 
-Converting a string of bites to a base 64 encoded string.
+### Convert a Numpy array to a string of .mp3-formatted bytes.
 
-Converting a base 64 included string to a string of bites.
+```mp3_buf = io.BytesIO()
+mp3_buf.name = 'file.mp3'
+sf.write(mp3_buf, audio_data, samplerate)
+mp3_buf.seek(0)  # Necessary for `.read()` to return all bytes
+mp3_bytes = mp3_buf.read()```
 
-Converting an audio segment to a numpy array.
+An `mp3_buf` name that ends in `.mp3` is important because soundfile
+infers file type from the filename extension.
 
-Converting a numpy array to an audio segment.
+### Convert a string of .mp3-formatted bytes to a Numpy array.
 
-Converting to it from a wave?
+```new_mp3_buf = io.BytesIO(mp3_bytes)
+new_mp3_buf.name = 'new_file.mp3'
+new_audio_array, new_samplerate = sf.read(new_mp3_buf)```
 
-Converting to and from a uncompressed format?
+### Convert a string of bytes to a base64-encoded ASCII string.
 
-Converting to it from a wave?
+```base64_mp3_bytes = base64.b64encode(mp3_bytes)
+base64_mp3_string = base64_mp3_bytes.decode("ascii")```
 
-Converting to and from a uncompressed format?
+### Convert a base64-encoded ASCII string to a string of bytes.
 
-### Playback with simpleaudio
+```new_base64_mp3_bytes = base64_mp3_string.encode("ascii")
+new_mp3_bytes = base64.b64decode(new_base64_mp3_bytes)```
 
-https://simpleaudio.readthedocs.io/en/latest/
+### Other file types
 
+soundfile can work with other filetypes in the same way including
+.wav, .flac, and .ogg.
 
-https://github.com/brohrer/blog/blob/main/code/audio.py
+### Normalize Numpy data for simpleaudio playback
+
+This ensures that the playback takes advantage of the full range of
+the audio playback volume. It doesn't try to push too hard and overdrive,
+but it also doesn't leave range unused.
+[From the docs](https://simpleaudio.readthedocs.io/en/latest/tutorial.html#using-numpy):
+
+```audio_array = data * 32767 / max(abs(data))
+audio_array = audio_array.astype(np.int16)```
+
+### Play audio from a Numpy array
+
+[From the docs](https://simpleaudio.readthedocs.io/en/latest/simpleaudio.html#simpleaudio.play_buffer):
+
+```# simpleaudio.play_buffer(audio_data, num_channels, bytes_per_sample, sample_rate)
+play_obj = sa.play_buffer(audio_array, num_channels, 2, samplerate)
+play_obj.wait_done()```
+

@@ -8,6 +8,70 @@
 
   <item>
     <title>
+    Converting audio files between formats
+    </title>
+    <link>
+    https://www.brandonrohrer.com
+    </link>
+    <pubDate>
+    Tue, 12 Aug 2025 22:01:00 EDT
+    </pubDate>
+    <description>
+
+<p>
+Converting audio files from formats you can listen to, store, transmit,
+and analyze can be migraine-inducing (at least for me) so here are
+some shortcuts that work for getting all that done (at least for me).
+</p>
+
+<p>
+<a href="https://github.com/brohrer/blog/blob/main/code/audio.py">Here is a runnable script</a>
+demonstrating all the snippets below.
+</p>
+
+<h2><a id="Libraries"></a><a href="#Libraries">Libraries</a></h2>
+
+<p>
+There is a vibrant and confusing landscape of libraries and tools for
+working with audio in Python.
+</p>
+
+<p>
+One pair that has worked well for me is <code>soundfile</code> and <code>simpleaudio</code>.
+They cover the tasks I need to do, and have licenses that allow me to use
+them in code at work.
+</p>
+
+<p>
+<a href="https://python-soundfile.readthedocs.io/">soundfile</a> is an open source
+tool for manipulating audio files, released under the
+<a href="https://en.wikipedia.org/wiki/BSD_licenses">BSD 3-clause license</a>.
+The <a href="https://github.com/bastibe/python-soundfile">source code</a> is browsable.
+</p>
+
+<p>
+<a href="https://simpleaudio.readthedocs.io/en/latest/index.html">simpleaudio</a> is an
+<a href="https://en.wikipedia.org/wiki/MIT_License">MIT Licensed</a> cross-platform
+library for playing turning audio files into phyiscal vibrations of the air.
+</p>
+
+<p>
+<pre> import simpleaudio as sa
+import soundfile as sf</pre>
+</p>
+
+<h2><a id="Read-an-.mp3-to-a-Numpy-array"></a><a href="#Read-an-.mp3-to-a-Numpy-array">Read an .mp3 to a Numpy array</a></h2>
+
+<p>
+<pre>audio_data, samplerate = sf.read(mp3_filename)</pre>
+</p>
+
+<h2><a id="Write-a-Numpy-array-to-an-.mp3-file."></a><a href="#Write-a-Numpy-array-to-an-.mp3-file.">Write a Numpy array to an .mp3 file.</a></h2>
+    </description>
+  </item>
+
+  <item>
+    <title>
     Images in posts experiment
     </title>
     <link>
@@ -99,7 +163,7 @@
     <p>
       <a href="https://github.com/brohrer/blog">GitHub blog repo</a><br>
       <a href="https://gitlab.com/brohrer/blog">GitLab blog repo</a><br>
-      <a href="https://codeberg.org/brohrer/blog">Codeberg blog repo</a><br>
+      <a href="https://codeberg.org/brohrer/blog">Codeberg blog repo</a>
     </p>
     </description>
   </item>
