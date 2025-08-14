@@ -41,7 +41,7 @@ import soundfile as sf```
 ```mp3_buf = io.BytesIO()
 mp3_buf.name = 'file.mp3'
 sf.write(mp3_buf, audio_data, samplerate)
-mp3_buf.seek(0)  # Necessary for `.read()` to return all bytes
+mp3_buf.seek(0)  # Necessary for read() to return all bytes
 mp3_bytes = mp3_buf.read()```
 
 An `mp3_buf` name that ends in `.mp3` is important because soundfile

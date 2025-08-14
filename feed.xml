@@ -16,6 +16,9 @@
     <pubDate>
     Tue, 13 Aug 2025 22:01:00 EDT
     </pubDate>
+    <guid>
+    2025081400
+    </guid>
     <description>
 <p>
 Behind all the GPTs and Geminis and Claudes and Llamas are transformers. They were introduced as a tool for sequence transduction—converting one sequence of symbols to another—and are now used almost entirely for sequence completion—given a starting prompt, carry on in the same vein and style.
@@ -87,6 +90,9 @@ Heads-up, I'll be using the terms "one-dimensional array" and "vector" interchan
     Tue, 12 Aug 2025 22:01:00 EDT
     </pubDate>
     <description>
+    <guid>
+    2025081401
+    </guid>
 
 <p>
 Converting audio files from formats you can listen to, store, transmit,
@@ -150,6 +156,9 @@ import soundfile as sf</pre>
     <pubDate>
     Tue, 12 Aug 2025 19:01:00 EDT
     </pubDate>
+    <guid>
+    2025081402
+    </guid>
     <description>
     <p>
     What if the image isn't the first thing?
@@ -172,6 +181,9 @@ import soundfile as sf</pre>
     <pubDate>
     Tue, 12 Aug 2025 19:00:00 EDT
     </pubDate>
+    <guid>
+    2025081403
+    </guid>
     <description>
     <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/course_314_thumbnail.png"/>
     <p>
