@@ -8,6 +8,76 @@
 
   <item>
     <title>
+    Transformers from Scratch  1/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com
+    </link>
+    <pubDate>
+    Tue, 13 Aug 2025 22:01:00 EDT
+    </pubDate>
+    <description>
+<p>
+Behind all the GPTs and Geminis and Claudes and Llamas are transformers. They were introduced as a tool for sequence transduction—converting one sequence of symbols to another—and are now used almost entirely for sequence completion—given a starting prompt, carry on in the same vein and style.
+</p>
+<p>
+Here is a deep dive into the nuts and bolts of what make them tick. This isn't a short journey, but I hope you'll be glad you came.
+</p>
+
+<h2>One-hot encoding</h2
+<p>
+In the beginning were the words. So very many words. Our first step is to convert all the words to numbers so we can do math on them.
+</p>
+<p>
+Imagine that our goal is to create the computer that responds to our voice commands. It’s our job to build the transformer that converts (or transduces) a sequence of sounds to a sequence of words.
+</p>
+<p>
+We start by choosing our vocabulary, the collection of symbols that we are going to be working with in each sequence. In our case, there will be two different sets of symbols, one for the input sequence to represent vocal sounds and one for the output sequence to represent words.
+</p>
+<p>
+For now, let's assume we're working with English. There are tens of thousands of words in the English language, and perhaps another few thousand to cover computer-specific terminology. That would give us a vocabulary size that is the better part of a hundred thousand. One way to convert words to numbers is to start counting at one and assign each word its own number. Then a sequence of words can be represented as a list of numbers.
+</p>
+<p>
+For example, consider a tiny language with a vocabulary size of three: files, find, and my. Each word could be swapped out for a number, perhaps files = 1, find = 2, and my = 3. Then the sentence "Find my files", consisting of the word sequence [ find, my, files ] could be represented instead as the sequence of numbers [2, 3, 1].
+</p>
+<p>
+This is a perfectly valid way to convert symbols to numbers, but it turns out that there's another format that's even easier for computers to work with, one-hot encoding. In one-hot encoding a symbol is represented by an array of mostly zeros, the same length of the vocabulary, with only a single element having a value of one. Each element in the array corresponds to a separate symbol.
+</p>
+<p>
+
+Another way to think about one-hot encoding is that each word still gets assigned its own number, but now that number is an index to an array. Here is our example above, in one-hot notation.
+</p>
+        <p style="text-align:center;">
+          <img title="A one-hot encoded vocabulary"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/one_hot_vocabulary.png"
+            alt="A one-hot encoded vocabulary"
+            style="height: 300px;">
+        </p>
+        <p>
+          So the sentence "Find my files" becomes a sequence of one-dimensional
+          arrays,
+          which, after you squeeze them together,
+          starts to look like a two-dimensional array.
+        </p>
+        <p style="text-align:center;">
+          <img title="A one-hot encoded sentence"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/one_hot_sentence.png"
+            alt="A one-hot encoded sentence"
+            style="height: 300px;">
+        </p>
+
+<p>
+So the sentence "Find my files" becomes a sequence of one-dimensional arrays, which, after you squeeze them together, starts to look like a two-dimensional array.
+</p>
+<p>
+Heads-up, I'll be using the terms "one-dimensional array" and "vector" interchangeably. Likewise with "two-dimensional array" and "matrix".
+</p>
+    </description>
+  </item>
+
+
+  <item>
+    <title>
     Converting audio files between formats
     </title>
     <link>
