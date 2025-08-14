@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Working with audio files in Python";</script>
-  <script type="text/javascript">var publication_date = "August 12, 2025";</script>
+  <script type="text/javascript">var publication_date = "August 13, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -30,7 +30,7 @@ some shortcuts that work for getting all that done (at least for me).
 demonstrating all the snippets below.
 </p>
 
-<h2><a id="Libraries"></a><a href="#Libraries">Libraries</a></h2>
+<h3><a id="Libraries"></a><a href="#Libraries">Libraries</a></h3>
 
 <p>
 There is a vibrant and confusing landscape of libraries and tools for
@@ -57,23 +57,23 @@ library for playing turning audio files into phyiscal vibrations of the air.
 </p>
 
 <p>
-<pre> import simpleaudio as sa
+<pre>import simpleaudio as sa
 import soundfile as sf</pre>
 </p>
 
-<h2><a id="Read-an-.mp3-to-a-Numpy-array"></a><a href="#Read-an-.mp3-to-a-Numpy-array">Read an .mp3 to a Numpy array</a></h2>
+<h3><a id="Read-an-.mp3-to-a-Numpy-array"></a><a href="#Read-an-.mp3-to-a-Numpy-array">Read an .mp3 to a Numpy array</a></h3>
 
 <p>
 <pre>audio_data, samplerate = sf.read(mp3_filename)</pre>
 </p>
 
-<h2><a id="Write-a-Numpy-array-to-an-.mp3-file."></a><a href="#Write-a-Numpy-array-to-an-.mp3-file.">Write a Numpy array to an .mp3 file.</a></h2>
+<h3><a id="Write-a-Numpy-array-to-an-.mp3-file."></a><a href="#Write-a-Numpy-array-to-an-.mp3-file.">Write a Numpy array to an .mp3 file.</a></h3>
 
 <p>
 <pre>sf.write(mp3_filename, audio_data, samplerate)</pre>
 </p>
 
-<h2><a id="Convert-a-Numpy-array-to-a-string-of-.mp3-formatted-bytes."></a><a href="#Convert-a-Numpy-array-to-a-string-of-.mp3-formatted-bytes.">Convert a Numpy array to a string of .mp3-formatted bytes.</a></h2>
+<h3><a id="Convert-a-Numpy-array-to-a-string-of-.mp3-formatted-bytes."></a><a href="#Convert-a-Numpy-array-to-a-string-of-.mp3-formatted-bytes.">Convert a Numpy array to a string of .mp3-formatted bytes.</a></h3>
 
 <p>
 <pre>mp3_buf = io.BytesIO()
@@ -88,7 +88,7 @@ An <code>mp3_buf</code> name that ends in <code>.mp3</code> is important because
 infers file type from the filename extension.
 </p>
 
-<h2><a id="Convert-a-string-of-.mp3-formatted-bytes-to-a-Numpy-array."></a><a href="#Convert-a-string-of-.mp3-formatted-bytes-to-a-Numpy-array.">Convert a string of .mp3-formatted bytes to a Numpy array.</a></h2>
+<h3><a id="Convert-a-string-of-.mp3-formatted-bytes-to-a-Numpy-array."></a><a href="#Convert-a-string-of-.mp3-formatted-bytes-to-a-Numpy-array.">Convert a string of .mp3-formatted bytes to a Numpy array.</a></h3>
 
 <p>
 <pre>new_mp3_buf = io.BytesIO(mp3_bytes)
@@ -96,28 +96,28 @@ new_mp3_buf.name = 'new_file.mp3'
 new_audio_array, new_samplerate = sf.read(new_mp3_buf)</pre>
 </p>
 
-<h2><a id="Convert-a-string-of-bytes-to-a-base64-encoded-ASCII-string."></a><a href="#Convert-a-string-of-bytes-to-a-base64-encoded-ASCII-string.">Convert a string of bytes to a base64-encoded ASCII string.</a></h2>
+<h3><a id="Convert-a-string-of-bytes-to-a-base64-encoded-ASCII-string."></a><a href="#Convert-a-string-of-bytes-to-a-base64-encoded-ASCII-string.">Convert a string of bytes to a base64-encoded ASCII string.</a></h3>
 
 <p>
 <pre>base64_mp3_bytes = base64.b64encode(mp3_bytes)
 base64_mp3_string = base64_mp3_bytes.decode("ascii")</pre>
 </p>
 
-<h2><a id="Convert-a-base64-encoded-ASCII-string-to-a-string-of-bytes."></a><a href="#Convert-a-base64-encoded-ASCII-string-to-a-string-of-bytes.">Convert a base64-encoded ASCII string to a string of bytes.</a></h2>
+<h3><a id="Convert-a-base64-encoded-ASCII-string-to-a-string-of-bytes."></a><a href="#Convert-a-base64-encoded-ASCII-string-to-a-string-of-bytes.">Convert a base64-encoded ASCII string to a string of bytes.</a></h3>
 
 <p>
 <pre>new_base64_mp3_bytes = base64_mp3_string.encode("ascii")
 new_mp3_bytes = base64.b64decode(new_base64_mp3_bytes)</pre>
 </p>
 
-<h2><a id="Other-file-types"></a><a href="#Other-file-types">Other file types</a></h2>
+<h3><a id="Other-file-types"></a><a href="#Other-file-types">Other file types</a></h3>
 
 <p>
 soundfile can work with other filetypes in the same way including
 .wav, .flac, and .ogg.
 </p>
 
-<h2><a id="Normalize-Numpy-data-for-simpleaudio-playback"></a><a href="#Normalize-Numpy-data-for-simpleaudio-playback">Normalize Numpy data for simpleaudio playback</a></h2>
+<h3><a id="Normalize-Numpy-data-for-simpleaudio-playback"></a><a href="#Normalize-Numpy-data-for-simpleaudio-playback">Normalize Numpy data for simpleaudio playback</a></h3>
 
 <p>
 This ensures that the playback takes advantage of the full range of
@@ -131,7 +131,7 @@ but it also doesn't leave range unused.
 audio_array = audio_array.astype(np.int16)</pre>
 </p>
 
-<h2><a id="Play-audio-from-a-Numpy-array"></a><a href="#Play-audio-from-a-Numpy-array">Play audio from a Numpy array</a></h2>
+<h3><a id="Play-audio-from-a-Numpy-array"></a><a href="#Play-audio-from-a-Numpy-array">Play audio from a Numpy array</a></h3>
 
 <p>
 <a href="https://simpleaudio.readthedocs.io/en/latest/simpleaudio.html#simpleaudio.play_buffer">From the docs</a>:
