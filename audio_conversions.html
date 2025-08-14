@@ -79,7 +79,7 @@ import soundfile as sf</pre>
 <pre>mp3_buf = io.BytesIO()
 mp3_buf.name = 'file.mp3'
 sf.write(mp3_buf, audio_data, samplerate)
-mp3_buf.seek(0)  # Necessary for <code>.read()</code> to return all bytes
+mp3_buf.seek(0)  # Necessary for read() to return all bytes
 mp3_bytes = mp3_buf.read()</pre>
 </p>
 
