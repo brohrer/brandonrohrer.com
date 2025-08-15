@@ -19,8 +19,7 @@
     <guid>
     2025081501
     </guid>
-    <description>
-      ![CDATA[
+    <description><![CDATA[
         <h3 id="markov_chain">First order sequence model</h3>
         <p>
           We can set aside matrices for a minute and get back to what
@@ -115,7 +114,7 @@
             alt="Transition probability lookup"
             style="height: 300px;">
         </p>
-      ]]
+      ]]>
     </description>
   </item>
 
@@ -349,178 +348,6 @@ So the sentence "Find my files" becomes a sequence of one-dimensional arrays, wh
 <p>
 Heads-up, I'll be using the terms "one-dimensional array" and "vector" interchangeably. Likewise with "two-dimensional array" and "matrix".
 </p>
-    </description>
-  </item>
-
-
-  <item>
-    <title>
-    Converting audio files between formats
-    </title>
-    <link>
-    https://www.brandonrohrer.com
-    </link>
-    <pubDate>
-    Tue, 12 Aug 2025 22:01:00 EDT
-    </pubDate>
-    <description>
-    <guid>
-    2025081401
-    </guid>
-
-<p>
-Converting audio files from formats you can listen to, store, transmit,
-and analyze can be migraine-inducing (at least for me) so here are
-some shortcuts that work for getting all that done (at least for me).
-</p>
-
-<p>
-<a href="https://github.com/brohrer/blog/blob/main/code/audio.py">Here is a runnable script</a>
-demonstrating all the snippets below.
-</p>
-
-<h2><a id="Libraries"></a><a href="#Libraries">Libraries</a></h2>
-
-<p>
-There is a vibrant and confusing landscape of libraries and tools for
-working with audio in Python.
-</p>
-
-<p>
-One pair that has worked well for me is <code>soundfile</code> and <code>simpleaudio</code>.
-They cover the tasks I need to do, and have licenses that allow me to use
-them in code at work.
-</p>
-
-<p>
-<a href="https://python-soundfile.readthedocs.io/">soundfile</a> is an open source
-tool for manipulating audio files, released under the
-<a href="https://en.wikipedia.org/wiki/BSD_licenses">BSD 3-clause license</a>.
-The <a href="https://github.com/bastibe/python-soundfile">source code</a> is browsable.
-</p>
-
-<p>
-<a href="https://simpleaudio.readthedocs.io/en/latest/index.html">simpleaudio</a> is an
-<a href="https://en.wikipedia.org/wiki/MIT_License">MIT Licensed</a> cross-platform
-library for playing turning audio files into phyiscal vibrations of the air.
-</p>
-
-<p>
-<pre> import simpleaudio as sa
-import soundfile as sf</pre>
-</p>
-
-<h2><a id="Read-an-.mp3-to-a-Numpy-array"></a><a href="#Read-an-.mp3-to-a-Numpy-array">Read an .mp3 to a Numpy array</a></h2>
-
-<p>
-<pre>audio_data, samplerate = sf.read(mp3_filename)</pre>
-</p>
-
-<h2><a id="Write-a-Numpy-array-to-an-.mp3-file."></a><a href="#Write-a-Numpy-array-to-an-.mp3-file.">Write a Numpy array to an .mp3 file.</a></h2>
-    </description>
-  </item>
-
-  <item>
-    <title>
-    Images in posts experiment
-    </title>
-    <link>
-    https://www.brandonrohrer.com
-    </link>
-    <pubDate>
-    Tue, 12 Aug 2025 19:01:00 EDT
-    </pubDate>
-    <guid>
-    2025081402
-    </guid>
-    <description>
-    <p>
-    What if the image isn't the first thing?
-    </p>
-    <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/sleeping_pup.JPG"/>
-    <p>
-    What if there are more than one image?
-    </p>
-    <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/course_314_thumbnail.png"/>
-    </description>
-  </item>
-
-  <item>
-    <title>
-    Getting images in rss posts
-    </title>
-    <link>
-    https://www.brandonrohrer.com
-    </link>
-    <pubDate>
-    Tue, 12 Aug 2025 19:00:00 EDT
-    </pubDate>
-    <guid>
-    2025081403
-    </guid>
-    <description>
-    <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/course_314_thumbnail.png"/>
-    <p>
-    I think I finally figured out how to include image thumbnails with my
-    RSS feed posts. Following the pattern in xkcd's feed.xml, the
-    description tags contain html (no CDATA delimeters), and part of that is
-    and img tag. I think that may be all it is.
-    </p>
-    </description>
-  </item>
-
-  <item>
-    <title>
-    Juggling repositories for website serving
-    </title>
-    <link>
-    https://www.brandonrohrer.com
-    </link>
-    <pubDate>
-    Tue, 12 Aug 2025 07:00:00 EDT
-    </pubDate>
-    <description>
-    <img src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/boulderer.jpg"/>
-    <p>
-      For fun, I take something trivial, like my blog, and try to make it
-      as robust to failure as possible. Among other things, I host it
-      on three different git services, Github, GitLab, and Codeberg.
-    </p>
-    <p>
-      As the repository supporting my blog has grown, mainly from collecting
-      images, it got larger than the politely enforced 100MB limit of
-      Codeberg. It also made it impossible to ignore that I was abusing
-      git, using it to version control binaries that don't change often.
-      I am using it as a file store, in addition to tracking changes in
-      my html and css.
-    </p>
-    <p>
-      To get around this, I broke my website repo out into two - one is
-      a proper version control hosting the code, which I creatively named
-      "blog". And the other is a blatant file store for images,
-      named "blog_images". Although I'm still abusing it, separating it
-      out is the first step toward moving to a proper file store.
-      Now both repos are under the 100MB limit, and I can host them
-      in triplicate if one service goes down or gets shut down for some
-      reason, I can quickly migrate to another.
-    </p>
-    <p>
-      I also made the deliberate decision to use GitHub as a content
-      delivery network. All my image links go right to the raw
-      images on GitHub now.
-      I occasionally bump up against my free bandwidth
-      limits at Netlify. By serving my images from GitHub, that bandwidth
-      will go down to a tiny fraction of what it was.
-      It's terrible ettiquette to use a git service as a CDN and I 
-      would never do this Codeberg, a respectable small scale operation.
-      But GitHub won't even see this as a rounding error at 6 decimal
-      places, and plus...it's Microsoft.
-    </p>
-    <p>
-      <a href="https://github.com/brohrer/blog">GitHub blog repo</a><br>
-      <a href="https://gitlab.com/brohrer/blog">GitLab blog repo</a><br>
-      <a href="https://codeberg.org/brohrer/blog">Codeberg blog repo</a>
-    </p>
     </description>
   </item>
 
