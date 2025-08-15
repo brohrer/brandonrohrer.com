@@ -6,11 +6,123 @@
 <atom:link href="http://brandonrohrer.com/feed.xml" rel="self" type="application/rss+xml" />
 <language>en</language>
 
+  <item>
+    <title>
+    Transformers from Scratch 4/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com/transformers#markov_chain
+    </link>
+    <pubDate>
+    Tue, 15 Aug 2025 19:01:00 EDT
+    </pubDate>
+    <guid>
+    2025081501
+    </guid>
+    <description>
+      ![CDATA[
+        <h3 id="markov_chain">First order sequence model</h3>
+        <p>
+          We can set aside matrices for a minute and get back to what
+          we really care about, sequences of words. Imagine that as we
+          start to develop our natural language computer interface
+          we want to handle just three possible commands:
+          <ul>
+            <li>
+              <em>Show me my directories please</em>.
+            </li>
+            <li>
+              <em>Show me my files please</em>.
+            </li>
+            <li>
+              <em>Show me my photos please</em>.
+            </li>
+          </ul>
+          Our vocabulary size is now seven:<br>
+          {<em>directories, files, me, my, photos, please, show</em>}.
+        </p>
+        <p>
+          One useful way to represent sequences is with a transition model.
+          For every word in the vocabulary, it shows what the next word
+          is likely to be. If users ask about photos half
+          the time, files 30% of the time, and directories the rest
+          of the time, the transition model will look like this.
+          The sum of the transitions away from any word will always add up
+          to one.
+        </p>
+        <p style="text-align:center;">
+          <img title="Markov chain transition model"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/markov_chain.png"
+            alt="Markov chain transition model"
+            style="height: 250px;">
+        </p>
+        <p>
+          This particular transition model is called a
+          <strong>Markov chain</strong>,
+          because it satisfies the
+          <a href="https://en.wikipedia.org/wiki/Markov_property">
+            Markov property</a>
+          that the probabilities for the next word depend only on
+          recent words. More specifically, it is a first order
+          Markov model because it only looks at the single most recent word.
+          If it considered the two most recent words it would be
+          a second order Markov model.
+        </p>
+        <p>
+          Our break from matrices is over. It turns out that
+          Markov chains can be expressed conveniently in matrix form.
+          Using the same indexing scheme that we used when creating one-hot
+          vectors, each row represents one of the words in our vocabulary.
+          So does each column. The matrix transition model
+          treats a matrix as a lookup table. Find the row
+          that corresponds to the word you’re interested in. The value in
+          each column shows the probability of that word coming next.
+          Because the value of each element in the matrix represents
+          a probability, they will all fall between zero and one.
+          Because probabilities always sum to one, the values in each
+          row will always add up to one.
+        </p>
+        <p style="text-align:center;">
+          <img title="Transition matrix"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/transition_matrix.png"
+            alt="Transition matrix"
+            style="height: 300px;">
+        </p>
+        <p>
+          In the transition matrix here we can see the structure
+          of our three sentences clearly. Almost all of the transition
+          probabilities are zero or one. There is only one place in
+          the Markov chain where branching happens. After <em>my</em>,
+          the words <em>directories</em>, <em>files</em>, or <em>photos</em>
+          might appear, each with a different probability. Other than that,
+          there’s no uncertainty about which word will come next.
+          That certainty is reflected by having mostly ones and zeros in the
+          transition matrix.
+        </p>
+        <p>
+          We can revisit our trick of using matrix multiplication
+          with a one-hot vector to pull out the transition probabilities
+          associated with any given word. For instance, if we just wanted
+          to isolate the probabilities of which word comes after <em>my</em>,
+          we can create a one-hot vector representing the word <em>my</em>
+          and multiply it by our transition matrix. This pulls out
+          the relevant row and shows us the probability distribution
+          of what the next word will be.
+        </p>
+        <p style="text-align:center;">
+          <img title="Transition probability lookup"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/transition_lookups.png"
+            alt="Transition probability lookup"
+            style="height: 300px;">
+        </p>
+      ]]
+    </description>
+  </item>
 
 
   <item>
     <title>
-    Transformers from Scratch  3/🧵
+    Transformers from Scratch 3/🧵
     </title>
     <link>
     https://www.brandonrohrer.com/transformers
