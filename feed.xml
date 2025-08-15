@@ -8,6 +8,75 @@
 
   <item>
     <title>
+    Transformers from Scratch  2/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com
+    </link>
+    <pubDate>
+    Tue, 14 Aug 2025 20:01:00 EDT
+    </pubDate>
+    <guid>
+    2025081405
+    </guid>
+    <description>
+          <h3 id="dot_product">Dot product</h3>
+        <p>
+          One really useful thing about the one-hot representation is that
+          it lets us compute
+          <a href="https://en.wikipedia.org/wiki/Dot_product">dot products</a>.
+          These are also known by other
+          intimidating names like inner product and scalar product.
+          To get the dot product of two vectors, multiply their
+          corresponding elements, then add the results.
+        </p>
+        <p style="text-align:center;">
+          <img title="Dot product illustration"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/dot_product.png"
+            alt="Dot product illustration"
+            style="height: 300px;">
+        </p>
+        <p>
+          Dot products are especially useful when we're working with our
+          one-hot word representations. The dot product of any one-hot
+          vector with itself is one.
+        </p>
+        <p style="text-align:center;">
+          <img title="Dot product of matching vectors"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/match.png"
+            alt="Dot product of matching vectors"
+            style="height: 300px;">
+        </p>
+        <p>
+          And the dot product of any one-hot vector with any other one-hot
+          vector is zero.
+        </p>
+        <p style="text-align:center;">
+          <img title="Dot product of non-matching vectors"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/non_match.png"
+            alt="Dot product of non-matching vectors"
+            style="height: 300px;">
+        </p>
+        <p>
+          The previous two examples show how dot products
+          can be used to measure similarity. As another example,
+          consider a vector of values that represents a combination of words
+          with varying weights.
+          A one-hot encoded word can be compared against it with the
+          dot product
+          to show how strongly that word is represented.
+        </p>
+        <p style="text-align:center;">
+          <img title="Dot product gives the similarity between two vectors"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/similarity.png"
+            alt="Dot product gives the similarity between two vectors"
+            style="height: 300px;">
+        </p>
+    </description>
+  </item>
+
+  <item>
+    <title>
     Transformers from Scratch  1/🧵
     </title>
     <link>
@@ -77,7 +146,6 @@ Heads-up, I'll be using the terms "one-dimensional array" and "vector" interchan
 </p>
     </description>
   </item>
-
 
   <item>
     <title>
