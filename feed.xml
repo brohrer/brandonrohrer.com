@@ -13,9 +13,9 @@
     https://www.brandonrohrer.com/transformers#markov_chain
     </link>
     <pubDate>
-    Tue, 15 Aug 2025 19:01:00 EDT
+    Fri, 15 Aug 2025 19:01:00 EDT
     </pubDate>
-    <guid>
+    <guid isPermaLink="false">
     2025081502
     </guid>
     <description><![CDATA[
@@ -128,10 +128,10 @@
     <pubDate>
     Tue, 15 Aug 2025 70:01:00 EDT
     </pubDate>
-    <guid>
+    <guid isPermaLink="false">
     2025081500
     </guid>
-    <description>
+    <description><![CDATA[
         <h3 id="matrix_multiplication">Matrix multiplication</h3>
         <p>
           The dot product is the building block of matrix multiplication,
@@ -206,7 +206,7 @@
           out a particular row of a matrix is at the core of how
           transformers work.
         </p>
-    </description>
+    ]]></description>
   </item>
 
   <item>
@@ -219,10 +219,10 @@
     <pubDate>
     Tue, 14 Aug 2025 20:01:00 EDT
     </pubDate>
-    <guid>
+    <guid isPermaLink="false">
     2025081405
     </guid>
-    <description>
+    <description><![CDATA[
           <h3 id="dot_product">Dot product</h3>
         <p>
           One really useful thing about the one-hot representation is that
@@ -275,7 +275,7 @@
             alt="Dot product gives the similarity between two vectors"
             style="height: 300px;">
         </p>
-    </description>
+    ]]></description>
   </item>
 
   <item>
@@ -288,10 +288,10 @@
     <pubDate>
     Tue, 13 Aug 2025 22:01:00 EDT
     </pubDate>
-    <guid>
+    <guid isPermaLink="false">
     2025081400
     </guid>
-    <description>
+    <description><![CDATA[
 <p>
 Behind all the GPTs and Geminis and Claudes and Llamas are transformers. They were introduced as a tool for sequence transduction—converting one sequence of symbols to another—and are now used almost entirely for sequence completion—given a starting prompt, carry on in the same vein and style.
 </p>
@@ -347,7 +347,7 @@ So the sentence "Find my files" becomes a sequence of one-dimensional arrays, wh
 <p>
 Heads-up, I'll be using the terms "one-dimensional array" and "vector" interchangeably. Likewise with "two-dimensional array" and "matrix".
 </p>
-    </description>
+    ]]></description>
   </item>
 
 </channel>
