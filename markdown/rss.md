@@ -1,4 +1,4 @@
-# How to start an RSS feed
+# How to start publishing an RSS feed
 
 Before Twitter, before LinkedIn, before Facebook, there was
 [RSS](https://en.wikipedia.org/wiki/RSS).
