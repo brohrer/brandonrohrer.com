@@ -126,7 +126,7 @@
     https://www.brandonrohrer.com/transformers
     </link>
     <pubDate>
-    Tue, 15 Aug 2025 70:01:00 EDT
+    Fri, 15 Aug 2025 07:01:00 EDT
     </pubDate>
     <guid isPermaLink="false">
     2025081500
@@ -299,7 +299,7 @@ Behind all the GPTs and Geminis and Claudes and Llamas are transformers. They we
 Here is a deep dive into the nuts and bolts of what make them tick. This isn't a short journey, but I hope you'll be glad you came.
 </p>
 
-<h2>One-hot encoding</h2
+<h2>One-hot encoding</h2>
 <p>
 In the beginning were the words. So very many words. Our first step is to convert all the words to numbers so we can do math on them.
 </p>
