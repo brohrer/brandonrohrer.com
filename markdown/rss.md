@@ -199,36 +199,42 @@ was oblivious to.
 
 ### Things that you give up
 
-Analytics
-Dopamine
-Engagement
-Interaction.
-Infinite scrolling
-Doom scrolling
-Accidental discovery
-Polish and
+When you send an RSS post out into the Internet, you can't tell whether one
+person sees it or a thousand. You have no **analytics**, no likes, hearts,
+or stars, no engagement dopamine. There is also no **interaction** with your
+your readers, no comment section, Q and A, or quote posts.
+There is also no **algorithm** you can game for boosting. Posts
+just show up in the order they are published.
 
 ### Things you get
 
-Control.
-Things that you give up
-Analytics
-Dopamine
-Engagement
-Interaction.
-Reach.Boosting. There is no algorithm, just posts showing up in order.
-Deliberate reading
+In exchange for all that, you get a more **deliberate experience** of reading and writing.
+There is more friction in publishing and following a feed than of downloading
+an app and snapping a picture of your latte.
+RSS requires intention, and so invites more thought.
+It makes doomscrolling all but impossible.
+Related to this, posts are often longer and more thought out than
+the Tweets of yore. In my experience there are
+**more quirks and rabbit holes**.
+Most importantly, you also get **control** over what you can publish and
+in what format.  You have independence from any rules or policy decisions
+that might be imposed by a central authority.
+There is no one who can boost it, bury it, or shut it down.
+It is an indestructible distribution channel.
 
-Control.
-Independence no From corporate constraints.
-An indestructible distribution channel.
-More deliberate content.
-Quirk.
-Rabbit holes.
+### A note about Atom
 
-It's a great starting point for creating your own RSS.
-
-
-[The full RSS 2.0 specification](https://www.rssboard.org/rss-specification)
-
+You don't have to spend long in the world of RSS before you start hearing about
+Atom. Atom is a very similar format that serves a very similar purpose.
+It was backed by Google and for a while there was a great deal of contention
+between proponents of RSS and Atom, which led to a lot of intense...um...discussion. 
 [Atom is better](https://danielmiessler.com/blog/atom-rss-why-we-should-just-call-them-feeds-instead-of-rss-feeds)
+in the sense that it resolved several points of ambiguous behavior and
+unappealing flaws of RSS, but in retrospect, the "reader wars" were probably
+more distracting than productive and left the community a little fragmented.
+
+Atom still exists. Plenty of people still use it, although from what
+I gather RSS is more popular. Most aggregators can read both RSS and Atom just fine.
+The shortcomings of RSS are not anything that is likely to bother any but
+the geekiest users. I leave it as an exercise to the reader to decide if it
+matters enough to spend any cognitive cycles on.
