@@ -3,7 +3,7 @@
 Before Twitter, before LinkedIn, before Facebook, there was
 [RSS](https://en.wikipedia.org/wiki/RSS).
 Really Simple Syndication is the photocopied 'zine of microblogging.
-If there was social media in Mad Max, it would be RSS. It's
+If there were social media in Mad Max, it would have been RSS. It's
 totally outside any centralized control, cheap, gritty, and punk af. 
 
 ## Reading RSS
@@ -30,13 +30,17 @@ RSS logo.
 giving the appearance of waves radiating out from a central point
 ](https://upload.wikimedia.org/wikipedia/en/4/43/Feed-icon.svg)
 
-The URL may be inscrutable. For my blog it looks like
+The URL is to an .xml file. For my blog it looks like
 
-```https://brandonrohrer.com/feed.xml```
+```
+https://brandonrohrer.com/feed.xml
+```
 
 For an example feed created for this post, it looks like
 
-```https://raw.githubusercontent.com/brohrer/blog/refs/heads/main/code/example_feed.xml```
+```
+https://raw.githubusercontent.com/brohrer/blog/refs/heads/main/code/example_feed.xml
+```
 
 This is the key to subscribing. Copy the URL and paste it into the
 field for 
@@ -60,7 +64,7 @@ Winnie the Pooh, who is stuck in a hole.
 
 Most aggregators also have a way to explore the more popular feeds.
 
-[A list of 15 industries and a handful skills as topics to search for feeds
+![A list of 15 industries and a handful skills as topics to search for feeds
 ](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/rss/feed_topics.png "Some popular feed topics, offered on Feedly")
 
 ## Writing RSS
@@ -78,7 +82,8 @@ you're familiar with. Here's
 ](https://github.com/brohrer/blog/blob/main/code/example_feed.xml)
 which is on GitHub.
 
-```$<$rss version="2.0"$>$
+```
+$<$rss version="2.0"$>$
   $<$channel$>$
     $<$title$>$Your Feed$<$/title$>$
     $<$link$>$https://www.brandonrohrer.com$<$/link$>$
@@ -86,8 +91,8 @@ which is on GitHub.
     $<$item$>$
       $<$title$>$Blog title$<$/title$>$
       $<$link$>$https://www.brandonrohrer.com/rss.html$<$/link$>$
-      $<$pubDate$>$Tue, 16 Aug 2025 12:31:00 EDT$<$/pubDate$>$
-      $<$guid$>$https://www.brandonrohrer.com/rss.html_02$<$/guid$>$
+      $<$pubDate$>$Sat, 16 Aug 2025 12:31:00 EDT$<$/pubDate$>$
+      $<$guid isPermaLink="false"$>$https://www.brandonrohrer.com/rss.html.04$<$/guid$>$
       $<$description$>$$<$![CDATA[
         $<$h1$>$Post content$<$/h1$>$
         $<$p$>$
@@ -97,9 +102,10 @@ which is on GitHub.
       ]]$>$$<$/description$>$
     $<$/item$>$ <br>
   $<$/channel$>$
-$<$/rss$>$```
+$<$/rss$>$
+```
 
-You can copy this directly into your own feed.XML and modify it. 
+You can copy this directly into your own feed .xml and modify it. 
 A trick to remember with GitHub is that the link to your feed will actually
 be the "raw" link, which is available from the icon on the right side
 of the screen when looking at the file in GitHub.
@@ -129,16 +135,19 @@ An item needs a few basic pieces of information.
 - `link` is a URL associated with it.
 - `pubDate` is [a date in the format of
 ](https://whitep4nth3r.com/blog/how-to-format-dates-for-rss-feeds-rfc-822/#valid-rfc-822-date-format)
-`Tue, 16 Aug 2025 12:31:00 EDT`. It shows up at the top of a post as
+`Fri, 16 Aug 2025 19:31:00 EDT`. It shows up at the top of a post as
 the publication date.
 - `guid` (globally unique identifier) is a string that aggregators can use
 as an ID for this post. I find it useful for when I update the content
 of the post and I want aggregators to re-load it on their next pass.
 Changing the guid signals to the aggregator that the post needs to be
-re-loaded.
+re-loaded. By default, RSS assumes that this is a permanent link to the
+website being promoted by this post item. If you include the argument
+`isPermaLink="false"` that signals that this isn't intended to be a URL, just
+an identifying string.
 - `description` is the body of the post. It can be a one-line teaser
 for the linked content or it can be an entire novel. Everything
-between the `![CDATA[` and `]]` delimiters will be interpreted as straight
+between the `$<$![CDATA[` and `]]$>$` delimiters will be interpreted as straight
 html, which is super useful if you want to do pretty formatting or
 include images. Not all aggregators will interpret all html tags
 (for instance `$<$script$>$`
@@ -148,7 +157,7 @@ but any html that gives the aggregator pause will usually just be skipped over.
 
 There are a number of
 [other item elements](https://www.rssboard.org/rss-specification#hrelementsOfLtitemgt)
-you an add if you wish, but these are the subset I've found most useful.
+you an add if you wish, but this is the subset I've found most useful.
 
 You can add as many items as you like. Just repeat the `$<$item$>$` section.
 
@@ -156,18 +165,19 @@ You can add as many items as you like. Just repeat the `$<$item$>$` section.
     $<$item$>$
       $<$title$>$First post$<$/title$>$
       ...
-    $<$/item$>$ <br>
-```...
+    $<$/item$>$
+    ...
     $<$item$>$
       $<$title$>$Second post$<$/title$>$
       ...
-    $<$/item$>$ <br>
-```...
+    $<$/item$>$
+   ...
     $<$item$>$
       $<$title$>$Third post$<$/title$>$
       ...
-    $<$/item$>$ <br>
-...```
+    $<$/item$>$
+    ...
+```
 
 And that's it. You've created an RSS feed. Every time you edit your .xml
 file, you've updated your feed.
@@ -175,11 +185,15 @@ file, you've updated your feed.
 Debugging feed .xml files can be fiddly. There are a lot of details that
 have to be just so, and it can take a loooong time to
 wait for the aggregrator to re-scan so that you can check the results.
-A cool thing I discovered while writing this is that there is
-[a validation service](https://validator.w3.org/feed/) where you can
-enter the URL for your feed and it will check your feed for errors
+A cool thing I discovered while writing this is that there are RSS
+validation services like 
+[this one](https://validator.w3.org/feed/) and
+[this one](https://www.rssboard.org/rss-validator/check.cgi)
+where you can
+enter the contents of your feed file or the URL for your feed,
+and it will check your feed for errors
 right away. It revealed several imperfections in my own feed that I 
-was obvlivious to.
+was oblivious to.
 
 ## RSS is different than other social media
 

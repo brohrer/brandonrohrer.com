@@ -121,8 +121,9 @@ footer p {
 }
 
 a {
-  text-decoration: none;
   text-decoration: underline;
+  text-decoration-thickness: .05em;
+  text-underline-offset: 2.0px;
   text-shadow: none;
   color: #212e53;
   border-bottom: 2px;
@@ -374,7 +375,12 @@ Full-Width Styles
   padding: 50px 10px 30px 10px;
   a:link {color: #4a919e;}
   a:visited {color: #4a919e;}
+  a {
+    text-decoration-thickness: .03em;
+    text-underline-offset: 3.0px;
+  }
 }
+
 
 #project_title {
   margin: 0;
@@ -399,4 +405,8 @@ Full-Width Styles
 #footer_wrap {
   background: #212e53;
   text-decoration: none;
+  a {
+    text-decoration-thickness: .03em;
+    text-underline-offset: 3.0px;
+  }
 }

@@ -11,6 +11,9 @@ document.write('\
             <p>\
               <a href="https://brandonrohrer.com/blog.html">\
                 The Blog </a>\
+              &ensp; &ensp; \
+              <a href="https://brandonrohrer.com/feed.xml">\
+                RSS </a>\
             </p>\
         </header>\
     </div>\
