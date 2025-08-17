@@ -1,9 +1,8 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
 <channel>
 <title>Brandon Rohrer</title>
 <link>https://www.brandonrohrer.com</link>
 <description>Brandon Rohrer's blog</description>
-<atom:link href="http://brandonrohrer.com/feed.xml" rel="self" type="application/rss+xml" />
 
   <item>
     <title>
