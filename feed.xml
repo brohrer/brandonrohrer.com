@@ -1,9 +1,8 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
 <channel>
 <title>Brandon Rohrer</title>
 <link>https://www.brandonrohrer.com</link>
 <description>Brandon Rohrer's blog</description>
-<atom:link href="http://brandonrohrer.com/feed.xml" rel="self" type="application/rss+xml" />
 
   <item>
     <title>
@@ -19,12 +18,13 @@
     2025081502
     </guid>
     <description><![CDATA[
-        <h3 id="markov_chain">First order sequence model</h3>
+        <h3>First order sequence model</h3>
         <p>
           We can set aside matrices for a minute and get back to what
           we really care about, sequences of words. Imagine that as we
           start to develop our natural language computer interface
           we want to handle just three possible commands:
+        </p>
           <ul>
             <li>
               <em>Show me my directories please</em>.
@@ -36,6 +36,7 @@
               <em>Show me my photos please</em>.
             </li>
           </ul>
+        <p>
           Our vocabulary size is now seven:<br>
           {<em>directories, files, me, my, photos, please, show</em>}.
         </p>
@@ -48,12 +49,10 @@
           The sum of the transitions away from any word will always add up
           to one.
         </p>
-        <p style="text-align:center;">
           <img title="Markov chain transition model"
             src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/markov_chain.png"
             alt="Markov chain transition model"
             style="height: 250px;">
-        </p>
         <p>
           This particular transition model is called a
           <strong>Markov chain</strong>,
@@ -80,12 +79,10 @@
           Because probabilities always sum to one, the values in each
           row will always add up to one.
         </p>
-        <p style="text-align:center;">
           <img title="Transition matrix"
             src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/transition_matrix.png"
             alt="Transition matrix"
             style="height: 300px;">
-        </p>
         <p>
           In the transition matrix here we can see the structure
           of our three sentences clearly. Almost all of the transition
@@ -107,14 +104,11 @@
           the relevant row and shows us the probability distribution
           of what the next word will be.
         </p>
-        <p style="text-align:center;">
           <img title="Transition probability lookup"
             src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/transition_lookups.png"
             alt="Transition probability lookup"
             style="height: 300px;">
-        </p>
-      ]]>
-    </description>
+      ]]></description>
   </item>
 
 
@@ -217,7 +211,7 @@
     https://www.brandonrohrer.com
     </link>
     <pubDate>
-    Tue, 14 Aug 2025 20:01:00 EDT
+    Thu, 14 Aug 2025 20:01:00 EDT
     </pubDate>
     <guid isPermaLink="false">
     2025081405
@@ -286,7 +280,7 @@
     https://www.brandonrohrer.com
     </link>
     <pubDate>
-    Tue, 13 Aug 2025 22:01:00 EDT
+    Wed, 13 Aug 2025 22:01:00 EDT
     </pubDate>
     <guid isPermaLink="false">
     2025081400
