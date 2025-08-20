@@ -59,6 +59,11 @@ https://www.dragino.com/downloads/downloads/LoRa_Gateway/LPS8/LPS8_LoRaWAN_Gatew
 
 https://www.chirpstack.io/docs/chirpstack-mqtt-forwarder/install/dragino.html#configure-packet-forwarder
 
+## Packet forwarder
+
+[MQTT](https://en.wikipedia.org/wiki/MQTT)
+[Python MQTT client](https://pypi.org/project/paho-mqtt/)
+
 -------
 
 https://www.dragino.com/products/lora-lorawan-end-node.html

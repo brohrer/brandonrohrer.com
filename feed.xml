@@ -4,6 +4,104 @@
 <link>https://www.brandonrohrer.com</link>
 <description>Brandon Rohrer's blog</description>
 
+
+  <item>
+    <title>
+    Transformers from Scratch 5/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com/transformers#second_order
+    </link>
+    <pubDate>
+    Tue, 19 Aug 2025 20:34:00 EDT
+    </pubDate>
+    <guid>
+    https://www.brandonrohrer.com/transformers#second_order
+    </guid>
+    <description><![CDATA[
+        <h3 id="second_order">Second order sequence model</h3>
+        <p>
+          Predicting the next word based on only the current word is
+          hard. That's like predicting the rest of a tune after being
+          given just the first note. Our chances are a lot better if
+          we can at least get two notes to go on.
+        </p>
+        <p>
+          We can see how this works in another toy language model
+          for our computer commands. We expect that this one
+          will only ever see two sentences, in a 40/60 proportion.
+          <ul>
+            <li>
+              <em>Check whether the battery ran down please.</em>
+            </li>
+            <li>
+              <em>Check whether the program ran please.</em>
+            </li>
+          </ul>
+          A Markov chain illustrates a first order model for this.
+        </p>
+        <p style="text-align:center;">
+          <img title="Another first order Markov chain transition model"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/markov_chain_2.png"
+            alt="Another first order Markov chain transition model"
+            style="height: 250px;">
+        </p>
+        <p>
+          Here we can see that if our model looked at the two most recent
+          words, instead of just one, that it could do a better job. When it
+          encounters <em>battery ran</em>, it knows that the next word
+          will be <em>down</em>, and when it sees <em>program ran</em>
+          the next word will be <em>please</em>. This eliminates one of
+          the branches in the model, reducing uncertainty and increasing
+          confidence.
+          Looking back two words turns this into a second order Markov model.
+          It gives more context on which to base next word predictions.
+          Second order Markov chains are more challenging to
+          draw, but here are the connections that demonstrate their value.
+        </p>
+        <p style="text-align:center;">
+          <img title="Second order Markov chain"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/markov_chain_second_order.png"
+            alt="Second order Markov chain"
+            style="height:250px;">
+        </p>
+        <p>
+          To highlight the difference between the two,
+          here is the first order transition matrix,
+        </p>
+        <p style="text-align:center;">
+          <img title="Another first order transition matrix"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/transition_matrix_first_order_2.png"
+            alt="Another first order transition matrix"
+            style="height: 350px;">
+        </p>
+        <p>
+          and here is the second order transition matrix.
+        </p>
+        <p style="text-align:center;">
+          <img title="Second order transition matrix"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/transition_matrix_second_order.png"
+            alt="Second order transition matrix"
+            style="height: 350px;">
+        </p>
+        <p>
+          Notice how the second order matrix has a separate row for every
+          combination of words (most of which are not shown here). That
+          means that if we start with a vocabulary size of <em>N</em>
+          then the transition matrix has <em>N</em>^2 rows.
+        </p>
+        <p>
+          What this
+          buys us is more confidence. There are more ones and fewer
+          fractions in the second order model. There's only one row
+          with fractions in it, one branch in our model. Intuitively,
+          looking at two words instead of just one gives more context,
+          more information on which to base a next word guess.
+        </p>
+
+      ]]></description>
+  </item>
+
   <item>
     <title>
     How to start publishing an RSS feed
