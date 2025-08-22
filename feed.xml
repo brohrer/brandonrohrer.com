@@ -6,6 +6,116 @@
 
   <item>
     <title>
+    Transformers from Scratch 7/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com/transformers#masking
+    </link>
+    <pubDate>
+    Thu, 21 Aug 2025 20:34:00 EDT
+    </pubDate>
+    <guid>
+    https://www.brandonrohrer.com/transformers#masking
+    </guid>
+    <description><![CDATA[
+
+        <h3 id="masking">Masking</h3>
+        <p>
+          On more careful consideration, this is unsatisfying. The difference
+          between a vote total of 4 and 5 is relatively small. It suggests
+          that the model isn't as confident as it could be. And in
+          a larger, more organic language model it's easy to imagine that
+          such a slight difference could be lost in the statistical noise.
+        </p>
+        <p>
+          We can sharpen the prediction by weeding out all the uninformative
+          feature votes. With the exception of <em>battery, ran</em>
+          and <em>program, ran</em>. It's helpful to remember at this point
+          that we pull the <a href="#table_lookup">relevant rows</a>
+          out of the transition matrix by
+          multiplying it with a vector showing which features are currently
+          active. For this example so far, we've been using the implied
+          feature vector shown here.
+        </p>
+        <p style="text-align:center;">
+          <img title="Feature selection vector"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/feature_selection.png"
+            alt="Feature selection vector"
+            style="height: 150px;">
+        </p>
+        <p>
+          It includes a one for each feature that is a combination of
+          <em>ran</em> with each of the words that come before it. Any words
+          that come after it don't get included in the feature set.
+          (In the next word prediction problem these haven't been seen yet,
+          and so it's not fair to use them predict what comes next.)
+          And this doesn't include all the other possible word
+          combinations.
+          We can safely ignore these for this example because they will
+          all be zero.
+        </p>
+        <p>
+          To improve our results, we can additionally force the unhelpful
+          features to zero by creating a <strong>mask</strong>. It's
+          a vector full of ones except for the positions you'd like to
+          hide or mask, and those are set to zero. In our case we'd like
+          to mask everything except for 
+          <em>battery, ran</em>
+          and <em>program, ran</em>, the only two features that have
+          been of any help. 
+        </p>
+        <p style="text-align:center;">
+          <img title="Masked feature activities"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/masked_feature_activities.png"
+            alt="Masked feature activities"
+            style="height:300px;">
+        </p>
+        <p>
+          To apply the mask, we multiply the two vectors element by element.
+          Any feature activity value in an unmasked position will be
+          multiplied by one and left unchanged. Any feature activity value
+          in a masked position will be multiplied by zero, and thus forced
+          to zero.
+        </p>
+        <p>
+          The mask has the effect of hiding a lot of the transition matrix.
+          It hides the combination of <em>ran</em> with everything except
+          <em>battery</em> and <em>program</em>, leaving just the features
+          that matter. 
+        </p>
+        <p style="text-align:center;">
+          <img title="Masked transition matrix"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/masked_transition_matrix.png"
+            alt="Masked transition matrix"
+            style="height:350px;">
+        </p>
+        <p>
+          After masking the unhelpful features, the next word predictions
+          become much stronger. When the word <em>battery</em> occurs
+          earlier in the sentence, the word after <em>ran</em> is
+          predicted to be <em>down</em> with a weight of 1 and
+          <em>please</em> with a weight of 0. What was a weight difference
+          of 25 percent has become a difference of infinity percent.
+          There is no doubt what word comes next. The same strong
+          prediction occurs for <em>please</em> when
+          <em>program</em> occurs early on.
+        </p>
+        <p>
+          This process of selective masking is the <strong>attention</strong>
+          called out in the title of the original
+          <a href="https://proceedings.neurips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf">
+            paper</a> on transformers.
+          So far, what we've descibed is a just an approximation of
+          how attention is implemented in the paper. It captures
+          the important concepts, but the details are different. We'll
+          close that gap later.
+        </p>
+
+      ]]></description>
+  </item>
+
+  <item>
+    <title>
     Transformers from Scratch 6/🧵
     </title>
     <link>
