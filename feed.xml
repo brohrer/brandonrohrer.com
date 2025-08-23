@@ -6,6 +6,93 @@
 
   <item>
     <title>
+    Transformers from Scratch 8/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com/transformers#rest_stop
+    </link>
+    <pubDate>
+    Fri, 22 Aug 2025 20:34:00 EDT
+    </pubDate>
+    <guid>
+    https://www.brandonrohrer.com/transformers#rest_stop
+    </guid>
+    <description><![CDATA[
+
+
+        <h3 id="rest_stop">Rest Stop and an Off Ramp</h3>
+        <p>
+          Congratulations on making it this far. You can stop if you want.
+          The selective-second-order-with-skips model is a useful way to think
+          about what transformers do, at least in the decoder side.
+          It captures, to a first approximation, what generative
+          language models like
+          OpenAI's <a href="https://en.wikipedia.org/wiki/GPT-3">GPT-3</a>
+          are doing. It doesn't tell the complete story, but it represents
+          the central thrust of it.
+        </p>
+        <p>
+          The next sections cover more of the gap between this
+          intuitive explanation and how transformers are implemented.
+          These are largely driven by three practical considerations.
+          <ol>
+            <li>
+              <strong>Computers are especially good at matrix
+              multiplications.</strong>
+              There is an entire industry around
+              building computer hardware specifically for fast
+              matrix multiplications. Any computation that can
+              be expressed as a matrix multiplication can be made
+              shockingly efficient. It's a bullet train. If you can get
+              your baggage into it, it will get you where you want to go
+              real fast.
+            </li>
+            <li>
+              <strong>Each step needs to be differentiable.</strong>
+              So far we've just been working with toy examples, and have
+              had the luxury of hand-picking all the transition probabilities
+              and mask values&mdash;the model <strong>parameters</strong>.
+              In practice, these have to be learned via
+              <strong>backpropagation</strong>,
+              which depends on each computation step
+              being differentiable. This means that for any small change
+              in a parameter, we can calculate the corresponding
+              change in the model error
+              or <strong>loss</strong>.
+            </li>
+            <li>
+              <strong>The gradient needs to be smooth and well
+              conditioned.</strong>
+              The combination of all the
+              derivatives for all the parameters is the loss
+              <strong>gradient</strong>.
+              In practice, getting backpropagation to behave well requires
+              gradients that are smooth, that is, the slope doesn’t change
+              very quickly as you make small steps in any direction.
+              They also behave much better when the gradient is well conditioned,
+              that is, it’s not radically larger in one direction than another.
+              If you picture a loss function as a landscape, The Grand Canyon
+              would be a poorly conditioned one. Depending on whether you are
+              traveling along the bottom, or up the side, you will have very
+              different slopes to travel. By contrast, the rolling hills of
+              the classic Windows screensaver would have a well conditioned
+              gradient.
+              <br>
+              If the science of architecting neural networks is creating
+              differentiable building blocks, the art of them is stacking
+              the pieces in such a way that
+              the gradient doesn’t change too quickly
+              and is roughly of the same magnitude in every direction.
+            </li>
+          </ol>
+        </p>
+
+
+      ]]></description>
+  </item>
+
+  <item>
+    <title>
     Transformers from Scratch 7/🧵
     </title>
     <link>
