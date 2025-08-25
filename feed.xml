@@ -6,6 +6,70 @@
 
   <item>
     <title>
+    Transformers from Scratch 9/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com/transformers#attention
+    </link>
+    <pubDate>
+    Mon, 25 Aug 2025 19:34:00 EDT
+    </pubDate>
+    <guid>
+    https://www.brandonrohrer.com/transformers#attention
+    </guid>
+    <description><![CDATA[
+
+
+        <h3 id="attention">Attention as matrix multiplication</h3>
+        <p>
+          Feature weights could be straightforward to build by counting
+          how often each word pair/next word transition occurs
+          in training, but attention masks are not.
+          Up to this point, we've pulled the mask vector out of thin air.
+          How transformers find the relevant mask matters. It would be
+          natural to use some sort of lookup table, but now we are focusing
+          hard on expressing everything as matrix multiplications. We can
+          use the same <a href="table_lookup">lookup</a> method we
+          introduced above by stacking the mask vectors for every word
+          into a matrix and using the one-hot representation of the
+          most recent word to pull out the relevant mask.
+        </p>
+        <p style="text-align:center;">
+          <img title="Mask lookup by matrix multiplication"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/mask_matrix_lookup.png"
+            alt="Mask lookup by matrix multiplication"
+            style="height:450px;">
+        </p>
+        <p>
+          In the matrix showing the collection of mask vectors, we've only
+          shown the one we're trying to pull out, for clarity.
+        </p>
+        <p>
+          We're finally getting to the point where we can start tying into
+          the paper. This mask lookup is represented by the
+          <em>QK^T</em> term in the attention equation.
+        </p>
+        <p style="text-align:center;">
+          <img title="Attention equation highlighting QKT"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/attention_equation_QKT.png"
+            alt="Attention equation highlighting QKT"
+            style="height:100px;">
+        </p>
+        <p>
+          The query <em>Q</em> represents the feature of interest and the
+          matrix <em>K</em> represents the collection of masks. Because
+          it's stored with masks in columns, rather than rows, it needs to
+          be transposed (with the <em>T</em> operator) before multiplying.
+          By the time we're all done, we'll make some important modifications
+          to this, but at this level it captures the concept of a
+          differentiable lookup table that transformers make use of.
+        </p>
+
+      ]]></description>
+  </item>
+
+  <item>
+    <title>
     Transformers from Scratch 8/🧵
     </title>
     <link>
@@ -18,7 +82,6 @@
     https://www.brandonrohrer.com/transformers#rest_stop
     </guid>
     <description><![CDATA[
-
 
         <h3 id="rest_stop">Rest Stop and an Off Ramp</h3>
         <p>
@@ -86,7 +149,6 @@
             </li>
           </ol>
         </p>
-
 
       ]]></description>
   </item>

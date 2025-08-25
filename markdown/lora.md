@@ -64,9 +64,11 @@ https://www.chirpstack.io/docs/chirpstack-mqtt-forwarder/install/dragino.html#co
 [MQTT](https://en.wikipedia.org/wiki/MQTT)
 [Python MQTT client](https://pypi.org/project/paho-mqtt/)
 
+
 -------
 
 https://www.dragino.com/products/lora-lorawan-end-node.html
 https://www.dragino.com/products/lora/item/232-la66-usb-lorawan-adapter.html
+https://www.hackster.io/sufiankaki/lora-e5-the-things-network-mqtt-655086
 
 https://www.seeedstudio.com/blog/2021/04/27/a-gentle-introduction-to-lorawan-gateways-nodes/
