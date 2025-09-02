@@ -107,6 +107,29 @@ the user you just created. If it works, you'll see a dialog box like this
 ![tzdata configuration screen, evidence that sudo permissions were bestowed
 ](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/tzdata_config.png)
 
+It's also a good time to enable ssh for the new user. First make a copy
+of the authorized keys.
+
+```
+mkdir .ssh
+sudo cp /root/.ssh/authorized_keys .ssh/
+```
+
+The set all the ownership and permissions on them so that they will work
+for you.
+
+```
+sudo chown -R brohrer:brohrer /home/brohrer/.ssh
+sudo chmod 0700 /home/brohrer/.ssh
+sudo chmod 0600 /home/brohrer/.ssh/authorized_keys
+```
+
+The next time you ssh into your machine you can do it with your user name.
+
+```
+ssh brohrer@138.197.69.146
+```
+
 ## Install the Nginx web server 
 
 Next is installing some web server software. There are a few popular ones,

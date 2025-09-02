@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Hosting your own website";</script>
-  <script type="text/javascript">var publication_date = "August 26, 2025";</script>
+  <script type="text/javascript">var publication_date = "September 01, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -179,6 +179,41 @@ the user you just created. If it works, you'll see a dialog box like this
 <p>
 <img alt="tzdata configuration screen, evidence that sudo permissions were bestowed
 " src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/tzdata_config.png">
+</p>
+
+<p>
+It's also a good time to enable ssh for the new user. First make a copy
+of the authorized keys.
+</p>
+
+<p>
+<pre>
+mkdir .ssh
+sudo cp /root/.ssh/authorized_keys .ssh/
+</pre>
+</p>
+
+<p>
+The set all the ownership and permissions on them so that they will work
+for you.
+</p>
+
+<p>
+<pre>
+sudo chown -R brohrer:brohrer /home/brohrer/.ssh
+sudo chmod 0700 /home/brohrer/.ssh
+sudo chmod 0600 /home/brohrer/.ssh/authorized_keys
+</pre>
+</p>
+
+<p>
+The next time you ssh into your machine you can do it with your user name.
+</p>
+
+<p>
+<pre>
+ssh brohrer@138.197.69.146
+</pre>
 </p>
 
 <h2><a id="Install-the-Nginx-web-server-"></a><a href="#Install-the-Nginx-web-server-">Install the Nginx web server </a></h2>
