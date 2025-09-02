@@ -177,3 +177,5 @@ archive/
 *.log
 *.out
 *.pdf
+
+.htaccess

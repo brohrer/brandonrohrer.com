@@ -170,8 +170,7 @@ gave me
 
 ```
 Server:		2001:558:feed::1
-Address:	2001:558:feed::1#53
-
+Address:	2001:558:feed::1#53 <br>
 Non-authoritative answer:
 Name:	e2eml.school
 Address: 138.197.69.146
