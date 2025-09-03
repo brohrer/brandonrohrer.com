@@ -225,7 +225,9 @@ Wizard Zines](https://jvns.ca/blog/2024/04/25/new-zine--how-git-works-/)
 is an amazing explainer.
 There are
 [some other helpful resources](https://www.brandonrohrer.com/git_resources)
-here, especially [Oh shit, git!](https://ohshitgit.com), the
+here, especially [Oh shit, git!](https://ohshitgit.com) (
+also available [as a zine](https://wizardzines.com/zines/oh-shit-git/)
+), the
 repair kit in case things go off the rails.
 
 If your repo is on GitHub, then you can put in to your server where
