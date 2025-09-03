@@ -8,6 +8,153 @@
 
   <item>
     <title>
+    Transformers from Scratch 11/🧵
+    </title>
+    <link>
+    https://www.brandonrohrer.com/transformers#embeddings
+    </link>
+    <pubDate>
+    Wed, 03 Sep 2025 19:34:00 EDT
+    </pubDate>
+    <guid>
+    https://www.brandonrohrer.com/transformers#embeddings
+    </guid>
+    <description><![CDATA[
+
+
+        <h3 id="embeddings">Embeddings</h3>
+        <p>
+          As we’ve described them so far, transformers are too big.
+          For a vocabulary size <em>N</em> of say 50,000, the transition
+          matrix between all pairs of words and all potential next words
+          would have 50,000 columns and 50,000 squared (2.5 billion) rows,
+          totaling over 100 trillion elements. That is still a stretch,
+          even for modern hardware.
+        </p>
+        <p>
+          It’s not just the size of the matrices that’s the problem.
+          In order to build a stable transition language model, we would
+          have to provide training data illustrating every potential
+          sequence several times at least. That would far exceed
+          the capacity of even the most ambitious training data sets.
+        </p>
+        <p>
+          Fortunately, there is a workaround for both of these problems,
+          embeddings.
+        </p>
+        <p>
+          In a one-hot representation of a language, there is one
+          vector element for each word. For a vocabulary of size <em>N</em>
+          that vector is an <em>N</em>-dimensional space. Each word represents
+          a point in that space, one unit away from the origin along
+          one of the many axes. I haven't figured out a great way to
+          draw a high dimensional space, but there's a crude representation
+          of it below.
+        </p>
+        <p style="text-align:center;">
+          <img title=""
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/one_hot_vs_embedding.png"
+            alt=""
+            style="height:300px;">
+        </p>
+        <p>
+          In an embedding, those word points are all taken and rearranged
+          (<strong>projected</strong>, in linear algebra terminology)
+          into a lower-dimensional space. The picture above shows what
+          they might look like in a 2-dimensional space for example.
+          Now, instead of needing <em>N</em> numbers to specify a word,
+          we only need 2. These are the (<em>x</em>, <em>y</em>)
+          coordinates of each point in the new space. Here's what a
+          2-dimensional embedding might look like for our toy example,
+          together with the coordinates of a few of the words.
+        </p>
+        <p style="text-align:center;">
+          <img title=""
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/embedded_words.png"
+            alt=""
+            style="height:300px;">
+        </p>
+        <p>
+          A good embedding groups words with similar meanings together.
+          A model that works with an embedding learns patterns in the
+          embedded space. That means that whatever it learns to do with
+          one word automatically gets applied to all the words right next
+          to it. This has the added benefit of reducing the amount of
+          training data needed. Each example gives a little bit of
+          learning that gets applied across a whole neighborhood of words.
+        </p>
+        <p>
+          In this illustration I tried to show that by putting important
+          components in one area (<em>battery</em>,
+          <em>log</em>, <em>program</em>), prepositions in another
+          (<em>down</em>, <em>out</em>), and verbs near the center
+          (<em>check</em>, <em>find</em>, <em>ran</em>). In an actual embedding
+          the groupings may not be so clear or intuitive, but the
+          underlying concept is the same. Distance is small between words
+          that behave similarly.
+        </p>
+        <p>
+          An embedding reduces the number of parameters needed by
+          a tremendous amount. However, the fewer the dimensions in the
+          embedded space, the more information about the original
+          words gets discarded. The richness of a language still
+          requires quite a bit of space to lay out all the important
+          concepts so that they don't step on each other's toes.
+          By choosing the size of the embedded space,
+          we get to trade off computational load for model accuracy.
+        </p>
+        <p>
+          It will probably not surprise you to learn that projecting
+          words from their one-hot representation to an embedded space
+          involves a matrix multiplication. Projection is what matrices
+          do best. Starting with a one-hot matrix that has one row and
+          <em>N</em> columns, and moving to an embedded space of two
+          dimensions, the projection matrix will have <em>N</em> rows
+          and two columns, as shown here.
+        </p>
+        <p style="text-align:center;">
+          <img title="A projection matrix describing an embedding"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/embedding_projection.png"
+            alt="A projection matrix describing an embedding"
+            style="height:350px;">
+        </p>
+        <p>
+          This example shows how a one-hot vector, representing for example
+          <em>battery</em>, pulls out the row associated with it,
+          which contains the coordinates of the word in the embedded space.
+          In order to make the relationship clearer,
+          the zeros in the one-hot vector are hidden, as are all the other rows
+          that don't get pulled out of the projection matrix.
+          The full projection matrix is dense, each row containing the
+          coordinates of the word it's associated with.
+        </p>
+        <p>
+          Projection matrices can convert the original collection of one-hot
+          vocabulary vectors into any configuration in a space of whatever
+          dimensionality you want.
+          The biggest trick is finding a useful
+          projection, one that has similar words grouped together, and
+          one that has enough dimensions to spread them out.
+          There are some decent pre-computed embeddings for common langauges,
+          like English. Also, like everything else in the transformer,
+          it can be learned during training.
+        </p>
+        <p>
+          In the Figure 1 architecture diagram of the original paper,
+          here's where the embedding happens.
+        </p>
+        <p style="text-align:center;">
+          <img title="Transformer architecture showing the embedding block"
+            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/architecture_embedding.png"
+            alt="Transformer architecture showing the embedding block"
+            style="height:450px;">
+        </p>
+    ]]></description>
+  </item>
+
+
+  <item>
+    <title>
     Attaching your web server to a domain name
     </title>
     <link>
