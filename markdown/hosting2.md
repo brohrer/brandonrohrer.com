@@ -270,6 +270,14 @@ The next post is going to change that into a `https://` and do some
 other things to harden the security of your website and server.
 It's a brutal world out there, and it pays to protect yourself.
 
+## Deploy changes
 
+When you make edits or add pages the steps to deploy them are, first,
+make sure the changes are reflected in the git repository. Then,
+ssh into the server and run
 
+```
+cd /var/www/your-domain
+sudo git pull origin HEAD
+```
 

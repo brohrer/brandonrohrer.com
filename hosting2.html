@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Attach your web server to a domain name";</script>
-  <script type="text/javascript">var publication_date = "September 02, 2025";</script>
+  <script type="text/javascript">var publication_date = "September 06, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -389,6 +389,21 @@ At this point, you have a fully deployed website at <code>http://your-domain</co
 The next post is going to change that into a <code>https://</code> and do some
 other things to harden the security of your website and server.
 It's a brutal world out there, and it pays to protect yourself.
+</p>
+
+<h2><a id="Deploy-changes"></a><a href="#Deploy-changes">Deploy changes</a></h2>
+
+<p>
+When you make edits or add pages the steps to deploy them are, first,
+make sure the changes are reflected in the git repository. Then,
+ssh into the server and run
+</p>
+
+<p>
+<pre>
+cd /var/www/your-domain
+sudo git pull origin HEAD
+</pre>
 </p>
 
         <script src="javascripts/blog_signature.js"></script>
