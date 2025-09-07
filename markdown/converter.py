@@ -206,13 +206,13 @@ def convert(filename):
     html_filename = ".".join(filename.split(".")[:-1] + ["html"])
     try:
         os.rename(
-            os.path.join("..", html_filename),
-            os.path.join("..", html_filename + ".bak")
+            os.path.join("..", "html", html_filename),
+            os.path.join("..", "html", html_filename + ".bak")
         )
     except FileNotFoundError:
         pass
 
-    with open(os.path.join("..", html_filename), "wt") as f:
+    with open(os.path.join("..", "html", html_filename), "wt") as f:
         f.write(html_all)
 
 
