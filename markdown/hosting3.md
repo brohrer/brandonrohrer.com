@@ -121,30 +121,31 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
-### Create an alias the ssh command 
-
-Another touch you can add is to create an alias. In your shell startup file
-on your local machine
-(`~/.zshrc` if you're on a Mac)
-you can add a line that looks like
-
-```
-alias sshserver="ssh brohrer@138.197.69.146" 
-```
-
-This will let you ssh to your web server with the command `sshserver`
-(or whatever word you prefer in its place).
-Running
-
-```
-source ~/.zshrc
-```
-
-will make it effective immediately.
+### ssh by domain name rather than IP address
 
 As a helpful reader pointed out, any workflow that requires us to remember
 an IP address is flawed. With a few notable exceptions humans are really bad
 at consistently remembering strings of numbers. 
+You can set it up so that you can 
+
+```
+ssh myserver
+```
+
+instead of having to remember any numbers.
+
+On your local machine---the one you have hands on keyboard--- open
+`~/.ssh/config` for editing and add lines that look like this
+
+```
+Host myserver
+  Hostname 192.0.2.146
+  User brohrer
+```
+
+From now on ssh will re-interpret `ssh myserver` as
+`ssh brohrer@192.0.2.146`. If you need to log on as another user you
+can still do it the old fashioned way: `ssh anotheruser@192.0.2.146`. 
 
 -----
 

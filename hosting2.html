@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Attach your web server to a domain name";</script>
-  <script type="text/javascript">var publication_date = "September 06, 2025";</script>
+  <script type="text/javascript">var publication_date = "September 07, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -28,7 +28,7 @@ The next step is to make it act like a real website.
 
 <p>
 The first thing to do is to name it. 
-Typing <code>http://138.197.69.146</code> to get to your content is impersonal,
+Typing <code>http://192.0.2.146</code> to get to your content is impersonal,
 boring, and impossible to remember. The name of a website is its
 <a href="https://en.wikipedia.org/wiki/Domain_name">domain name</a>.
 For example, the domain name for English-language Wikipedia
@@ -88,8 +88,8 @@ next month you can always buy another domain.
 </p>
 
 <p>
-There are quite a few reputable domain registrars&mdash;places that can sell you a
-domain name&mdash;and it's tough to go wrong. I get mine through
+There are quite a few reputable domain registrars--places that can sell you a
+domain name--and it's tough to go wrong. I get mine through
 <a href="https://www.namecheap.com/">Namecheap</a>, but other popular ones are
 <a href="https://www.hostinger.com">Hostinger</a>,
 <a href="https://www.godaddy.com/">GoDaddy</a>, and
@@ -134,7 +134,7 @@ started. A records establish the IPv4 address assoicated with the domain name.</
 maybe something like <code>brandonrohrer.com</code>. <code>www</code> is also shorthand for 
 <code>www.brandonrohrer.com</code>, just like <code>en</code> in this column would be
 shorthand for <code>en.wikipedia.org</code> if we were setting up the Wikipedia page.</li>
-<li> ` <strong>Value</strong> The IP address that the Host should be directed to. For us this
+<li> <strong>Value</strong> The IP address that the Host should be directed to. For us this
 will be the IP address of the web server we just created.</li>
 <li> <strong>TTL</strong> Time to live for this DNS record on the domain name servers before
 they forget about it and have to ask again. "Automatic" is fine unti
@@ -144,7 +144,7 @@ you start doing fancy things with DNS.</li>
 <p>
 The entries in this image will send any Internet user in the world who
 puts <code>brandonrohrer.com</code> or <code>www.brandonrohrer.com</code> in their browser to 
-<code>138.197.69.146</code>.
+<code>192.0.2.146</code>.
 </p>
 
 <p>
@@ -178,7 +178,7 @@ a couple of days.
 <p>
 You can check in on the process while waiting. There are several
 command line invocations on Linux and MacOS that resolve a domain name.
-After reassigning <code>e2eml.school</code> to <code>138.197.69.146</code> here were some
+After reassigning <code>e2eml.school</code> to <code>192.0.2.146</code> here were some
 of the ways it showed up.
 </p>
 
@@ -196,11 +196,11 @@ gave me
 
 <p>
 <pre>
-PING e2eml.school (138.197.69.146): 56 data bytes
-64 bytes from 138.197.69.146: icmp_seq=0 ttl=46 time=19.565 ms
-64 bytes from 138.197.69.146: icmp_seq=1 ttl=46 time=19.744 ms
-64 bytes from 138.197.69.146: icmp_seq=2 ttl=46 time=22.920 ms
-64 bytes from 138.197.69.146: icmp_seq=3 ttl=46 time=23.076 ms
+PING e2eml.school (192.0.2.146): 56 data bytes
+64 bytes from 192.0.2.146: icmp_seq=0 ttl=46 time=19.565 ms
+64 bytes from 192.0.2.146: icmp_seq=1 ttl=46 time=19.744 ms
+64 bytes from 192.0.2.146: icmp_seq=2 ttl=46 time=22.920 ms
+64 bytes from 192.0.2.146: icmp_seq=3 ttl=46 time=23.076 ms
 ...
 </pre>
 </p>
@@ -225,7 +225,7 @@ gave me
 
 <p>
 <pre>
-e2eml.school has address 138.197.69.146
+e2eml.school has address 192.0.2.146
 ...
 </pre>
 </p>
@@ -255,7 +255,7 @@ Server:		2001:558:feed::1
 Address:	2001:558:feed::1#53 <br>
 Non-authoritative answer:
 Name:	e2eml.school
-Address: 138.197.69.146
+Address: 192.0.2.146
 </pre>
 </p>
 
@@ -278,7 +278,7 @@ gave me
 
 <p>
 <pre>
-e2eml.school.		1799	IN	A	138.197.69.146
+e2eml.school.		1799	IN	A	192.0.2.146
 </pre>
 </p>
 
@@ -287,8 +287,20 @@ In yet another way it returns the IP address for the domain.
 </p>
 
 <p>
+A convenient way to run bulk checks from a collection of places
+around the world is from a
+<a href="https://dnschecker.org">DNS checker website</a>.
+</p>
+
+<p>
+<img alt="A DNS checker running e2eml.school from all over the world
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/dns_checker.png">
+</p>
+
+<p>
 When all of these agree, that's a pretty good sign that the DNS record change
-is complete. But the ultimate test is to run and end to end verification.
+is complete.
+But the ultimate test is to run and end to end verification.
 Make some change to a <code>.html</code> file on the server and see whether it
 shows up when you try to read that file in your browser. 
 </p>
@@ -324,7 +336,7 @@ my.website.com
 </p>
 
 <p>
-If you're new to git and want to open the black box, <a href="https://jvns.ca/blog/2024/04/25/new-zine&mdash;how-git-works-/">Julia Evans'
+If you're new to git and want to open the black box, <a href="https://jvns.ca/blog/2024/04/25/new-zine--how-git-works-/">Julia Evans'
 Wizard Zines</a>
 is an amazing explainer.
 There are

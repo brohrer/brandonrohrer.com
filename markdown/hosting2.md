@@ -6,7 +6,7 @@ The next step is to make it act like a real website.
 ## Buy a domain name
 
 The first thing to do is to name it. 
-Typing `http://138.197.69.146` to get to your content is impersonal,
+Typing `http://192.0.2.146` to get to your content is impersonal,
 boring, and impossible to remember. The name of a website is its
 [domain name](https://en.wikipedia.org/wiki/Domain_name).
 For example, the domain name for English-language Wikipedia
@@ -85,7 +85,7 @@ started. A records establish the IPv4 address assoicated with the domain name.
 maybe something like `brandonrohrer.com`. `www` is also shorthand for 
 `www.brandonrohrer.com`, just like `en` in this column would be
 shorthand for `en.wikipedia.org` if we were setting up the Wikipedia page.
-- ` **Value** The IP address that the Host should be directed to. For us this
+- **Value** The IP address that the Host should be directed to. For us this
 will be the IP address of the web server we just created.
 - **TTL** Time to live for this DNS record on the domain name servers before
 they forget about it and have to ask again. "Automatic" is fine unti
@@ -93,7 +93,7 @@ you start doing fancy things with DNS.
 
 The entries in this image will send any Internet user in the world who
 puts `brandonrohrer.com` or `www.brandonrohrer.com` in their browser to 
-`138.197.69.146`.
+`192.0.2.146`.
 
 DNS is a big topic, and the details can bite you occassionally. If you
 have a few minutes and a little curiosity, I recommend checking out
@@ -118,7 +118,7 @@ a couple of days.
 
 You can check in on the process while waiting. There are several
 command line invocations on Linux and MacOS that resolve a domain name.
-After reassigning `e2eml.school` to `138.197.69.146` here were some
+After reassigning `e2eml.school` to `192.0.2.146` here were some
 of the ways it showed up.
 
 ### `ping`
@@ -130,11 +130,11 @@ ping e2eml.school
 gave me
 
 ```
-PING e2eml.school (138.197.69.146): 56 data bytes
-64 bytes from 138.197.69.146: icmp_seq=0 ttl=46 time=19.565 ms
-64 bytes from 138.197.69.146: icmp_seq=1 ttl=46 time=19.744 ms
-64 bytes from 138.197.69.146: icmp_seq=2 ttl=46 time=22.920 ms
-64 bytes from 138.197.69.146: icmp_seq=3 ttl=46 time=23.076 ms
+PING e2eml.school (192.0.2.146): 56 data bytes
+64 bytes from 192.0.2.146: icmp_seq=0 ttl=46 time=19.565 ms
+64 bytes from 192.0.2.146: icmp_seq=1 ttl=46 time=19.744 ms
+64 bytes from 192.0.2.146: icmp_seq=2 ttl=46 time=22.920 ms
+64 bytes from 192.0.2.146: icmp_seq=3 ttl=46 time=23.076 ms
 ...
 ```
 
@@ -151,7 +151,7 @@ host e2eml.school
 gave me
 
 ```
-e2eml.school has address 138.197.69.146
+e2eml.school has address 192.0.2.146
 ...
 ```
 
@@ -173,7 +173,7 @@ Server:		2001:558:feed::1
 Address:	2001:558:feed::1#53 <br>
 Non-authoritative answer:
 Name:	e2eml.school
-Address: 138.197.69.146
+Address: 192.0.2.146
 ```
 
 The IP address appears here too. This method is also complementary to
@@ -188,13 +188,21 @@ dig +noall +answer e2eml.school
 gave me
 
 ```
-e2eml.school.		1799	IN	A	138.197.69.146
+e2eml.school.		1799	IN	A	192.0.2.146
 ```
 
 In yet another way it returns the IP address for the domain.
 
+A convenient way to run bulk checks from a collection of places
+around the world is from a
+[DNS checker website](https://dnschecker.org).
+
+![A DNS checker running e2eml.school from all over the world
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/dns_checker.png)
+
 When all of these agree, that's a pretty good sign that the DNS record change
-is complete. But the ultimate test is to run and end to end verification.
+is complete.
+But the ultimate test is to run and end to end verification.
 Make some change to a `.html` file on the server and see whether it
 shows up when you try to read that file in your browser. 
 

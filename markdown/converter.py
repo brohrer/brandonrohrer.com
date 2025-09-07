@@ -171,7 +171,7 @@ def convert(filename):
         # special character conversions
         # Here are a bunch of others:
         # https://web.html.support/reference/greek-characters.cfm
-        block = re.sub("--", "&mdash;", block)
+        block = re.sub("---", "&mdash;", block)
         block = re.sub(r'\$<\$', "&lt;", block)
         block = re.sub(r'\$>\$', "&gt;", block)
         block = re.sub(r'\$pi\$', "&pi;", block)

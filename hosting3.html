@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Beef up security on your webserver";</script>
-  <script type="text/javascript">var publication_date = "September 06, 2025";</script>
+  <script type="text/javascript">var publication_date = "September 07, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -66,7 +66,7 @@ to your server, you can add them to your certbot with
 
 <p>
 <pre>
-sudo certbot &mdash;expand -d blog.e2eml.school,brandonrohrer.com,www.brandonrohrer.com
+sudo certbot --expand -d blog.e2eml.school,brandonrohrer.com,www.brandonrohrer.com
 </pre>
 </p>
 
@@ -191,41 +191,42 @@ sudo apt upgrade -y
 </pre>
 </p>
 
-<h3><a id="Create-an-alias-the-ssh-command-"></a><a href="#Create-an-alias-the-ssh-command-">Create an alias the ssh command </a></h3>
-
-<p>
-Another touch you can add is to create an alias. In your shell startup file
-on your local machine
-(<code>~/.zshrc</code> if you're on a Mac)
-you can add a line that looks like
-</p>
-
-<p>
-<pre>
-alias sshserver="ssh brohrer@138.197.69.146" 
-</pre>
-</p>
-
-<p>
-This will let you ssh to your web server with the command <code>sshserver</code>
-(or whatever word you prefer in its place).
-Running
-</p>
-
-<p>
-<pre>
-source ~/.zshrc
-</pre>
-</p>
-
-<p>
-will make it effective immediately.
-</p>
+<h3><a id="ssh-by-domain-name-rather-than-IP-address"></a><a href="#ssh-by-domain-name-rather-than-IP-address">ssh by domain name rather than IP address</a></h3>
 
 <p>
 As a helpful reader pointed out, any workflow that requires us to remember
 an IP address is flawed. With a few notable exceptions humans are really bad
 at consistently remembering strings of numbers. 
+You can set it up so that you can 
+</p>
+
+<p>
+<pre>
+ssh myserver
+</pre>
+</p>
+
+<p>
+instead of having to remember any numbers.
+</p>
+
+<p>
+On your local machine&mdash;the one you have hands on keyboard&mdash; open
+<code>~/.ssh/config</code> for editing and add lines that look like this
+</p>
+
+<p>
+<pre>
+Host myserver
+  Hostname 192.0.2.146
+  User brohrer
+</pre>
+</p>
+
+<p>
+From now on ssh will re-interpret <code>ssh myserver</code> as
+<code>ssh brohrer@192.0.2.146</code>. If you need to log on as another user you
+can still do it the old fashioned way: <code>ssh anotheruser@192.0.2.146</code>. 
 </p>
 
 <p>

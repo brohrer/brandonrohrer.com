@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Hosting your own website";</script>
-  <script type="text/javascript">var publication_date = "September 01, 2025";</script>
+  <script type="text/javascript">var publication_date = "September 07, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -24,7 +24,7 @@ Creating a web page is only the beginning. The business of sharing it with
 the world has a lot of moving parts and a lot of choke points.
 If an ISP decides to stop traffic to your website or if your hosting platform
 goes bankrupt there isn't a lot you can do about it. But what you can do is
-have a solid Plan B &mdash; being ready to spin up another copy of your
+have a solid Plan B -- being ready to spin up another copy of your
 website on another server. A server that you control, or at least a server
 of your choosing.
 </p>
@@ -91,14 +91,14 @@ And note the IP address.
 
 <p>
 I chose a small box with 1 GB Memory, 25 GB Disk in the NYC data center
-running Ubuntu 24.04. Its IP address is <code>138.197.69.146</code>.
+running Ubuntu 24.04. Its IP address is <code>192.0.2.146</code>.
 </p>
 
 <h2><a id="ssh-in-from-a-terminal"></a><a href="#ssh-in-from-a-terminal">ssh in from a terminal</a></h2>
 
 <p>
 <pre>
-ssh root@138.197.69.146
+ssh root@192.0.2.146
 </pre>
 </p>
 
@@ -133,7 +133,19 @@ sudo adduser brohrer
 </p>
 
 <p>
-and then create a password.
+and then create a password. A new one. One that you've never used anywhere,
+for anything.
+</p>
+
+<p>
+We'll do more with security later, but one thing you can do here is practice
+a little bit of security-through-obsurity and choose a non-obvious
+user name. <a href="https://www.flux.utah.edu/paper/singh-nsdi24">A very deep dive</a>
+on brute force ssh attacks show them to be mostly random, even including
+the usernames attempted. Choosing a common first name as a username, like
+<code>steve</code>,
+means that it's likely to get guessed far more often than, say,
+<code>stevienicks</code>. It' not any kind of hard defense, but every bit helps.
 </p>
 
 <p>
@@ -212,7 +224,7 @@ The next time you ssh into your machine you can do it with your user name.
 
 <p>
 <pre>
-ssh brohrer@138.197.69.146
+ssh brohrer@192.0.2.146
 </pre>
 </p>
 
@@ -347,7 +359,7 @@ sudo ufw status
 <pre>
 Status: active<br>
 To                         Action      From
-&mdash;                         &mdash;&mdash;&mdash;      &mdash;&mdash;
+--                         &mdash;&mdash;      &mdash;-
 OpenSSH                    ALLOW       Anywhere
 Nginx Full                 ALLOW       Anywhere
 OpenSSH (v6)               ALLOW       Anywhere (v6)
@@ -401,7 +413,7 @@ Mine responds like this.
 
 <p>
 The ultimate test comes from throwing the web address of the server
-into a browser <code>http://138.197.69.146</code>. It shows
+into a browser <code>http://192.0.2.146</code>. It shows
 this page if all has gone well
 </p>
 
@@ -414,7 +426,7 @@ this page if all has gone well
 The html file for this page is <code>/var/www/html/index.nginx-debian.html</code>.
 You can dump any other html files you want to share in this location too.
 I added a few others, for instance <code>pendulum.html</code>, which can be accessed
-at <code>http://138.197.69.146/pendulum.html</code>.
+at <code>http://192.0.2.146/pendulum.html</code>.
 </p>
 
 <h2><a id="What's-next"></a><a href="#What's-next">What's next</a></h2>

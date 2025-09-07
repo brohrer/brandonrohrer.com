@@ -49,12 +49,12 @@ Importantly, make sure to add your ssh key during the creation process.
 And note the IP address.
 
 I chose a small box with 1 GB Memory, 25 GB Disk in the NYC data center
-running Ubuntu 24.04. Its IP address is `138.197.69.146`.
+running Ubuntu 24.04. Its IP address is `192.0.2.146`.
 
 ## ssh in from a terminal
 
 ```
-ssh root@138.197.69.146
+ssh root@192.0.2.146
 ```
 
 and provide your passphrase if you have one.
@@ -78,7 +78,17 @@ in below.
 sudo adduser brohrer
 ```
 
-and then create a password.
+and then create a password. A new one. One that you've never used anywhere,
+for anything.
+
+We'll do more with security later, but one thing you can do here is practice
+a little bit of security-through-obsurity and choose a non-obvious
+user name. [A very deep dive](https://www.flux.utah.edu/paper/singh-nsdi24)
+on brute force ssh attacks show them to be mostly random, even including
+the usernames attempted. Choosing a common first name as a username, like
+`steve`,
+means that it's likely to get guessed far more often than, say,
+`stevienicks`. It' not any kind of hard defense, but every bit helps.
 
 Your new user will definitely want to do root-level things though, so
 it will need to have `sudo` permissions.
@@ -127,7 +137,7 @@ sudo chmod 0600 /home/brohrer/.ssh/authorized_keys
 The next time you ssh into your machine you can do it with your user name.
 
 ```
-ssh brohrer@138.197.69.146
+ssh brohrer@192.0.2.146
 ```
 
 ## Install the Nginx web server 
@@ -258,7 +268,7 @@ Mine responds like this.
 ```
 
 The ultimate test comes from throwing the web address of the server
-into a browser `http://138.197.69.146`. It shows
+into a browser `http://192.0.2.146`. It shows
 this page if all has gone well
 
 ![an Nginx welcome screen, evidence that Nginx was properly installed
@@ -267,7 +277,7 @@ this page if all has gone well
 The html file for this page is `/var/www/html/index.nginx-debian.html`.
 You can dump any other html files you want to share in this location too.
 I added a few others, for instance `pendulum.html`, which can be accessed
-at `http://138.197.69.146/pendulum.html`.
+at `http://192.0.2.146/pendulum.html`.
 
 
 ## What's next
