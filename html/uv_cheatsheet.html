@@ -46,7 +46,7 @@
           <tr>
             <td>
             Manually create<br>
-            &lt;script_name&gt;.py
+            <code>&lt;script_name&gt;.py</code>
               </td>
             <td>
             <code>uv init --script &lt;script_name&gt;.py</code>
@@ -55,31 +55,25 @@
           <tr>
             <td>
               Manually create<br>
-              &lt;app_name&gt;/
-              <ul>
-              <li>- .python-version</li>
-              <li>- README.md</li>
-              <li>- hello.py</li>
-              <li>- pyproject.toml</li>
+<pre>&lt;app_name&gt;/
+  ├─ pyproject.toml
+  ├─ .python-version
+  ├─ README.md
+  ├─ hello.py </pre>
             </td>
             <td> <code>uv init &lt;package_name&gt; </td>
           </tr>
           <tr>
             <td>
             Manually create<br>
-            &lt;package_name&gt;/
-            <ul>
-              <li>- pyproject.toml</li>
-              <li>- .python-version</li>
-              <li>- README.md</li>
-              <li>- src/</li>
-              <li>
-                <ul>
-                  <li>- &lt;package_name&gt;/<li>
-                  <li>-_init__.py</li>
-                  <li>py.typed</li>
-                </ul>
-              </ul>
+<pre>&lt;package_name&gt;/
+  ├─ pyproject.toml
+  ├─ .python-version
+  ├─ README.md
+  ├─ src/
+      ├─ &lt;package_name&gt;
+      ├─ __init__.py
+      ├─ py.typed</pre>
             </td>
             <td>
               <code>uv init --lib &lt;package_name&gt;</code>
