@@ -164,6 +164,7 @@ backpropagation on youtube. For the record, `brandonrohrer.com` is a
 terrible domain name for a link shortener. I also picked up `tyr.fyi`
 as a shorter domain for when I want erally short links.
 
+
 https://www.digitalocean.com/community/tutorials/nginx-rewrite-url-rules
 
 Redirects are implemented in the domain's server block.
@@ -175,24 +176,110 @@ sudo vi /etc/nginx/sites-available/brandonrohrer.com
 Add a line like this within the server block.
 
 ```
-rewrite ^/numba$ https://brandonrohrer.com/httyr/numba_tips.html permanent;
+location = /numba {
+    return 301 $scheme://brandonrohrer.com/numba_tips.html;
+}
 ```
 
-Substitute in the name of the 
+This instruction tells the server to look for a request that looks like
+`brandonrohrer.com/numba` and forwards the request to 
+`brandonrohrer.com/numba_tips.html`. `$scheme` preserves the `http` or
+`https`, whatever was used in the original request.
 
-https://www.digitalocean.com/community/tutorials/nginx-rewrite-url-rules
+Similarly, these lines take any request  like `brandonrohrer.com/bp`
+and redirect it toward a specific video URL.
 
-## Parse logs
+```
+location = /bp {
+    return 301 https://www.youtube.com/watch?v=6BMwisTZFr4;
+}
+```
+
+### Location blocks
+
+Redirects are an example of what can be done with location blocks.
+They can also be used to rewrite requests, or block access.
+
+In addition to exact matching on page names, location blocks can match
+on partial names, directories, and regex-specified patterns.
+They give fine grained control for how individual pages are accessed
+and even which IP addresses are allowed to access them, but they
+can quickly become complicated. Individual requests can match multiple
+location blocks, and the match is not determined on a first-come,
+first-served bases, but rather based on a set of rules. Use with due caution.
+The DigitalOcean [docs on how location blocks get matched](https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms)
+are a great resource if you want to dig into this.
 
 ## Set up log rotation
-sudo nano /etc/logrotate.d/nginx
-`
 
-## Set up auto updating
+By default, access logs are stored in `access.log` and error logs are
+stored in `error.log` and those files just keep getting longer and longer.
+I find it really helpful to have one an automatic log rotation in place
+where each file contains just one day's access logs or errors. Todays
+are called `access.log` and `error.log`, yesterday's are
+`access.log.1` and `error.log.1`, and the day before that
+`access.log.2`, et cetera, covering the last couple of weeks.
+(Starting at day 2 they are also gzipped.) There is
+[a great guide](https://www.digitalocean.com/community/tutorials/how-to-configure-logging-and-log-rotation-in-nginx-on-an-ubuntu-vps#managing-a-log-rotation)
+to setting this up in the DO docs. The meat of the setup involves
+modifying the file `/etc/logrotate.d/nginx`
 
+After modifying it, this is what my log rotation config looks like
+
+```
+/var/log/nginx/brandonrohrer.com/*.log {
+	daily
+	missingok
+	rotate 14
+	compress
+	delaycompress
+	notifempty
+	create 0644 www-data adm
+	sharedscripts
+	prerotate
+		if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+			run-parts /etc/logrotate.d/httpd-prerotate; \
+		fi \
+	endscript
+	postrotate
+		invoke-rc.d nginx rotate >/dev/null 2>&1
+	endscript
+}
+```
 
 ## Find a content provider for larger files
 
+If you start offering files larger than a couple megabytes and you start
+getting more than a handful of views per day, your bandwidth requirements
+can climb quickly. One way around this is to keep your large files like
+video, audio, and big images, and other beefy files somewhere other than your
+web server. 
 
-https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms
+There are several services that offer image, audio, and video hosting, and
+some of them have free tiers. YouTube is a popular option for hosting vides,
+but I find ads and irrelevant recommendations so annoying that I've paid
+a few dollars for a bottom-tier Vimeo account. I don't do a lot of
+audio-only content, so no recommendations there. My biggest bandwidth
+hog is my image catalog. I explored using a content hosting service for them
+but wasn't interested in all the bells and whistles. I eventually settled
+on abusing GitHub as a hosting service. There seem to be no limitations
+on repository size, no throttling on bandwidth (at least at the scales
+I'm using it for) and I'm OK with the trade-off of free hosting in
+exchange for giving Microsoft unfettered access to my images.
+
+As a result the bandwidth from my server tends to settle around 10 kB/s
+on average, while serving a few thousand page views per day. It helps me
+keep my hosting costs low.
+
+![The baseline bandwidth of the webserver has an average of about 10 kb/s
+](baseline_bandwith.png)
+
+## Parse logs
+
+In their raw form access logs are technically human-readable, but they are
+a lot. I found it really useful to do a little parsing to pull out the bits
+I'm interested in.
+(I'm working with the default nginx log format, so adjust this
+according to your own.)
+
 

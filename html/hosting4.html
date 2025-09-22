@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Caring for your webserver";</script>
-  <script type="text/javascript">var publication_date = "September 19, 2025";</script>
+  <script type="text/javascript">var publication_date = "September 21, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -269,35 +269,125 @@ Add a line like this within the server block.
 
 <p>
 <pre>
-rewrite ^/numba$ https://brandonrohrer.com/httyr/numba_tips.html permanent;
+location = /numba {
+    return 301 $scheme://brandonrohrer.com/numba_tips.html;
+}
 </pre>
 </p>
 
 <p>
-Substitute in the name of the 
+This instruction tells the server to look for a request that looks like
+<code>brandonrohrer.com/numba</code> and forwards the request to 
+<code>brandonrohrer.com/numba_tips.html</code>. <code>$scheme</code> preserves the <code>http</code> or
+<code>https</code>, whatever was used in the original request.
 </p>
 
 <p>
-https://www.digitalocean.com/community/tutorials/nginx-rewrite-url-rules
+Similarly, these lines take any request  like <code>brandonrohrer.com/bp</code>
+and redirect it toward a specific video URL.
 </p>
 
-<h2><a id="Parse-logs"></a><a href="#Parse-logs">Parse logs</a></h2>
+<p>
+<pre>
+location = /bp {
+    return 301 https://www.youtube.com/watch?v=6BMwisTZFr4;
+}
+</pre>
+</p>
 
-<h2><a id="Set-up-log-rotation
-sudo-nano-/etc/logrotate.d/nginx
-`"></a><a href="#Set-up-log-rotation
-sudo-nano-/etc/logrotate.d/nginx
-`">Set up log rotation
-sudo nano /etc/logrotate.d/nginx
-`</a></h2>
+<h3><a id="Location-blocks"></a><a href="#Location-blocks">Location blocks</a></h3>
 
-<h2><a id="Set-up-auto-updating"></a><a href="#Set-up-auto-updating">Set up auto updating</a></h2>
+<p>
+Redirects are an example of what can be done with location blocks.
+They can also be used to rewrite requests, or block access.
+</p>
+
+<p>
+In addition to exact matching on page names, location blocks can match
+on partial names, directories, and regex-specified patterns.
+They give fine grained control for how individual pages are accessed
+and even which IP addresses are allowed to access them, but they
+can quickly become complicated. Individual requests can match multiple
+location blocks, and the match is not determined on a first-come,
+first-served bases, but rather based on a set of rules. Use with due caution.
+The DigitalOcean <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms">docs on how location blocks get matched</a>
+are a great resource if you want to dig into this.
+</p>
+
+<h2><a id="Set-up-log-rotation"></a><a href="#Set-up-log-rotation">Set up log rotation</a></h2>
+
+<p>
+By default, access logs are stored in <code>access.log</code> and error logs are
+stored in <code>error.log</code> and those files just keep getting longer and longer.
+I find it really helpful to have one an automatic log rotation in place
+where each file contains just one day's access logs or errors. Todays
+are called <code>access.log</code> and <code>error.log</code>, yesterday's are
+<code>access.log.1</code> and <code>error.log.1</code>, and the day before that
+<code>access.log.2</code>, et cetera, covering the last couple of weeks.
+(Starting at day 2 they are also gzipped.) There is
+<a href="https://www.digitalocean.com/community/tutorials/how-to-configure-logging-and-log-rotation-in-nginx-on-an-ubuntu-vps#managing-a-log-rotation">a great guide</a>
+to setting this up in the DO docs. The meat of the setup involves
+modifying the file <code>/etc/logrotate.d/nginx</code>
+</p>
+
+<p>
+After modifying it, this is what my log rotation config looks like
+</p>
+
+<p>
+<pre>
+/var/log/nginx/brandonrohrer.com/*.log {
+	daily
+	missingok
+	rotate 14
+	compress
+	delaycompress
+	notifempty
+	create 0644 www-data adm
+	sharedscripts
+	prerotate
+		if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+			run-parts /etc/logrotate.d/httpd-prerotate; \
+		fi \
+	endscript
+	postrotate
+		invoke-rc.d nginx rotate >/dev/null 2>&1
+	endscript
+}
+</pre>
+</p>
 
 <h2><a id="Find-a-content-provider-for-larger-files"></a><a href="#Find-a-content-provider-for-larger-files">Find a content provider for larger files</a></h2>
 
 <p>
-https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms
+If you start offering files larger than a couple megabytes and you start
+getting more than a handful of views per day, your bandwidth requirements
+can climb quickly. One way around this is to keep your large files like
+video, audio, and big images, and other beefy files somewhere other than your
+web server. 
 </p>
+
+<p>
+There are several services that offer image, audio, and video hosting, and
+some of them have free tiers. YouTube is a popular option for hosting vides,
+but I find ads and irrelevant recommendations so annoying that I've paid
+a few dollars for a bottom-tier Vimeo account. I don't do a lot of
+audio-only content, so no recommendations there. My biggest bandwidth
+hog is my image catalog. I explored using a content hosting service for them
+but wasn't interested in all the bells and whistles. I eventually settled
+on abusing GitHub as a hosting service. There seem to be no limitations
+on repository size, no throttling on bandwidth (at least at the scales
+I'm using it for) and I'm OK with the trade-off of free hosting in
+exchange for giving Microsoft unfettered access to my images.
+</p>
+
+<p>
+As a result the bandwidth from my server tends to settle around 10 kB/s
+on average, while serving a few thousand page views per day. It helps me
+keep my hosting costs low.
+</p>
+
+<h2><a id="Parse-logs"></a><a href="#Parse-logs">Parse logs</a></h2>
 
         <script src="javascripts/blog_signature.js"></script>
       </section>
