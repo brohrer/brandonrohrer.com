@@ -274,12 +274,4 @@ keep my hosting costs low.
 ![The baseline bandwidth of the webserver has an average of about 10 kb/s
 ](baseline_bandwith.png)
 
-## Parse logs
-
-In their raw form access logs are technically human-readable, but they are
-a lot. I found it really useful to do a little parsing to pull out the bits
-I'm interested in.
-(I'm working with the default nginx log format, so adjust this
-according to your own.)
-
 

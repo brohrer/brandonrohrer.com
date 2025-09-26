@@ -5,6 +5,397 @@
 <description>Brandon Rohrer's blog</description>
 
 
+  <item>
+    <title>
+    Caring for your webserver
+    </title>
+    <link>
+    https://brandonrohrer.com/hosting4.html
+    </link>
+    <pubDate>
+    Thu, 25 Sep 2025 08:34:00 EDT
+    </pubDate>
+    <guid>
+    https://brandonrohrer.com/hosting4.html
+    </guid>
+    <description><![CDATA[
+
+
+<p>
+In parts one through three, we
+<a href="hosting.html">set up a web server</a>,
+<a href="hosting2.html">connected it to a domain name</a>, and
+<a href="hosting3.html">instituted some basic security</a>.
+Now comes the fun part! The web server is humming along doing its thing,
+and we can watch and admire, making little improvements here and there.
+It’s not required, but for some, this is part of the payoff.
+</p>
+
+<h2><a id="A-webserver-needs-weeding-and-watering"></a><a href="#A-webserver-needs-weeding-and-watering">A webserver needs weeding and watering</a></h2>
+
+<p>
+It can be counterintuitive that a thing made out of code should need
+ongoing attention and care. On the surface it seems like it should be
+self-sufficient, like a wall made of stones.
+We put the pieces in place where we want them and when we’re happy with it, we stop.
+It's all silicon and bits after all, why should it need watching?
+</p>
+
+<p>
+The bigger picture, though, is that the web server operates in a world
+that’s always changing. Software updates cause tools to behave differently.
+Edits happen to the HTML and other content we host.
+There are dramatic changes in who is trying to reach the content
+and for what purposes. There can be outages, policy changes, and any
+number of second-order effects in the wider world that can make our
+web server stop operating the way we want. So on that scale a web server
+starts to more closely resemble a vegetable garden&mdash;something growing,
+decaying, and very much a product of the environment that it's in.
+</p>
+
+<p>
+This page is my notes on care and feeding practices I've found helpful
+and enjoyable. I'm not an expert on this, and this is not authoritative
+by any means. But I put it here in case you find it helpful. If I missed
+anything, or got it egregiously wrong, please let me know.
+</p>
+
+<h2><a id="Setting"></a><a href="#Setting">Setting</a></h2>
+
+<p>
+In these examples I'm working with a
+<a href="https://cloud.digitalocean.com">DigitalOcean droplet</a> at <code>138.197.69.146</code>
+hosting the content for the domain <code>brandonrohrer.com</code>. It's running
+an nginx server on Ubuntu 24.04.
+My local machine is a MacBook pro, where I'm working
+from the Terminal. My go-to text editor is vim, but you can use nano
+instead.  Adjust the snippets below for your situation.
+</p>
+
+<h2><a id="Browse-the-logs"></a><a href="#Browse-the-logs">Browse the logs</a></h2>
+
+<p>
+I've been curious about self-hosting for a while, but the thing that pushed
+me over the edge into migrating off Netlify was a desire to
+see which IP addresses were visiting which pages when. This information
+is all in the logs.
+</p>
+
+<p>
+Because I set up a server block specifically for my domain,
+the log files live in <code>/var/log/nginx/brandonrohrer.com/</code>.
+</p>
+
+<p>
+<code>access.log</code> has the main logs, and <code>error.log</code> keeps a log of when
+things go poorly.
+</p>
+
+<p>
+To browse the logs
+<pre>
+cat /var/log/nginx/brandonrohrer.com/access.log
+</pre>
+</p>
+
+<p>
+which gives something like
+</p>
+
+<p>
+<pre>
+49.51.195.195 - - [14/Sep/2025:08:20:50 -0400] "GET /hosting2 HTTP/1.1" 200 5957 "-" "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+183.98.90.239 - - [14/Sep/2025:08:20:50 -0400] "GET /images/ml_logo.png HTTP/1.1" 301 178 "https://www.brandonrohrer.com/blog.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+24.126.100.175 - - [14/Sep/2025:08:21:02 -0400] "GET /feed.xml HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:136.0) Gecko/20100101 Firefox/136.0"
+52.187.246.128 - - [14/Sep/2025:08:21:16 -0400] "GET /transformers.html HTTP/1.1" 200 36194 "-" "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot"
+</pre>
+</p>
+
+<p>
+or
+</p>
+
+<p>
+<pre>
+cat /var/log/nginx/brandonrohrer.com/error.log
+</pre>
+</p>
+
+<p>
+which gives errors like
+</p>
+
+<p>
+<pre>
+2025/09/14 00:37:00 [error] 187956#187956: *28044 access forbidden by rule, client: 78.153.140.50, server: brandonrohrer.com, request: "GET /.env.bak HTTP/1.1", host: "138.197.69.146"
+2025/09/14 00:37:00 [error] 187956#187956: *28045 access forbidden by rule, client: 78.153.140.50, server: brandonrohrer.com, request: "GET /mail/.env.db HTTP/1.1", host: "138.197.69.146"
+2025/09/14 00:37:01 [error] 187956#187956: *28046 access forbidden by rule, client: 78.153.140.50, server: brandonrohrer.com, request: "GET /dev/.env.old HTTP/1.1", host: "138.197.69.146"
+2025/09/14 00:37:01 [error] 187956#187956: *28047 access forbidden by rule, client: 78.153.140.50, server: brandonrohrer.com, request: "GET /crm/.env.bak HTTP/1.1", host: "138.197.69.146"
+</pre>
+</p>
+
+<p>
+Scanning through these for a few minutes can reveal some fascinating patterns,
+a few of which will pop up later in the post.
+</p>
+
+<h2><a id="Check-for-missed-pages"></a><a href="#Check-for-missed-pages">Check for missed pages</a></h2>
+
+<p>
+With a slight tweak, this command can pull out only the logs containing
+a "404", the http status code for Page Not Found. (It actually pulls out every
+log that has a 404 anywhere in it, but the majority of these are
+page not found entries.)
+</p>
+
+<p>
+<pre>
+cat /var/log/nginx/brandonrohrer.com/access.log | grep 404
+</pre>
+</p>
+
+<p>
+This slice of the logs reveals files I don't have, but are normal to
+look for, like <code>/favicon.ico</code> and  <code>/.well-known/traffic-advice</code>. It
+also showed mistakes like a misspelled filename or a missing image.
+</p>
+
+<h2><a id="Catch-pages-without-the-<code>.html</code>"></a><a href="#Catch-pages-without-the-<code>.html</code>">Catch pages without the <code>.html</code></a></h2>
+
+<p>
+One of the first surprises I got was looking 404's in the logs was
+that visitors coming to my page looking for a page called
+<code>transformers.html</code> would be turned away if they only put in <code>transformers</code>.
+There were a lot of 404 log entries for misses of this sort. This was
+a bummer. These were people who are trying to visit my website but
+are being denied on a technicality.
+</p>
+
+<p>
+Luckily nginx makes it straightforward to fix this.
+I edited the file containing the server block
+</p>
+
+<p>
+<pre>
+sudo vi /etc/nginx/sites-available/brandonrohrer.com
+</pre>
+</p>
+
+<p>
+and changed the line that read
+</p>
+
+<p>
+<pre>
+try_files $uri $uri/ =404;
+</pre>
+</p>
+
+<p>
+so that it read
+</p>
+
+<p>
+<pre>
+try_files $uri $uri.html $uri/ =404;
+</pre>
+</p>
+
+<p>
+When nginx parses the webpage being requested, <code>$uri</code> is the variable
+containing the page name. The modified line instructs the server to
+first try the exact page name requested, then to try it with a <code>.html</code>
+tagged onto the end, then to try it with a backslash on the end, and if
+none of those turn anything up, return a 404 page not found error.
+</p>
+
+<p>
+After making this change (or any of the other changes described below)
+it's important to first test that we didn't goober anything up
+</p>
+
+<p>
+<pre>
+sudo nginx -t
+</pre>
+</p>
+
+<p>
+and if our change passes the test and nginx is happy with it, then restart
+nginx so that the change takes effect
+</p>
+
+<p>
+<pre>
+sudo systemctl restart nginx
+</pre>
+</p>
+
+<h2><a id="Redirects"></a><a href="#Redirects">Redirects</a></h2>
+
+<p>
+In addition to accounting for missing html extensions, I've found it helpful
+to automatically expand short names into longer ones.
+For example, <code>numba</code> automatically redirects to <code>numba_tips.html</code>.
+It's also good for fixing typos in published pages. I've
+redirected <code>statistics_resources.html</code> to <code>stats_resources.html</code> because
+I shared the wrong URL in a publication.
+</p>
+
+<p>
+I also use it as a link shortener, so that <code>fnc</code> actually points to a pdf
+in a codeberg repository and <code>bp</code> redirects to a video about
+backpropagation on youtube. For the record, <code>brandonrohrer.com</code> is a
+terrible domain name for a link shortener. I also picked up <code>tyr.fyi</code>
+as a shorter domain for when I want erally short links.
+</p>
+
+<p>
+https://www.digitalocean.com/community/tutorials/nginx-rewrite-url-rules
+</p>
+
+<p>
+Redirects are implemented in the domain's server block.
+</p>
+
+<p>
+<pre>
+sudo vi /etc/nginx/sites-available/brandonrohrer.com
+</pre>
+</p>
+
+<p>
+Add a line like this within the server block.
+</p>
+
+<p>
+<pre>
+location = /numba {
+    return 301 $scheme://brandonrohrer.com/numba_tips.html;
+}
+</pre>
+</p>
+
+<p>
+This instruction tells the server to look for a request that looks like
+<code>brandonrohrer.com/numba</code> and forwards the request to
+<code>brandonrohrer.com/numba_tips.html</code>. <code>$scheme</code> preserves the <code>http</code> or
+<code>https</code>, whatever was used in the original request.
+</p>
+
+<p>
+Similarly, these lines take any request  like <code>brandonrohrer.com/bp</code>
+and redirect it toward a specific video URL.
+</p>
+
+<p>
+<pre>
+location = /bp {
+    return 301 https://www.youtube.com/watch?v=6BMwisTZFr4;
+}
+</pre>
+</p>
+
+<h3><a id="Location-blocks"></a><a href="#Location-blocks">Location blocks</a></h3>
+
+<p>
+Redirects are an example of what can be done with location blocks.
+They can also be used to rewrite requests, or block access.
+</p>
+
+<p>
+In addition to exact matching on page names, location blocks can match
+on partial names, directories, and regex-specified patterns.
+They give fine grained control for how individual pages are accessed
+and even which IP addresses are allowed to access them, but they
+can quickly become complicated. Individual requests can match multiple
+location blocks, and the match is not determined on a first-come,
+first-served bases, but rather based on a set of rules. Use with due caution.
+The DigitalOcean <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms">docs on how location blocks get matched</a>
+are a great resource if you want to dig into this.
+</p>
+
+<h2><a id="Set-up-log-rotation"></a><a href="#Set-up-log-rotation">Set up log rotation</a></h2>
+
+<p>
+By default, access logs are stored in <code>access.log</code> and error logs are
+stored in <code>error.log</code> and those files just keep getting longer and longer.
+I find it really helpful to have one an automatic log rotation in place
+where each file contains just one day's access logs or errors. Todays
+are called <code>access.log</code> and <code>error.log</code>, yesterday's are
+<code>access.log.1</code> and <code>error.log.1</code>, and the day before that
+<code>access.log.2</code>, et cetera, covering the last couple of weeks.
+(Starting at day 2 they are also gzipped.) There is
+<a href="https://www.digitalocean.com/community/tutorials/how-to-configure-logging-and-log-rotation-in-nginx-on-an-ubuntu-vps#managing-a-log-rotation">a great guide</a>
+to setting this up in the DO docs. The meat of the setup involves
+modifying the file <code>/etc/logrotate.d/nginx</code>
+</p>
+
+<p>
+After modifying it, this is what my log rotation config looks like
+</p>
+
+<p>
+<pre>
+/var/log/nginx/brandonrohrer.com/*.log {
+	daily
+	missingok
+	rotate 14
+	compress
+	delaycompress
+	notifempty
+	create 0644 www-data adm
+	sharedscripts
+	prerotate
+		if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
+			run-parts /etc/logrotate.d/httpd-prerotate; \
+		fi \
+	endscript
+	postrotate
+		invoke-rc.d nginx rotate >/dev/null 2>&1
+	endscript
+}
+</pre>
+</p>
+
+<h2><a id="Find-a-content-provider-for-larger-files"></a><a href="#Find-a-content-provider-for-larger-files">Find a content provider for larger files</a></h2>
+
+<p>
+If you start offering files larger than a couple megabytes and you start
+getting more than a handful of views per day, your bandwidth requirements
+can climb quickly. One way around this is to keep your large files like
+video, audio, and big images, and other beefy files somewhere other than your
+web server.
+</p>
+
+<p>
+There are several services that offer image, audio, and video hosting, and
+some of them have free tiers. YouTube is a popular option for hosting vides,
+but I find ads and irrelevant recommendations so annoying that I've paid
+a few dollars for a bottom-tier Vimeo account. I don't do a lot of
+audio-only content, so no recommendations there. My biggest bandwidth
+hog is my image catalog. I explored using a content hosting service for them
+but wasn't interested in all the bells and whistles. I eventually settled
+on abusing GitHub as a hosting service. There seem to be no limitations
+on repository size, no throttling on bandwidth (at least at the scales
+I'm using it for) and I'm OK with the trade-off of free hosting in
+exchange for giving Microsoft unfettered access to my images.
+</p>
+
+<p>
+As a result the bandwidth from my server tends to settle around 10 kB/s
+on average, while serving a few thousand page views per day. It helps me
+keep my hosting costs low.
+</p>
+
+<p>
+<img alt="The baseline bandwidth of the webserver has an average of about 10 kb/s
+" src="baseline_bandwith.png">
+</p>
+    ]]></description>
+  </item>
+
 
   <item>
     <title>
@@ -470,378 +861,6 @@
     https://www.brandonrohrer.com/hosting3
     </guid>
     <description><![CDATA[
-
-
-<p>
-<a href='/hosting'>Part 1</a> of this series showed how to create a new web server
-from scratch and <a href='/hosting2'>Part 2</a> showed how to set up a new
-domain name on it. Now it's time to make that website more secure, so it can
-be protected from the rougher edges of the cyber world.
-</p>
-
-<h2><a id="Enable-HTTPS"></a><a href="#Enable-HTTPS">Enable HTTPS</a></h2>
-
-<p>
-Currently the web server we've built is only serving unencrypted (http) requests,
-rather than encrypted (https) requests. https has become the standard for
-the web. It's obviously useful when sharing personal information like
-credit card numbers and love notes, but it's even beneficial for seemingly
-benign browsing. It's hard to foresee all the ways that someone might use
-the browsing habits of your readers against them. To protect them, we'll
-set up https.
-</p>
-
-<p>
-As with so many topics there is an extremely accessible explanation of
-how https works in
-<a href="https://wizardzines.com/zines/http/">The Wizard Zine on http</a>.
-</p>
-
-<p>
-If you have been following the other two posts closely, then you are perfectly
-set up to follow <a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04">the DigitalOcean tutorial
-</a>
-walking through https setup. It builds on all the pieces we've put in place:
-ufw, a sudo-capable non-root user, a domain name, DNS records, server blocks.
-I won't bother copying and pasting here. It's an excellent guide so I'll just
-point you to it.
-</p>
-
-<p>
-<img alt="The table of contents of the DigitalOcean tutorial
-" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/https_tutorial.png">
-</p>
-
-<p>
-If you later decide to add more subdomains or entirely new domains
-to your server, you can add them to your certbot with
-</p>
-
-<p>
-<pre>
-sudo certbot &mdash;expand -d blog.e2eml.school,brandonrohrer.com,www.brandonrohrer.com
-</pre>
-</p>
-
-<p>
-and you can check on them any time
-</p>
-
-<p>
-<pre>
-sudo certbot certificates
-</pre>
-</p>
-
-<h2><a id="Harden-ssh"></a><a href="#Harden-ssh">Harden ssh</a></h2>
-
-<p>
-Any publicly exposed ssh port
-gets A TON of traffic trying to worm its way in.
-In a typical five minute window, my server got requests from users named
-</p>
-
-<ul>
-<li> <code>default</code></li>
-<li> <code>admin</code></li>
-<li> <code>admin1</code></li>
-<li> <code>sysadmin</code></li>
-<li> <code>root2</code></li>
-<li> <code>user (twice)</code></li>
-<li> <code>user1</code></li>
-<li> <code>mytest</code></li>
-<li> <code>wangxx</code></li>
-<li> <code>dennis (twice)</code></li>
-<li> <code>ben</code></li>
-</ul>
-
-<p>
-<code>dennis</code> gets extra points for persistence and <code>wangxx</code> gets points for style,
-but what this drives home is that there are always people trying to get
-into your system, no matter how small a target. If they can get in by luck
-or clever guesses, they eventually will.
-</p>
-
-<p>
-Using ssh with keys is a great start. Guessing a modern private key
-is very close to impossible.
-There are a few other things we can do to protect our new little server.
-</p>
-
-<h3><a id="Disallow-passwords-for-login"></a><a href="#Disallow-passwords-for-login">Disallow passwords for login</a></h3>
-
-<p>
-To get the full protection of ssh keys, it's necessary to
-enforce their use all the time. You can set this up in the <code>ssh_config</code>
-file, the central location for all the settings that control ssh behavior.
-</p>
-
-<p>
-<pre>
-sudo nano /etc/ssh/ssh_config
-</pre>
-</p>
-
-<p>
-Find the commented out line containing <code>PasswordAuthentication</code>.
-Uncomment it and change it to
-</p>
-
-<p>
-<pre>
-   PasswordAuthentication no
-</pre>
-</p>
-
-<p>
-After making a change to <code>ssh_config</code> restart the ssh daemon so that
-it takes effect.
-</p>
-
-<p>
-<pre>
-sudo systemctl restart ssh
-</pre>
-</p>
-
-<h3><a id="Make-logging-verbose"></a><a href="#Make-logging-verbose">Make logging verbose</a></h3>
-
-<p>
-For diagnosing any funny behavior, you can include even more information
-in the logs. Also in <code>/etc/ssh/ssh_confg</code> add the line
-</p>
-
-<p>
-<pre>
-    LogLevel INFO
-</pre>
-</p>
-
-<p>
-To inspect the logs at any time
-</p>
-
-<p>
-<pre>
-sudo cat /var/log/auth.log
-</pre>
-</p>
-
-<p>
-This will let you see who is trying to hack into your ssh too.
-</p>
-
-<h3><a id="Keep-it-updated"></a><a href="#Keep-it-updated">Keep it updated</a></h3>
-
-<p>
-Periodically ssh in to your server and update
-</p>
-
-<p>
-<pre>
-sudo apt update
-sudo apt upgrade -y
-</pre>
-</p>
-
-<h3><a id="Create-an-alias-the-ssh-command-"></a><a href="#Create-an-alias-the-ssh-command-">Create an alias the ssh command </a></h3>
-
-<p>
-Another touch you can add is to create an alias. In your shell startup file
-on your local machine
-(<code>~/.zshrc</code> if you're on a Mac)
-you can add a line that looks like
-</p>
-
-<p>
-<pre>
-alias sshserver="ssh brohrer@138.197.69.146"
-</pre>
-</p>
-
-<p>
-This will let you ssh to your web server with the command <code>sshserver</code>
-(or whatever word you prefer in its place).
-Running
-</p>
-
-<p>
-<pre>
-source ~/.zshrc
-</pre>
-</p>
-
-<p>
-will make it effective immediately.
-</p>
-
-<p>
-As a helpful reader pointed out, any workflow that requires us to remember
-an IP address is flawed. With a few notable exceptions humans are really bad
-at consistently remembering strings of numbers.
-</p>
-
-<p>
-<hr>
-</p>
-
-<p>
-This collection of defenses puts the web server in a reasonably strong
-state. Nothing connected to the internet is ever perfectly protected,
-but this makes the server a less appealing target than others.
-</p>
-
-    ]]></description>
-  </item>
-
-
-  <item>
-    <title>
-    Transformers from Scratch 11/🧵
-    </title>
-    <link>
-    https://www.brandonrohrer.com/transformers#embeddings
-    </link>
-    <pubDate>
-    Wed, 03 Sep 2025 19:34:00 EDT
-    </pubDate>
-    <guid>
-    https://www.brandonrohrer.com/transformers#embeddings
-    </guid>
-    <description><![CDATA[
-
-
-        <h3 id="embeddings">Embeddings</h3>
-        <p>
-          As we’ve described them so far, transformers are too big.
-          For a vocabulary size <em>N</em> of say 50,000, the transition
-          matrix between all pairs of words and all potential next words
-          would have 50,000 columns and 50,000 squared (2.5 billion) rows,
-          totaling over 100 trillion elements. That is still a stretch,
-          even for modern hardware.
-        </p>
-        <p>
-          It’s not just the size of the matrices that’s the problem.
-          In order to build a stable transition language model, we would
-          have to provide training data illustrating every potential
-          sequence several times at least. That would far exceed
-          the capacity of even the most ambitious training data sets.
-        </p>
-        <p>
-          Fortunately, there is a workaround for both of these problems,
-          embeddings.
-        </p>
-        <p>
-          In a one-hot representation of a language, there is one
-          vector element for each word. For a vocabulary of size <em>N</em>
-          that vector is an <em>N</em>-dimensional space. Each word represents
-          a point in that space, one unit away from the origin along
-          one of the many axes. I haven't figured out a great way to
-          draw a high dimensional space, but there's a crude representation
-          of it below.
-        </p>
-        <p style="text-align:center;">
-          <img title=""
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/one_hot_vs_embedding.png"
-            alt=""
-            style="height:300px;">
-        </p>
-        <p>
-          In an embedding, those word points are all taken and rearranged
-          (<strong>projected</strong>, in linear algebra terminology)
-          into a lower-dimensional space. The picture above shows what
-          they might look like in a 2-dimensional space for example.
-          Now, instead of needing <em>N</em> numbers to specify a word,
-          we only need 2. These are the (<em>x</em>, <em>y</em>)
-          coordinates of each point in the new space. Here's what a
-          2-dimensional embedding might look like for our toy example,
-          together with the coordinates of a few of the words.
-        </p>
-        <p style="text-align:center;">
-          <img title=""
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/embedded_words.png"
-            alt=""
-            style="height:300px;">
-        </p>
-        <p>
-          A good embedding groups words with similar meanings together.
-          A model that works with an embedding learns patterns in the
-          embedded space. That means that whatever it learns to do with
-          one word automatically gets applied to all the words right next
-          to it. This has the added benefit of reducing the amount of
-          training data needed. Each example gives a little bit of
-          learning that gets applied across a whole neighborhood of words.
-        </p>
-        <p>
-          In this illustration I tried to show that by putting important
-          components in one area (<em>battery</em>,
-          <em>log</em>, <em>program</em>), prepositions in another
-          (<em>down</em>, <em>out</em>), and verbs near the center
-          (<em>check</em>, <em>find</em>, <em>ran</em>). In an actual embedding
-          the groupings may not be so clear or intuitive, but the
-          underlying concept is the same. Distance is small between words
-          that behave similarly.
-        </p>
-        <p>
-          An embedding reduces the number of parameters needed by
-          a tremendous amount. However, the fewer the dimensions in the
-          embedded space, the more information about the original
-          words gets discarded. The richness of a language still
-          requires quite a bit of space to lay out all the important
-          concepts so that they don't step on each other's toes.
-          By choosing the size of the embedded space,
-          we get to trade off computational load for model accuracy.
-        </p>
-        <p>
-          It will probably not surprise you to learn that projecting
-          words from their one-hot representation to an embedded space
-          involves a matrix multiplication. Projection is what matrices
-          do best. Starting with a one-hot matrix that has one row and
-          <em>N</em> columns, and moving to an embedded space of two
-          dimensions, the projection matrix will have <em>N</em> rows
-          and two columns, as shown here.
-        </p>
-        <p style="text-align:center;">
-          <img title="A projection matrix describing an embedding"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/embedding_projection.png"
-            alt="A projection matrix describing an embedding"
-            style="height:350px;">
-        </p>
-        <p>
-          This example shows how a one-hot vector, representing for example
-          <em>battery</em>, pulls out the row associated with it,
-          which contains the coordinates of the word in the embedded space.
-          In order to make the relationship clearer,
-          the zeros in the one-hot vector are hidden, as are all the other rows
-          that don't get pulled out of the projection matrix.
-          The full projection matrix is dense, each row containing the
-          coordinates of the word it's associated with.
-        </p>
-        <p>
-          Projection matrices can convert the original collection of one-hot
-          vocabulary vectors into any configuration in a space of whatever
-          dimensionality you want.
-          The biggest trick is finding a useful
-          projection, one that has similar words grouped together, and
-          one that has enough dimensions to spread them out.
-          There are some decent pre-computed embeddings for common langauges,
-          like English. Also, like everything else in the transformer,
-          it can be learned during training.
-        </p>
-        <p>
-          In the Figure 1 architecture diagram of the original paper,
-          here's where the embedding happens.
-        </p>
-        <p style="text-align:center;">
-          <img title="Transformer architecture showing the embedding block"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/architecture_embedding.png"
-            alt="Transformer architecture showing the embedding block"
-            style="height:450px;">
-        </p>
-    ]]></description>
-  </item>
-
-
   <item>
     <title>
     Attaching your web server to a domain name
@@ -2374,182 +2393,3 @@ matters enough to spend any cognitive cycles on.
         <p style="text-align:center;">
           <img title="multiplication of a one row matrix and a two column matrix"
             src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/matrix_mult_one_row_two_col.png"
-            alt="multiplication of a one row matrix and a two column matrix"
-            style="height: 250px;">
-        </p>
-        <p>
-         Now we can extend this to mutliplying any two matrices, as long as
-         the number of columns in <em>A</em> is the same as the number of
-         rows in <em>B</em>. The result will have the same
-         number of rows as <em>A</em> and the same number of columns as
-         <em>B</em>.
-        </p>
-        <p style="text-align:center;">
-          <img title="multiplication of a three row matrix and a two column matrix"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/matrix_mult_three_row_two_col.png"
-            alt="multiplication of a one three matrix and a two column matrix"
-            style="height: 450px;">
-        </p>
-        <p>
-          If this is the first time you're seeing this, it might
-          feel needlessly complex, but I promise it pays off later.
-        </p>
-
-        <h4 id="table_lookup">Matrix multiplication as a table lookup</h4>
-        <p>
-          Notice how matrix multiplication acts as a lookup table here.
-          Our <em>A</em> matrix is made up of a stack of one-hot vectors.
-          They have ones in the first column, the fourth column,
-          and the third column, respectively. When we work through the
-          matrix multiplication, this serves to pull out the first row,
-          the fourth row, and the third row of the <em>B</em> matrix,
-          in that order. This trick of using a one-hot vector to pull
-          out a particular row of a matrix is at the core of how
-          transformers work.
-        </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>
-    Transformers from Scratch  2/🧵
-    </title>
-    <link>
-    https://www.brandonrohrer.com
-    </link>
-    <pubDate>
-    Thu, 14 Aug 2025 20:01:00 EDT
-    </pubDate>
-    <guid isPermaLink="false">
-    2025081405
-    </guid>
-    <description><![CDATA[
-          <h3 id="dot_product">Dot product</h3>
-        <p>
-          One really useful thing about the one-hot representation is that
-          it lets us compute
-          <a href="https://en.wikipedia.org/wiki/Dot_product">dot products</a>.
-          These are also known by other
-          intimidating names like inner product and scalar product.
-          To get the dot product of two vectors, multiply their
-          corresponding elements, then add the results.
-        </p>
-        <p style="text-align:center;">
-          <img title="Dot product illustration"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/dot_product.png"
-            alt="Dot product illustration"
-            style="height: 300px;">
-        </p>
-        <p>
-          Dot products are especially useful when we're working with our
-          one-hot word representations. The dot product of any one-hot
-          vector with itself is one.
-        </p>
-        <p style="text-align:center;">
-          <img title="Dot product of matching vectors"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/match.png"
-            alt="Dot product of matching vectors"
-            style="height: 300px;">
-        </p>
-        <p>
-          And the dot product of any one-hot vector with any other one-hot
-          vector is zero.
-        </p>
-        <p style="text-align:center;">
-          <img title="Dot product of non-matching vectors"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/non_match.png"
-            alt="Dot product of non-matching vectors"
-            style="height: 300px;">
-        </p>
-        <p>
-          The previous two examples show how dot products
-          can be used to measure similarity. As another example,
-          consider a vector of values that represents a combination of words
-          with varying weights.
-          A one-hot encoded word can be compared against it with the
-          dot product
-          to show how strongly that word is represented.
-        </p>
-        <p style="text-align:center;">
-          <img title="Dot product gives the similarity between two vectors"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/similarity.png"
-            alt="Dot product gives the similarity between two vectors"
-            style="height: 300px;">
-        </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>
-    Transformers from Scratch  1/🧵
-    </title>
-    <link>
-    https://www.brandonrohrer.com
-    </link>
-    <pubDate>
-    Wed, 13 Aug 2025 22:01:00 EDT
-    </pubDate>
-    <guid isPermaLink="false">
-    2025081400
-    </guid>
-    <description><![CDATA[
-<p>
-Behind all the GPTs and Geminis and Claudes and Llamas are transformers. They were introduced as a tool for sequence transduction—converting one sequence of symbols to another—and are now used almost entirely for sequence completion—given a starting prompt, carry on in the same vein and style.
-</p>
-<p>
-Here is a deep dive into the nuts and bolts of what make them tick. This isn't a short journey, but I hope you'll be glad you came.
-</p>
-
-<h2>One-hot encoding</h2>
-<p>
-In the beginning were the words. So very many words. Our first step is to convert all the words to numbers so we can do math on them.
-</p>
-<p>
-Imagine that our goal is to create the computer that responds to our voice commands. It’s our job to build the transformer that converts (or transduces) a sequence of sounds to a sequence of words.
-</p>
-<p>
-We start by choosing our vocabulary, the collection of symbols that we are going to be working with in each sequence. In our case, there will be two different sets of symbols, one for the input sequence to represent vocal sounds and one for the output sequence to represent words.
-</p>
-<p>
-For now, let's assume we're working with English. There are tens of thousands of words in the English language, and perhaps another few thousand to cover computer-specific terminology. That would give us a vocabulary size that is the better part of a hundred thousand. One way to convert words to numbers is to start counting at one and assign each word its own number. Then a sequence of words can be represented as a list of numbers.
-</p>
-<p>
-For example, consider a tiny language with a vocabulary size of three: files, find, and my. Each word could be swapped out for a number, perhaps files = 1, find = 2, and my = 3. Then the sentence "Find my files", consisting of the word sequence [ find, my, files ] could be represented instead as the sequence of numbers [2, 3, 1].
-</p>
-<p>
-This is a perfectly valid way to convert symbols to numbers, but it turns out that there's another format that's even easier for computers to work with, one-hot encoding. In one-hot encoding a symbol is represented by an array of mostly zeros, the same length of the vocabulary, with only a single element having a value of one. Each element in the array corresponds to a separate symbol.
-</p>
-<p>
-
-Another way to think about one-hot encoding is that each word still gets assigned its own number, but now that number is an index to an array. Here is our example above, in one-hot notation.
-</p>
-        <p style="text-align:center;">
-          <img title="A one-hot encoded vocabulary"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/one_hot_vocabulary.png"
-            alt="A one-hot encoded vocabulary"
-            style="height: 300px;">
-        </p>
-        <p>
-          So the sentence "Find my files" becomes a sequence of one-dimensional
-          arrays,
-          which, after you squeeze them together,
-          starts to look like a two-dimensional array.
-        </p>
-        <p style="text-align:center;">
-          <img title="A one-hot encoded sentence"
-            src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/transformers/one_hot_sentence.png"
-            alt="A one-hot encoded sentence"
-            style="height: 300px;">
-        </p>
-
-<p>
-So the sentence "Find my files" becomes a sequence of one-dimensional arrays, which, after you squeeze them together, starts to look like a two-dimensional array.
-</p>
-<p>
-Heads-up, I'll be using the terms "one-dimensional array" and "vector" interchangeably. Likewise with "two-dimensional array" and "matrix".
-</p>
-    ]]></description>
-  </item>
-
-</channel>
-</rss> 
