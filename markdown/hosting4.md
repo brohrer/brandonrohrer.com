@@ -272,6 +272,5 @@ on average, while serving a few thousand page views per day. It helps me
 keep my hosting costs low.
 
 ![The baseline bandwidth of the webserver has an average of about 10 kb/s
-](baseline_bandwith.png)
-
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/baseline_bandwith.png)
 
