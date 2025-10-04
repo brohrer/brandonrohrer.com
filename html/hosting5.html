@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+  <script type="text/javascript">var blog_title = "Traffic Control";</script>
+  <script type="text/javascript">var publication_date = "October 04, 2025";</script>
+  <head>
+    <link rel="icon" href="images/ml_logo.png">
+    <meta charset='utf-8'>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <base target="_blank">
+    <script src="javascripts/blog_head.js"></script>
+  </head>
+  <body>
+    <script src="javascripts/blog_header.js"></script>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+
+
+<p>
+The internet is a pretty rough and tumble place to hang out.
+It's not even that there are so many jerks out there, it's just that
+all of them can reach you at once.
+Luckily you have the power to shut them down.
+</p>
+
+<p>
+This installment focuses on blocking IP addresses that are doing things
+they shouldn't. It's the lastest in a series of posts on
+</p>
+
+<ol>
+<li> <a href="hosting.html">Setting up a webserver</a></li>
+<li> <a href="hosting2.html">Setting up a domain name</a></li>
+<li> <a href="hosting3.html">Setting up some security</a></li>
+<li> <a href="hosting4.html">Keeing a webserver healthy</a></li>
+</ol>
+
+<h2><a id="Block-an-IP-address"></a><a href="#Block-an-IP-address">Block an IP address</a></h2>
+
+<p>
+The most straightforward way to block and IP address is in the firewall.
+It is the tool build specifically for this.
+</p>
+
+<p>
+To block the address <code>101.101.101.101</code>, run from the command line
+</p>
+
+<p>
+<pre>
+sudo ufw insert 1 deny from 101.101.101.101
+</pre>
+</p>
+
+<p>
+This instructs ufw (the Uncomplicated FireWall) to insert a rule at the
+the top of the list (position 1) to deny all incoming traffic from
+the address. After running this, no restart of the firewall is needed.
+The rule is active.
+</p>
+
+<p>
+The position 1 is important because in ufw, the first rule that matches
+is applied. If there was a rule to allow all addresses that started
+with <code>101.</code> and that rule came before the deny rule, then the deny
+rule would never be reached.
+</p>
+
+<p>
+While it's possible to block specific ports, or even to block an
+IP address from seeing particular pages, complex rules
+and conditions get difficult to analyze very quickly, and can lead to cases
+where there are loopholes. Use fancy rule combinations sparingly.
+</p>
+
+<h2><a id="Parse-logs"></a><a href="#Parse-logs">Parse logs</a></h2>
+
+<p>
+In their raw form access logs are technically human-readable, but they are
+a lot. I found it really useful to do a little parsing to pull out the bits
+I'm interested in.
+(I'm working with the default nginx log format, so adjust this
+according to your own.)
+</p>
+
+<p>
+I <a href="https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/log_reader.py">wrote a script</a>
+to take advantage of the repeatable structure of these logs
+to dissect them into their parts. It uses tricks like splitting the log
+based on brackets and spaces. It productes a pandas dataframe with
+columns containing the IP address, requested URI, HTTP status code,
+and every component of the date and time.
+</p>
+
+<p>
+If you use exactly the same setup and log format as I do you might be
+able to get away with using this code right out of the box. More likely
+you'll have to (or want to) adjust it a bit for your own circumstances.
+Make it your own!
+</p>
+
+<p>
+This better organized version of the log can be used to generate a list
+of pages that were queried, a list of IP addresses that visited the site,
+or even just a chronological list of every access attempt.
+</p>
+
+<p>
+Here's a
+<a href="https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/pages.py">pages.py</a>
+script that shows how many times pages were hit in a given day, for example
+</p>
+
+<p>
+<figure>
+  <img title="Count and page names" alt="Sample output from pages.py
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/pages_outputs.png">
+  <figcaption>Count and page names</figcaption>
+</figure>
+</p>
+
+<p>
+Here's a 
+<a href="https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/ips.py "Count and IP address"">ips.py</a>
+script that shows how many times a particular IP address visited that day
+</p>
+
+<p>
+<img alt="Sample output from ips.py
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/ips_outputs.png">
+</p>
+
+<p>
+Here's a
+<a href="https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/history.py">history.py</a>
+script that just repeats the access logs directly, but in a stripped down format that's easier to read.
+</p>
+
+<p>
+<figure>
+  <img title="Time, HTTP status, IP address, and page name" alt="Sample output from history.py
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/history_outputs.png">
+  <figcaption>Time, HTTP status, IP address, and page name</figcaption>
+</figure>
+</p>
+
+<h2><a id="Browsing-the-logs"></a><a href="#Browsing-the-logs">Browsing the logs</a></h2>
+
+<p>
+At first glance these logs are just an unbroken wall of text, but after
+spending a couple of minutes with them, oddities emerge.
+</p>
+
+<p>
+Looking at the IP address access count, why is there one address that accessed
+the website 633 times? That's more than four times the next most frequent.
+What was happening there? Surely that can't be legit, can it?
+</p>
+
+<p>
+Looking at the access history, why was someone trying to find a
+2016 New York Times article on this website? (The funny characters that come
+before are a utf-8 encoding of a unicode right double quotation mark.)
+That looks like someone was really flailing.
+</p>
+
+<p>
+Looking at the pages viewed, once you get past the stylesheets,
+javascripts, feed.xml., and robots.txt, there is the top-level blog,
+a popular post about transformers which I put a ton of effort into, and
+then <code>ssh_at_home</code>, a hastily-written set of notes about setting
+up an ssh server for personal use. Why is that one so regularly visited?
+</p>
+
+<p>
+The longer you look, the more questions arise. Some of the most
+interesting patterns come from people doing mischief.
+</p>
+
+<h2><a id="Bad-behavior-#1:-Scanning-for-secrets"></a><a href="#Bad-behavior-#1:-Scanning-for-secrets">Bad behavior #1: Scanning for secrets</a></h2>
+
+<p>
+<figure>
+  <img title="Looking for juicy passwords and tokens" alt="Access log history showing scanning for secrets
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/scanning_secrets.png">
+  <figcaption>Looking for juicy passwords and tokens</figcaption>
+</figure>
+</p>
+
+<p>
+Here, a single IP address quickly tries to access a handful of variations
+on a <code>.env</code> file, which is a common place to store access tokens
+and other credentials. There is no good reason to be doing this, unless
+you are doing it to yourself, proactively scanning for vulnerabilities
+in order to fix them.
+</p>
+
+<p>
+In my judgment this is a one-strike-and-you're out behavior. This IP
+address will get added to my block list.
+Luckily we already blocked access to all dot-files in the nginx server block
+during initial setup. That's why these are resulting in a 403 status code
+(access denied) rather than a 404 (not found). But if someone is doing this
+they may be looking for other ways into your system. Why not just block
+them at the firewall?
+</p>
+
+<h2><a id="Bad-behavior-#2:-Fishing-for-files"></a><a href="#Bad-behavior-#2:-Fishing-for-files">Bad behavior #2: Fishing for files</a></h2>
+
+<p>
+<figure>
+  <img title="Someone really wants my website to be written in php" alt="Access log history showing fishing for php files
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/fishing_files.png">
+  <figcaption>Someone really wants my website to be written in php</figcaption>
+</figure>
+</p>
+
+<p>
+In this segment, a single IP address is trying to find a
+php file, and they appear to be randomly casting about. These files
+don't exist on my webserver and never have. This requestor appears to 
+be shooting in the dark for files that they do not have a link to.
+I don't know why, but I don't like it. I have all
+php files blocked in my server block, but still this behavior shows someone
+doing something other than browsing my website, which leads me not
+to trust them. For me, this is a blockable offense.
+</p>
+
+<p>
+Other file fishing I see often is for WordPress-related files.
+</p>
+
+<p>
+<figure>
+  <img title="Someone really wants my website to be written in WordPress" alt="Access log history showing fishing for WordPress files
+" src="https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/fishing_wordpress.png">
+  <figcaption>Someone really wants my website to be written in WordPress</figcaption>
+</figure>
+</p>
+
+<p>
+I also get requests trying to access links from my pages, as if they were
+hosted on my server, such as 
+<code>/%20%20%20%20%20%20%20%20%20%20%20%20https:/en.wikipedia.org/wiki/Convolution</code>.
+The <code>%20</code> is URL encoding for a space character. I also don't know why 
+there are 12 spaces in front of the URL. It looks like sloppy automated
+parsing of a bot accessing links that were extracted from my html files.
+I don't know what benign purpose this could serve. I'm content to
+block these as well.
+</p>
+
+<p>
+With the history browser there is a <code>--status</code> argument that lets you
+quickly see just the 404's and 403's and helps the file fishing to pop out.
+</p>
+
+<p>
+<pre>
+uv run history.py --status 404
+</pre>
+</p>
+
+<h2><a id="Bad-behavior-#3:-"></a><a href="#Bad-behavior-#3:-">Bad behavior #3: </a></h2>
+
+<p>
+A lot of requests in quick succession. And annoyance.
+</p>
+
+<p>
+<hr>
+</p>
+
+<p>
+whois 
+</p>
+
+<p>
+https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+</p>
+
+<p>
+sudo vi /etc/ufw/block_ips.sh
+sudo sh /etc/ufw/block_ips.sh
+</p>
+
+        <script src="javascripts/blog_signature.js"></script>
+      </section>
+    </div>
+    <script src="javascripts/blog_footer.js"></script>
+  </body>
+</html>
