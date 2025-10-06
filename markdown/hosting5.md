@@ -11,7 +11,7 @@ they shouldn't. It's the lastest in a series of posts on
 1. [Setting up a webserver](hosting.html)
 1. [Setting up a domain name](hosting2.html)
 1. [Setting up some security](hosting3.html)
-1. [Keeing a webserver healthy](hosting4.html)
+1. [Keeping a webserver healthy](hosting4.html)
 
 ## Block an IP address
 
@@ -155,27 +155,129 @@ I don't know what benign purpose this could serve. I'm content to
 block these as well.
 
 With the history browser there is a `--status` argument that lets you
-quickly see just the 404's and 403's and helps the file fishing to pop out.
+quickly see just the 404's and 403's and 400's (bad request error) 
+and helps the file fishing to pop out.
 
 ```
 uv run history.py --status 404
 ```
 
-## Bad behavior #3: 
+## Bad behavior #3: Rapid-fire requests
 
-A lot of requests in quick succession. And annoyance.
+![Access log history showing two dozen requests in the span of two seconds
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/too_fast_requests.png "More than ten requests per second is a lot.")
 
+Sometimes an IP address will make a lot of requests in quick succession.
+Most of the time this is a mild annoyance, but when taken to an extreme
+it floods the server, preventing any other requests from getting through.
+It denies everyone else service, earning the name Denial of Service (DOS),
+and whether done maliciously or through negligence, the effect on your
+website is the same.
 
+A lot of back-to-back requests is almost always a hallmark of automated
+scraping. It's a personal judgment call, how much you want to support this.
+The intended audience for my website is individuals, rather than
+AI-training companies or even search engines, so I'm comfortable
+making life uncomfortable for bulk-scrapers. There are two ways to do this.
 
+The first is to set up rate limiting. One rate limiting mechanism is a
+polite request in the `robots.txt` file to limit requests to, say,
+one every 5 seconds. 
 
--------
+```
+User-agent: *
+Crawl-delay: 5
+```
 
-whois 
+Unfortunately, manners are in short supply on the internets, and most
+crawlers and scrapers, including Google, ignores this directive. We can
+resort to more draconian measures and use nginx to implement per-IP rate
+limiting on the webserver.
+
+This is done with a modification to the server block, as
+[here](https://codeberg.org/brohrer/webserver-toolbox/src/commit/ad139aa48eb2d173d9dc9114759e48c485375b9e/server_blocks/brandonrohrer.com#L4)
+and
+[here](https://codeberg.org/brohrer/webserver-toolbox/src/commit/ad139aa48eb2d173d9dc9114759e48c485375b9e/server_blocks/brandonrohrer.com#L15)
+
+```limit_req_zone $binary_remote_addr zone=one:1m rate=1r/s;<br>
+server {
+    limit_req zone=one burst=10 nodelay;
+    limit_req_status 429;
+}
+```
+
+These lines create a "zone", a 1MB history of IP addresses
+that have made requests. On average, they should be making no more than
+1 request per second. It allows for "bursts" of 10 additional requests,
+serving them immediately with no delay, but anything in excess of that which
+violates the rate limit will receive a HTTP status code of 429
+(too many requests).
+
+There are a lot of possible variations to this, but this is the basic
+pattern. For a deep dive, check out
+[the nginx docs](https://nginx.org/en/docs/http/ngx_http_limit_req_module.html).
+
+And of course it's always possible to block IP addresses who try to pull this.
+
+## Bad behavior #4: Trying to hide rapid-fire requests
+
+![Access log history showing three dozen coordinated requests in one second
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/botnet.png "You're not fooling anyone.")
+
+Given how easy it was to rate limit a single IP address it should come as no
+surprise that enterprising webscrapers have found a cheat. If they split their
+requests across a whole bunch of IP addresses, then rate limiting on a
+single address doesn't slow them down.
+
+This even hides behing a respectable-sounding techy name: [rotating proxies](https://medium.com/@datajournal/best-rotating-proxies-tested-303539da1e2a).
+But underneath it's just a way to get around website admins' express desire
+that these jerks *not* do this thing.
+
+Detecting this is trickier. In the example above, it's clear to a human
+eye, that the requests are part of a coordinated scraping operation.
+They all occur within one second. They are all requesting a .png
+within the same directory. The IP addresses, while containing just
+a few repeats, fall into a handful of clusters. But writing rules
+for automating this is hard. Every rule you can come up with will
+probably miss some coordinated scraping, or deny some legitimate traffic,
+or both. Even machine learning methods, which can take multiple factors
+into account, may not be able to do this cleanly.
+
+Of course dangling a tricky problem like this in front of nerd is like waving
+a red cape in front of an angry bull. I'll probably come back to deeper
+treatment of it later. For now the only strategy I can recommend is manually
+blocking every single IP address involved.
+
+## Bad behavior #5: 
+
+![Some HTTP request actions other than GET
+](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/illegal_actions.png "Someone with PROPFIND is not to be deterred.")
+
+There are just a handful of things you can do over HTTP. `GET` and `POST` are
+the most common, and `HEAD` comes up sometimes (get info about a page
+without downloading it) but there are others that almost never come up in
+the normal course of events. `PROPFIND` is a way to gather information about
+all the available files on a server. It's easy to imagine how convenient that
+would be for a scraper. `CONNECT` sets up an open pipe for data to flow to
+and from a server. Nothing I would want to enable for a client I don't know
+and trust.
+
+For my little static website in particular, the only valid actions are
+`GET` and `HEAD`. There is nothing to `PUT` or `POST` and everything
+else I have no intention of allowing. I've never offered these actions
+for any purpose, and it's very likely that any requests that contain them
+are trying to get access to data and functionality they shouldn't have.
+Block-worthy behavior in my book.
+
+## Blocking revisited
 
 https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
 
+______
+
+## What does an IP address reveal?
 
 
-sudo vi /etc/ufw/block_ips.sh
-sudo sh /etc/ufw/block_ips.sh
+## whois 
+
 
