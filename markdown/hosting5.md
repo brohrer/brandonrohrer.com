@@ -28,6 +28,7 @@ This instructs ufw (the Uncomplicated FireWall) to insert a rule at the
 the top of the list (position 1) to deny all incoming traffic from
 the address. After running this, no restart of the firewall is needed.
 The rule is active.
+([ufw docs](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands))
 
 The position 1 is important because in ufw, the first rule that matches
 is applied. If there was a rule to allow all addresses that started
@@ -248,7 +249,7 @@ a red cape in front of an angry bull. I'll probably come back to deeper
 treatment of it later. For now the only strategy I can recommend is manually
 blocking every single IP address involved.
 
-## Bad behavior #5: 
+## Bad behavior #5: Attempting unsupported actions
 
 ![Some HTTP request actions other than GET
 ](https://raw.githubusercontent.com/brohrer/blog_images/refs/heads/main/hosting/illegal_actions.png "Someone with PROPFIND is not to be deterred.")
@@ -271,13 +272,37 @@ Block-worthy behavior in my book.
 
 ## Blocking revisited
 
-https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+From the list above, there are a lot of offenses that can get an IP
+address blocked, and a lot of IP addresses that commit them.
+It would be possible to manually update the firewall rules for each one
+at the command line by running something like this
 
-______
+```
+sudo ufw insert 1 deny from 101.101.101.101
+```
 
-## What does an IP address reveal?
+for every blocked address, but after my blocklist passed several dozen addresses
+it started to feel tedious.
+Updating the list became difficult after the list passed 100 addresses.
+When adding new addresses manually I didn't want to duplicate the ones
+that were already there, so I sorted them and added new ones into the
+list where they belong. Duplicates were readily apparent. But after the
+list grew to fill several screens lengths, updating became slow.
 
+To streamline, I created a
+[blocklist_additions.txt](https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/blocklist_additions.txt)
+with every IP address I wanted to disallow. Then a small Python script
+[update_firewall.py](https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/update_firewall.py)
+was all I needed to automatically run the list.
 
-## whois 
+```
+sudo python3 update_firewall.py
+```
 
+This lets me browse through the logs and manually add problematic
+IP addresses to the file `blocklist_additions.txt` on the server.
+Then I can update the firewall with the latest changes.
 
+Some of these behavior violations should be straightforward to detect
+programmatically. Automating firewall updates will be an adventure
+for another day.

@@ -2,7 +2,7 @@
 <html>
 
   <script type="text/javascript">var blog_title = "Traffic Control";</script>
-  <script type="text/javascript">var publication_date = "October 05, 2025";</script>
+  <script type="text/javascript">var publication_date = "October 06, 2025";</script>
   <head>
     <link rel="icon" href="images/ml_logo.png">
     <meta charset='utf-8'>
@@ -35,7 +35,7 @@ they shouldn't. It's the lastest in a series of posts on
 <li> <a href="hosting.html">Setting up a webserver</a></li>
 <li> <a href="hosting2.html">Setting up a domain name</a></li>
 <li> <a href="hosting3.html">Setting up some security</a></li>
-<li> <a href="hosting4.html">Keeing a webserver healthy</a></li>
+<li> <a href="hosting4.html">Keeping a webserver healthy</a></li>
 </ol>
 
 <h2><a id="Block-an-IP-address"></a><a href="#Block-an-IP-address">Block an IP address</a></h2>
@@ -60,6 +60,7 @@ This instructs ufw (the Uncomplicated FireWall) to insert a rule at the
 the top of the list (position 1) to deny all incoming traffic from
 the address. After running this, no restart of the firewall is needed.
 The rule is active.
+(<a href="https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)">ufw docs</a>
 </p>
 
 <p>
@@ -319,10 +320,7 @@ and
 </p>
 
 <p>
-<pre>limit_req_zone $binary_remote_addr zone=one:1m rate=1r/s;
-</p>
-
-<p>
+<pre>limit_req_zone $binary_remote_addr zone=one:1m rate=1r/s;<br>
 server {
     limit_req zone=one burst=10 nodelay;
     limit_req_status 429;
@@ -391,7 +389,7 @@ treatment of it later. For now the only strategy I can recommend is manually
 blocking every single IP address involved.
 </p>
 
-<h2><a id="Bad-behavior-#5:-"></a><a href="#Bad-behavior-#5:-">Bad behavior #5: </a></h2>
+<h2><a id="Bad-behavior-#5:-Attempting-unsupported-actions"></a><a href="#Bad-behavior-#5:-Attempting-unsupported-actions">Bad behavior #5: Attempting unsupported actions</a></h2>
 
 <p>
 <figure>
@@ -424,16 +422,53 @@ Block-worthy behavior in my book.
 <h2><a id="Blocking-revisited"></a><a href="#Blocking-revisited">Blocking revisited</a></h2>
 
 <p>
-https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
+From the list above, there are a lot of offenses that can get an IP
+address blocked, and a lot of IP addresses that commit them.
+It would be possible to manually update the firewall rules for each one
+at the command line by running something like this
 </p>
 
 <p>
-<hr>
+<pre>
+sudo ufw insert 1 deny from 101.101.101.101
+</pre>
 </p>
 
-<h2><a id="What-does-an-IP-address-reveal?"></a><a href="#What-does-an-IP-address-reveal?">What does an IP address reveal?</a></h2>
+<p>
+for every blocked address, but after my blocklist passed several dozen addresses
+it started to feel tedious.
+Updating the list became difficult after the list passed 100 addresses.
+When adding new addresses manually I didn't want to duplicate the ones
+that were already there, so I sorted them and added new ones into the
+list where they belong. Duplicates were readily apparent. But after the
+list grew to fill several screens lengths, updating became slow.
+</p>
 
-<h2><a id="whois-"></a><a href="#whois-">whois </a></h2>
+<p>
+To streamline, I created a
+<a href="https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/blocklist_additions.txt">blocklist_additions.txt</a>
+with every IP address I wanted to disallow. Then a small Python script
+<a href="https://codeberg.org/brohrer/webserver-toolbox/src/branch/main/update_firewall.py">update_firewall.py</a>
+was all I needed to automatically run the list.
+</p>
+
+<p>
+<pre>
+sudo python3 update_firewall.py
+</pre>
+</p>
+
+<p>
+This lets me browse through the logs and manually add problematic
+IP addresses to the file <code>blocklist_additions.txt</code> on the server.
+Then I can update the firewall with the latest changes.
+</p>
+
+<p>
+Some of these behavior violations should be straightforward to detect
+programmatically. Automating firewall updates will be an adventure
+for another day.
+</p>
 
         <script src="javascripts/blog_signature.js"></script>
       </section>
