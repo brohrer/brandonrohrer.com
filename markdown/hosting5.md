@@ -28,7 +28,7 @@ This instructs ufw (the Uncomplicated FireWall) to insert a rule at the
 the top of the list (position 1) to deny all incoming traffic from
 the address. After running this, no restart of the firewall is needed.
 The rule is active.
-([ufw docs](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands))
+([ufw docs](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) )
 
 The position 1 is important because in ufw, the first rule that matches
 is applied. If there was a rule to allow all addresses that started
