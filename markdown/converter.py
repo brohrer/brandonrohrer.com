@@ -49,6 +49,23 @@ def convert(filename):
 
     converted_blocks = []
     for block in blocks:
+        # special character conversions
+        # Here are a bunch of others:
+        # https://web.html.support/reference/greek-characters.cfm
+        block = re.sub("---", "&mdash;", block)
+        block = re.sub(r'\$<\$', "&lt;", block)
+        block = re.sub(r'\$>\$', "&gt;", block)
+        block = re.sub(r'\$\*\$', r'&#42;', block)
+        block = re.sub(r'\$pi\$', "&pi;", block)
+        block = re.sub(r'\$deg\$', "&#176;", block)
+        block = re.sub(r'\$epsilon\$', "&epsilon;", block)
+        block = re.sub(r'\$theta\$', "&theta;", block)
+        block = re.sub(r'\$tau\$', "&tau;", block)
+        block = re.sub(r'\$omega\$', "&omega;", block)
+        block = re.sub(r'\$blackcircle\$', "&#9899;", block)
+        block = re.sub(r'\$whitecircle\$', "&#9711;", block)
+        block = re.sub(r'\$lowerhalfblackcircle\$', "&#9682;", block)
+
         # convert images
         # ![A diagram](images/pendulum.png "Pendulum")
         # <img title="Pendulum" alt="A diagram" src="/images/pendulum.png">
@@ -167,22 +184,6 @@ def convert(filename):
         else:
             # handle paragraphs
             block = "<p>\n" + block + "\n</p>"
-
-        # special character conversions
-        # Here are a bunch of others:
-        # https://web.html.support/reference/greek-characters.cfm
-        block = re.sub("---", "&mdash;", block)
-        block = re.sub(r'\$<\$', "&lt;", block)
-        block = re.sub(r'\$>\$', "&gt;", block)
-        block = re.sub(r'\$pi\$', "&pi;", block)
-        block = re.sub(r'\$deg\$', "&#176;", block)
-        block = re.sub(r'\$epsilon\$', "&epsilon;", block)
-        block = re.sub(r'\$theta\$', "&theta;", block)
-        block = re.sub(r'\$tau\$', "&tau;", block)
-        block = re.sub(r'\$omega\$', "&omega;", block)
-        block = re.sub(r'\$blackcircle\$', "&#9899;", block)
-        block = re.sub(r'\$whitecircle\$', "&#9711;", block)
-        block = re.sub(r'\$lowerhalfblackcircle\$', "&#9682;", block)
 
         converted_blocks.append(block)
 

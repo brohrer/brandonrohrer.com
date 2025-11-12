@@ -191,7 +191,9 @@ Crawl-delay: 5
 ```
 
 Unfortunately, manners are in short supply on the internets, and most
-crawlers and scrapers, including Google, ignores this directive. We can
+crawlers and scrapers, including Google, ignores this directive.
+([A cheeky obituary for robots.txt](https://www.heise.de/en/background/Obituary-Farewell-to-robots-txt-1994-2025-10766991.html)
+declared it died in July 2025.) We can
 resort to more draconian measures and use nginx to implement per-IP rate
 limiting on the webserver.
 
